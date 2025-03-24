@@ -1,2 +1,30 @@
-# plate_FE
-Plate: Improved Experience for translation contributors
+# Plate
+
+Plate: Improved Experience for translation contributors - Graduation Project at Soonchunhyang University
+
+**한국어** | *English* (coming soon)
+
+---
+
+## 한국어
+
+### Plate란?
+
+번역 기여자를 대상으로 향상된 경험을 제공하는 플랫폼으로, 2024학년도 2학기 캡스톤디자인 과목을 거쳐 2025학년도 1학기 산학캡스톤디자인 중 개발과 설계를 병행하고 있는 졸업작품입니다.
+계획대로 진행된다면 2025년 11월 경 학술제에서 포스터 발표를 진행할 예정입니다.
+
+### 다른 서비스와 차이점과 유사점
+
+Weblate, Pontoon 등과 비교했을 때 아래와 같은 주요 기능을 추가로 갖출 예정입니다.
+
+1. 그간 Context 기능으로 표시되어 온 번역 대상 문자열 간 관계를 UI 상으로 보다 명확하게 표시하여, 번역 시 문맥 이해에 들이는 시간을 줄입니다.
+2. 번역 가이드라인 문서를 시스템이 이해하는 체계로 제작하여 설정과 가이드라인을 매번 수동으로 동기화해야 하는 상황을 줄입니다.
+
+반대로 한계점도 지니고 있습니다.
+
+1. 위와 같은 기능을 구현하기 위해 기존 문법에서 파생된 독자 문법 등을 사용하므로, 플랫폼 종속적인 형태가 될 수 있습니다.
+2. 본 작품은 개발 기한이 6개월 내외이므로 기존 시스템의 모든 편의기능을 서비스할 수는 없습니다.
+
+### Open Source License
+
+- 게시 예정
