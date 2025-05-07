@@ -14,6 +14,12 @@
 	"profile_logout_btn": "Logout",
 	"profile_switch_dark_btn": "Switch to dark mode",
 	"profile_switch_light_btn": "Switch to light mode",
-	"profile_switch_system_btn": "Swith to System Default",
-	"profile_account_settings_btn": "Account Settings"
+	"profile_switch_system_btn": "Swith to system theme",
+	"profile_account_settings_btn": "Account Settings",
+	"menu": {
+		"proj": "Projects",
+		"lang": "Languages",
+		"doc": "Documentation",
+		"glossary": "Glossary / Memory"
+	}
 }

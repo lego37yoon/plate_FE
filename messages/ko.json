@@ -15,5 +15,11 @@
 	"profile_switch_dark_btn": "어두운 화면으로 전환",
 	"profile_switch_light_btn": "밝은 화면으로 전환",
 	"profile_switch_system_btn": "시스템 테마에 맞춤",
-	"profile_account_settings_btn": "계정 설정"
+	"profile_account_settings_btn": "계정 설정",
+	"menu": {
+		"proj": "프로젝트",
+		"lang": "언어",
+		"doc": "문서",
+		"glossary": "용어집 및 이력"
+	}
 }
