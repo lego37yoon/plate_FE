@@ -1,4 +1,19 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
-	"hello_world": "Hello, {name} from ko!"
+	"hello_world": "Hello, {name} from ko!",
+	"role": {
+		"super_admin": "최고 관리자",
+		"project_manager": "프로젝트 관리자",
+		"l10n_manager": "지역 팀 리더",
+		"l10n_reviewer": "지역화 검토자",
+		"l10n_contributor": "지역화 기여자"
+	},
+	"profile_role_and_project": "{proj} {role}",
+	"profile_login": "로그인하여 지역화를 시작하세요",
+	"profile_login_btn": "로그인",
+	"profile_logout_btn": "로그아웃",
+	"profile_switch_dark_btn": "어두운 화면으로 전환",
+	"profile_switch_light_btn": "밝은 화면으로 전환",
+	"profile_switch_system_btn": "시스템 테마에 맞춤",
+	"profile_account_settings_btn": "계정 설정"
 }

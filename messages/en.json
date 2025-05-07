@@ -1,4 +1,19 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
-	"hello_world": "Hello, {name} from en!"
+	"hello_world": "Hello, {name} from en!",
+	"role": {
+		"super_admin": "Super Administrator",
+		"project_manager": "Project Manager",
+		"l10n_manager": "Local Team Leader",
+		"l10n_reviewer": "Localization Reviewer",
+		"l10n_contributor": "Localization Contributor"
+	},
+	"profile_role_and_project": "{role} of {proj}",
+	"profile_login": "Login to start localization",
+	"profile_login_btn": "Login",
+	"profile_logout_btn": "Logout",
+	"profile_switch_dark_btn": "Switch to dark mode",
+	"profile_switch_light_btn": "Switch to light mode",
+	"profile_switch_system_btn": "Swith to System Default",
+	"profile_account_settings_btn": "Account Settings"
 }
