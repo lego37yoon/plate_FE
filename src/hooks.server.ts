@@ -83,4 +83,4 @@ const handleParaglide: Handle = ({ event, resolve }) => paraglideMiddleware(even
 	});
 });
 
-export const handle: Handle = sequence(handleParaglide, supabaseServer, authGuard);
+export const handle: Handle = sequence(supabaseServer, authGuard, handleParaglide);
