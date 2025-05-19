@@ -28,6 +28,7 @@
 	"dependencies": {
 		"@ibm/plex-sans-kr": "^1.1.0",
 		"@inlang/paraglide-js": "^2.0.12",
+		"@supabase/ssr": "^0.6.1",
 		"@supabase/supabase-js": "^2.49.4",
 		"bits-ui": "^1.4.4",
 		"lucide-svelte": "^0.507.0",
