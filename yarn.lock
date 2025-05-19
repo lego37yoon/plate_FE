@@ -234,7 +234,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@inlang/paraglide-js@npm:^2.0.12":
+"@inlang/paraglide-js@npm:2.0.12":
   version: 2.0.12
   resolution: "@inlang/paraglide-js@npm:2.0.12"
   dependencies:
@@ -2090,7 +2090,7 @@ __metadata:
   resolution: "plate-fe@workspace:."
   dependencies:
     "@ibm/plex-sans-kr": "npm:^1.1.0"
-    "@inlang/paraglide-js": "npm:^2.0.12"
+    "@inlang/paraglide-js": "npm:2.0.12"
     "@supabase/ssr": "npm:^0.6.1"
     "@supabase/supabase-js": "npm:^2.49.4"
     "@sveltejs/adapter-auto": "npm:^4.0.0"

@@ -25,5 +25,9 @@
 	"doc": {
 		"error_1": "Failed to resolve a document from the server.",
 		"error_unknown": "Failed to read a document without explainable reason."
+	},
+	"home": {
+		"title": "Welcome to Plate",
+		"description": "Read documentation, Translate and check your result at once."
 	}
 }
