@@ -21,5 +21,9 @@
 		"lang": "Languages",
 		"doc": "Documentation",
 		"glossary": "Glossary / Memory"
+	},
+	"doc": {
+		"error_1": "Failed to resolve a document from the server.",
+		"error_unknown": "Failed to read a document without explainable reason."
 	}
 }
