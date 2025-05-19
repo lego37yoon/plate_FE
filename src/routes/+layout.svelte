@@ -6,28 +6,26 @@
   import { writable } from 'svelte/store';
   import type { Snippet } from 'svelte';
   import { m } from '$lib/paraglide/messages';
+    import { getLocale } from '$lib/paraglide/runtime';
 
   let { children, data } : 
     { children: Snippet, data: 
       { meta: Docs, doc?: string, error?: number } } = $props();
 
-  let error_message : string = ;
+  let error_message = $state<string>(m["doc.error_unknown"]);
   
   switch (data.error) {
     case 1:
       error_message = m["doc.error_1"];
-      break;
-    default:
-      error_message = m["doc.error_default"]
       break;
   }
 
   const isOpen = writable(false);
 </script>
 
-<Header enabled={[null]} />
+<Header enabled={[null]} lang={getLocale()} />
 <main>
-  <section class="shadow-md z-10">
+  <section class="shadow-md rounded-xl z-10 m-2 p-2 bg-white">
     {@render children()}
   </section>
 {#if $isOpen && data.doc}

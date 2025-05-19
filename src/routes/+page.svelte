@@ -1,6 +1,12 @@
 <script lang="ts">
+    import { m } from "$lib/paraglide/messages";
+
 
 </script>
 
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
+<svelte:head>
+  <title>Home : Plate</title>
+</svelte:head>
+
+<h1 class="text-primary text-4xl">{m.home_title()}</h1>
+<p>{m.home_description()}</p>

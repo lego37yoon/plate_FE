@@ -1,18 +1,21 @@
 <script lang="ts">
     import { m } from "$lib/paraglide/messages";
+    import { type Locale } from "$lib/paraglide/runtime";
     import MenuLink from "./MenuLink.svelte";
     import ProfilePopup from "./ProfilePopup.svelte";
 
     type Menu = "proj" | "doc" | "dic" | "lang" | null;
 
-    const { enabled } : { enabled : Array<Menu> } = $props();
+    const { enabled, lang } : { enabled : Array<Menu>, lang: Locale } = $props();
+
+
 </script>
 
-<header class="rounded-xl shadow-xl bg-white dark:bg-gray-800 z-30">
-    <a href="/" class="font-bold">
+<header class="rounded-xl shadow-xl p-2 m-2 flex bg-white dark:bg-gray-800 z-30 text-primary">
+    <a href="/" class="font-normal text-2xl flex items-center ">
         <!-- 로고는 장식이므로 alt="" 설정 -->
-        <img src="/favicon.png" alt="" />
-        Plate
+        <img src="/favicon.png" alt="" class="w-10" />
+        <span class="h-min">Plate</span>
     </a>
     <nav class="flex gap-2">
         <MenuLink href="/home" enabled={enabled.includes("proj")}>{m["menu.proj"]}</MenuLink>

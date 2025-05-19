@@ -1,3 +1,6 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/forms';
 
+@theme {
+  --color-primary: #7D863F;
+}
