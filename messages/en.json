@@ -16,6 +16,9 @@
 	"profile_switch_light_btn": "Switch to light mode",
 	"profile_switch_system_btn": "Swith to system theme",
 	"profile_account_settings_btn": "Account Settings",
+	"profile_please_login": "Please Login",
+	"profile_get_role": "Login / Signup to get a role",
+	"profile_logout_error": "Error occured during logout.",
 	"menu": {
 		"proj": "Projects",
 		"lang": "Languages",

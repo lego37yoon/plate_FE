@@ -4,13 +4,16 @@
   import Header from '../components/Header.svelte';
   import DocViewer from '../components/DocViewer.svelte';
   import { writable } from 'svelte/store';
-  import type { Snippet } from 'svelte';
+  import { onMount, setContext, type Snippet } from 'svelte';
   import { m } from '$lib/paraglide/messages';
-    import { getLocale } from '$lib/paraglide/runtime';
+  import { invalidate } from '$app/navigation';
+    import type { Session, SupabaseClient } from '@supabase/supabase-js';
+    import type { UserInfo } from '../types/account';
 
   let { children, data } : 
     { children: Snippet, data: 
-      { meta: Docs, doc?: string, error?: number } } = $props();
+      { meta: Docs, doc?: string, error?: number, session: Session | null, supabase: SupabaseClient, userData: UserInfo } } = $props();
+    let { session, supabase } = $derived(data);
 
   let error_message = $state<string>(m["doc.error_unknown"]());
   
@@ -21,9 +24,22 @@
   }
 
   const isOpen = writable(false);
+  const theme = $state<{ mode : "system"|"light"|"dark"}>({ mode: "system" });
+  setContext("screenMode", theme);
+  setContext("account", data.userData);
+
+  onMount(() => {
+    const { data } = supabase.auth.onAuthStateChange((_, newSession) => {
+      if (newSession?.expires_at !== session?.expires_at) {
+        invalidate("supabase:auth")
+      }
+    })
+
+    return () => data.subscription.unsubscribe();
+  })
 </script>
 
-<Header enabled={[null]} lang={getLocale()} />
+<Header enabled={[null]} />
 <main>
   <section class="shadow-md rounded-xl z-10 m-2 p-4 bg-white">
     {@render children()}

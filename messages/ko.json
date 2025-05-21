@@ -16,6 +16,9 @@
 	"profile_switch_light_btn": "밝은 화면으로 전환",
 	"profile_switch_system_btn": "시스템 테마에 맞춤",
 	"profile_account_settings_btn": "계정 설정",
+	"profile_please_login": "로그인",
+	"profile_get_role": "로그인 / 회원가입하여 역할 부여",
+	"profile_logout_error": "로그아웃 도중 오류가 발생했습니다.",
 	"menu": {
 		"proj": "프로젝트",
 		"lang": "언어",

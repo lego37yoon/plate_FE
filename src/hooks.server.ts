@@ -2,7 +2,7 @@ import { redirect, type Handle } from '@sveltejs/kit';
 import type { SupabaseClient, Session, User } from '@supabase/supabase-js';
 import { paraglideMiddleware } from '$lib/paraglide/server';
 import { createServerClient } from '@supabase/ssr';
-import { SUPABASE_ANON_KEY, SUPABASE_PROJECT_URL } from '$env/static/private';
+import { PUBLIC_SUPABASE_ANON_KEY, PUBLIC_SUPABASE_PROJECT_URL } from '$env/static/public';
 import { sequence } from '@sveltejs/kit/hooks';
 
 declare global {
@@ -17,7 +17,7 @@ declare global {
 }
 
 const supabaseServer: Handle = async ({ event, resolve }) => {
-	event.locals.supabase = createServerClient(SUPABASE_PROJECT_URL, SUPABASE_ANON_KEY, {
+	event.locals.supabase = createServerClient(PUBLIC_SUPABASE_PROJECT_URL, PUBLIC_SUPABASE_ANON_KEY, {
 		cookies: {
 			getAll: () => event.cookies.getAll(),
 			setAll: (cookiesToSet) => {

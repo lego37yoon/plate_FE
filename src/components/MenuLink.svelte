@@ -9,6 +9,6 @@
   } = $props();
 </script>
 
-<a href={href} class={`font-light p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-600 ${enabled ? "font-bold" :""}`} target={target}>
+<a href={href} class={`flex items-center font-light p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-600 ${enabled ? "font-bold" :""}`} target={target}>
   {@render children()}
 </a>
