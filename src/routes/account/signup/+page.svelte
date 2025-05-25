@@ -1,17 +1,14 @@
 <script lang="ts">
     import { m } from "$lib/paraglide/messages";
     import { Button, Label } from "bits-ui";
-    import { ArrowRight, Info, TriangleAlert } from "lucide-svelte";
+    import { ArrowRight, CheckCircle2, Info, TriangleAlert } from "lucide-svelte";
     import type { PageProps } from "./$types";
+    import { applyAction, enhance } from "$app/forms";
 
     let { form }: PageProps = $props();
-
-    let isError = $state(form?.error);
-    let errorMessage = $state(form?.message);
     let requireResend = $state(false);
 
-    async function signup(e : SubmitEvent) {
-      e.preventDefault();
+    async function signup() {
       localStorage.setItem("recentLogin", "password");
 
       setTimeout(() => {
@@ -26,11 +23,24 @@
 
 <h1 class="text-3xl mb-6 text-primary">{m["title.signup"]()}</h1>
 
-<form method="POST" onsubmit={(e) => signup(e)}>
-  {#if isError}
+<form method="POST" action="?/confirm" onsubmit={signup} use:enhance={() => {
+  
+  return async ({ result, update }) => {
+    await applyAction(result);
+    update({ reset: false });
+  }
+}}>
+  {#if form?.error}
   <section id="error-message" class="flex gap-2 border border-red-900 bg-red-50 rounded-lg w-full md:max-w-80 p-2 items-center mb-2">
     <TriangleAlert size={24} class="text-red-900" />
-    <span class="text-red-900">{errorMessage}</span>
+    <span class="text-red-900">{form.message}</span>
+  </section>
+  {:else if form?.success}
+  <section id="require-resend" class="flex gap-2 border border-lime-900 bg-green-50 rounded-lg w-full md:max-w-80 p-2 items-center mb-2">
+    <CheckCircle2 size={24} class="text-lime-900" />
+    <p class="text-lime-900">
+      {m["account.reset_send_success"]()}
+    </p>
   </section>
   {/if}
 
@@ -54,7 +64,7 @@
     name="password" required
   />
 
-  <Button.Root type="submit" class="rounded-lg bg-lime-800 text-white shadow-sm text-base flex justify-center items-center p-2 my-2 w-full md:max-w-80 gap-1">
+  <Button.Root type="submit" class="rounded-lg bg-lime-800 text-white shadow-sm text-base flex justify-center items-center p-2 my-2 w-full md:max-w-80 gap-1 cursor-pointer">
     <span>{m["account.signup_next_btn"]()}</span>
     <ArrowRight size={20} />
   </Button.Root>
@@ -64,7 +74,7 @@
     <Info size={24} class="text-lime-900" />
     <p>
       <span class="text-lime-900">{m["account.signup_resend_q"]()}</span>
-      <span class="underline">{m["account.signup_resend_btn"]()}</span>
+      <Button.Root class="underline cursor-pointer" formaction="?/resend">{m["account.signup_resend_btn"]()}</Button.Root>
     </p>
   </section>
   {/if}
