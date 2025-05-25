@@ -4,6 +4,8 @@
     import { Button, Label, Select } from "bits-ui";
     import { ArrowRight, BookType, Check, CheckCircle2, ChevronDown, ChevronUp, TriangleAlert } from "lucide-svelte";
     import type { PageProps } from "./$types";
+    import { goto } from "$app/navigation";
+    import { localizeHref } from "$lib/paraglide/runtime";
 
     let { data, form }: PageProps = $props();
 
@@ -36,6 +38,12 @@
         return (size / 1048576).toFixed(1) + "MB";
       }
     }
+
+    if (form && form.success) {
+      setTimeout(() => {
+        goto(localizeHref("/"));
+      }, 3000);
+    }
 </script>
 
 <svelte:head>
@@ -59,7 +67,7 @@
   <section id="require-resend" class="flex gap-2 border border-lime-900 bg-green-50 rounded-lg w-full md:max-w-80 p-2 items-center mb-2">
     <CheckCircle2 size={24} class="text-lime-900" />
     <p class="text-lime-900">
-      {m["account.reset_send_success"]()}
+      {form.message}
     </p>
   </section>
   {/if}
