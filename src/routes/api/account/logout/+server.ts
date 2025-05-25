@@ -1,12 +1,13 @@
-import { error, json, type RequestHandler } from "@sveltejs/kit";
+import { error as kitError, json, type RequestHandler } from "@sveltejs/kit";
 
-export const GET:RequestHandler = ({ cookies }) => {
+export const GET:RequestHandler = async ({ cookies, locals: { supabase } }) => {
   cookies.delete("user", { path: "/" });
   
   const remain = cookies.get("user");
+  const { error } = await supabase.auth.signOut();
 
-  if (remain) {
-    return error(500, "Failed to delete cookie for user");
+  if (remain || error) {
+    return kitError(500, "Failed to logout");
   } else {
     return Response.json({ sucess: true });
   }

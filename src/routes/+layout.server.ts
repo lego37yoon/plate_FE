@@ -1,58 +1,41 @@
-import { supabase } from "$lib/supabase";
-import type { AuthError, PostgrestSingleResponse } from "@supabase/supabase-js";
 import type { LayoutServerLoad } from "./$types";
 import { error as kitError } from "@sveltejs/kit";
 import type { UserInfo } from "../types/account";
+import { PUBLIC_SUPABASE_ANON_KEY, PUBLIC_SUPABASE_PROJECT_URL } from "$env/static/public";
 
-export const load: LayoutServerLoad = async ({ url, cookies, locals: { safeGetSession } }) => {
-  const docId = url.searchParams.get("doc");
-  const { session, user } = await safeGetSession();
+export const load: LayoutServerLoad = async ({ cookies, locals: { safeGetSession } }) => {
+  
+  const { session } = await safeGetSession();
   const userInfo = cookies.get("user");
 
   let userData : UserInfo | null = null;
 
-  if (session && user) {
+  if (session && session.user) {
     if (userInfo) {
       userData = JSON.parse(userInfo);
     } else {
-      const { data, error } = await supabase.from("user").select().eq("uid", user.id);
-
-      if (error || !userData) {
-        kitError(401, "userInfo.NoetFound");
-      } else {
-        userData = data[0];
-        if (userData) {
-          cookies.set("user", userData.toString(), { path: "/" });
+      const req = await fetch(`${PUBLIC_SUPABASE_PROJECT_URL}/rest/v1/user?uid=${session.user.id}`, {
+        method: "GET",
+        headers: {
+          "apiKey": PUBLIC_SUPABASE_ANON_KEY,
+          "Authorization": `Bearer ${PUBLIC_SUPABASE_ANON_KEY}`
         }
+      });
+
+      if (req.ok) {
+        const data = await req.json();
+
+        if (data.length > 0) {
+          userData = data[0];
+          if (userData) {
+            cookies.set("user", userData.toString(), { path: "/" });
+          }
+        }
+      } else {
+        kitError(401, "userInfo.NotFound");
       }
     }
   }
-
-  if (docId) {
-    const { data } : PostgrestSingleResponse<{
-      id: number, src: string, title: string, for: string, related: number, lang: string
-    }[]|null> = await supabase.from("docs").select().eq("id", docId);
-
-    if (data && data.length > 0) {
-      const rawDocReq = await fetch(data[0].src);
-
-      if (rawDocReq.ok) {
-        return {
-          meta: data[0],
-          doc: await rawDocReq.text(),
-          session, user, cookies: cookies.getAll(), userData
-        };
-      } else {
-        return {
-          meta: data[0],
-          error: 1,
-          session, user, cookies: cookies.getAll(), userData
-        }
-      }
-    }
-  } else {
-    return {
-      session, user, cookies: cookies.getAll(), userData
-    }
-  }
+  
+  return { session, cookies: cookies.getAll(), info: userData };
 }
