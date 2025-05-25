@@ -1,16 +1,16 @@
 <script lang="ts">
     import { m } from "$lib/paraglide/messages";
     import { localizeHref, type Locale } from "$lib/paraglide/runtime";
-    import type { User } from "@supabase/supabase-js";
+    import type { SupabaseClient, User } from "@supabase/supabase-js";
     import MenuLink from "./MenuLink.svelte";
     import ProfilePopup from "./ProfilePopup.svelte";
+    import type { UserInfo } from "../types/account";
 
     type Menu = "proj" | "doc" | "dic" | "lang" | null;
 
-    const { enabled, user, userInfo } : { 
+    const { enabled, user } : { 
         enabled : Array<Menu>,
-        user?: User,
-        userInfo?: any[]
+        user?: User | null
     } = $props();
 </script>
 
@@ -21,7 +21,7 @@
             <img src="/favicon.png" alt="" class="w-10" />
             <span class="h-min">Plate</span>
         </a>
-        <nav class="flex gap-2">
+        <nav class="hidden gap-2 md:flex">
             <MenuLink href="/home" enabled={enabled.includes("proj")}>{m["menu.proj"]()}</MenuLink>
             <MenuLink href="/locale" enabled={enabled.includes("lang")}>{m["menu.lang"]()}</MenuLink>
             <MenuLink href="/docs" enabled={enabled.includes("doc")}>{m["menu.doc"]()}</MenuLink>

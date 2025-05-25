@@ -1,12 +1,11 @@
 <script lang="ts">
   import { m } from "$lib/paraglide/messages";
-  import { getLocale } from "$lib/paraglide/runtime";
 </script>
 
 <svelte:head>
-  <title>Home : Plate</title>
+  <title>{m["title.home"]()} : Plate</title>
 </svelte:head>
 
-<h1 class="text-primary text-4xl">{m["home.title"]()}</h1>
+<h1 class="text-primary text-3xl">{m["home.title"]()}</h1>
 <p>{m["home.description"]()}</p>
 

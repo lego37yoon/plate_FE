@@ -6,8 +6,6 @@ import type { PostgrestSingleResponse } from "@supabase/supabase-js";
 export const load:LayoutLoad = async ({ url, data, depends, fetch }) => {
   depends("supabase:auth");
 
-  console.log(data);
-
   const supabase = isBrowser() 
   ? createBrowserClient(PUBLIC_SUPABASE_PROJECT_URL, PUBLIC_SUPABASE_ANON_KEY, {
       global: { fetch, },
