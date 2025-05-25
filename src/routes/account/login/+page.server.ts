@@ -1,0 +1,58 @@
+import { m } from "$lib/paraglide/messages";
+import { localizeHref } from "$lib/paraglide/runtime";
+import type { Actions, PageServerLoad } from "./$types";
+
+export const actions: Actions = {
+  login: async ({ request, locals: { supabase }}) => {
+    const formData = await request.formData();
+    
+    const email = formData.get("email");
+    const password = formData.get("password");
+
+    if (email && password) {
+      const { error } = await supabase.auth.signInWithPassword({
+        email: email.toString(),
+        password: password.toString()
+      });
+
+      if (error) {
+        return {
+          error: true,
+          message: m["account.error_failed_login"]()
+        }
+      }
+    } else {
+      let errorMessage : string;
+
+      if (email) {  
+        errorMessage = m["account.error_password_blank"]()
+      } else if (password) {
+        errorMessage = m["account.error_email_blank"]()
+      } else {
+        errorMessage = m["account.error_failed_login"]()
+      }
+      
+      return {
+        error: true,
+        message: errorMessage
+      }
+    }
+  },
+  
+  github: async ({ locals: { supabase }}) => {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: "github",
+        options: {
+          redirectTo: localizeHref("/account/login")
+        }
+      });
+
+      if (error) {
+        return {
+          error: true,
+          message: m["account.start_github_error"]()
+        }
+      }
+
+  }
+}
