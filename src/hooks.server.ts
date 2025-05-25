@@ -4,6 +4,7 @@ import { paraglideMiddleware } from '$lib/paraglide/server';
 import { createServerClient } from '@supabase/ssr';
 import { PUBLIC_SUPABASE_ANON_KEY, PUBLIC_SUPABASE_PROJECT_URL } from '$env/static/public';
 import { sequence } from '@sveltejs/kit/hooks';
+import { deLocalizeHref, localizeHref } from '$lib/paraglide/runtime';
 
 const supabaseServer: Handle = async ({ event, resolve }) => {
 	event.locals.supabase = createServerClient(PUBLIC_SUPABASE_PROJECT_URL, PUBLIC_SUPABASE_ANON_KEY, {
@@ -53,12 +54,12 @@ const authGuard: Handle = async ({ event, resolve }) => {
 	const privatePaths = ["/account/profile", "/projects/settings", "/org/settings", "/account/reset/step2"];
 	const authPaths = ["/account/login", "/account/signup"];
 
-	if (!event.locals.session && privatePaths.includes(event.url.pathname)) {
+	if (!event.locals.session && privatePaths.includes(deLocalizeHref(event.url.pathname))) {
 		redirect(303, "/account/login");
 	}
 
-	if (event.locals.session && authPaths.includes(event.url.pathname)) {
-		redirect(303, "/account/profile");
+	if (event.locals.session && authPaths.includes(deLocalizeHref(event.url.pathname))) {
+		redirect(303, "/");
 	}
 
 	return resolve(event);
