@@ -18,7 +18,7 @@ export const load:LayoutLoad = async ({ url, data, depends, fetch }) => {
   const { data: { user }, } = await supabase.auth.getUser();
 
   const docId = url.searchParams.get("doc");
-  const info = data.info;
+  const info = await fetch("/account/data").then((data) => data.json());
 
   if (docId) {
     const { data } : PostgrestSingleResponse<{

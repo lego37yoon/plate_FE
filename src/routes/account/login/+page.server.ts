@@ -1,5 +1,6 @@
 import { m } from "$lib/paraglide/messages";
 import { localizeHref } from "$lib/paraglide/runtime";
+import { redirect } from "@sveltejs/kit";
 import type { Actions, PageServerLoad } from "./$types";
 
 export const actions: Actions = {
@@ -20,6 +21,8 @@ export const actions: Actions = {
           error: true,
           message: m["account.error_failed_login"]()
         }
+      } else {
+        throw redirect(303, localizeHref("/"));
       }
     } else {
       let errorMessage : string;

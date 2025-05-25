@@ -1,7 +1,7 @@
 <script lang="ts">
     import { m } from "$lib/paraglide/messages";
-    import { localizeHref, type Locale } from "$lib/paraglide/runtime";
-    import type { SupabaseClient, User } from "@supabase/supabase-js";
+    import { localizeHref } from "$lib/paraglide/runtime";
+    import type { User } from "@supabase/supabase-js";
     import MenuLink from "./MenuLink.svelte";
     import ProfilePopup from "./ProfilePopup.svelte";
     import type { UserInfo } from "../types/account";

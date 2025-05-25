@@ -4,7 +4,7 @@
   import Header from '../components/Header.svelte';
   import DocViewer from '../components/DocViewer.svelte';
   import { writable } from 'svelte/store';
-  import { onMount, setContext, type Snippet } from 'svelte';
+  import { getContext, onMount, setContext, type Snippet } from 'svelte';
   import { m } from '$lib/paraglide/messages';
   import { invalidate } from '$app/navigation';
   import type { Session, SupabaseClient, User } from '@supabase/supabase-js';
@@ -33,14 +33,21 @@
   }
 
   const isOpen = writable(false);
-  const theme = $state<{ mode : "system"|"light"|"dark"}>({ mode: "system" });
+  const theme = $state<{ mode : "system"|"light"|"dark" }>({ mode: "system" });
+  const info = $state({ data: data.info });
   setContext("screenMode", theme);
-  setContext("account", data.info);
+  setContext("account", info);
+
+  $effect(() => {
+    info.data = data.info
+  })
 
   onMount(() => {
     const { data } = supabase.auth.onAuthStateChange((_, newSession) => {
-      if (newSession?.expires_at !== session?.expires_at) {
-        invalidate("supabase:auth")
+      if (newSession && session) {
+        if (newSession.expires_at !== session.expires_at) {
+          invalidate("supabase:auth");
+        }
       }
     });
 
@@ -53,7 +60,7 @@
   <section class="shadow-md rounded-xl z-10 m-2 p-4 bg-white">
     {@render children()}
   </section>
-{#if $isOpen && data.doc}
+{#if isOpen && data.doc}
   <DocViewer isOpen={isOpen} docMeta={data.meta} doc={data.doc} />
 {:else if $isOpen && data.error}
   <DocViewer isOpen={isOpen} docMeta={data.meta} doc={error_message} />
