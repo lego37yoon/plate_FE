@@ -5,17 +5,6 @@ import { createServerClient } from '@supabase/ssr';
 import { PUBLIC_SUPABASE_ANON_KEY, PUBLIC_SUPABASE_PROJECT_URL } from '$env/static/public';
 import { sequence } from '@sveltejs/kit/hooks';
 
-declare global {
-	namespace App {
-		interface Locals {
-			supabase: SupabaseClient;
-			safeGetSession: () => Promise<{ session: Session | null; user: User | null }>;
-			session: Session | null;
-			user: User | null;
-		}
-	}
-}
-
 const supabaseServer: Handle = async ({ event, resolve }) => {
 	event.locals.supabase = createServerClient(PUBLIC_SUPABASE_PROJECT_URL, PUBLIC_SUPABASE_ANON_KEY, {
 		cookies: {
@@ -61,7 +50,7 @@ const authGuard: Handle = async ({ event, resolve }) => {
 	event.locals.session = session;
 	event.locals.user = user;
 
-	const privatePaths = ["/account/profile", "/projects/settings", "/org/settings"];
+	const privatePaths = ["/account/profile", "/projects/settings", "/org/settings", "/account/reset/step2"];
 	const authPaths = ["/account/login", "/account/signup"];
 
 	if (!event.locals.session && privatePaths.includes(event.url.pathname)) {
