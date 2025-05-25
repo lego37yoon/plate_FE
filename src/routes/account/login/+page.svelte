@@ -5,7 +5,7 @@
     import { ArrowRight, Code, Info, RefreshCw, TriangleAlert, UserRoundPlus } from "lucide-svelte";
     import { onMount } from "svelte";
     import type { PageProps } from "./$types";
-    import { enhance } from "$app/forms";
+    import { applyAction, enhance } from "$app/forms";
 
     let { form }: PageProps = $props();
 
@@ -34,7 +34,13 @@
 
 <h1 class="text-3xl mb-6 text-primary">{m["title.login"]()}</h1>
 
-<form method="POST" action="?/login" onsubmit={login} use:enhance>
+<form method="POST" action="?/login" onsubmit={login} use:enhance={() => {
+  
+  return async ({ result, update }) => {
+    await applyAction(result);
+    update({ reset: false });
+  }
+}}>
   {#if isError}
   <section id="error-message" class="flex gap-2 border border-red-900 bg-red-50 rounded-lg w-full md:max-w-80 p-2 items-center mb-2">
     <TriangleAlert size={24} class="text-red-900" />

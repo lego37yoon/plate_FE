@@ -13,7 +13,7 @@
     } = $props();
 
     const currentScreenMode : { mode : "system" | "light" | "dark" } = getContext("screenMode");
-    const userInfo : UserInfo | undefined = getContext("userInfo");
+    const userInfo : UserInfo | undefined = getContext("account");
 
 
     async function logout() {
@@ -60,7 +60,7 @@
 <Popover.Root>
     <Popover.Trigger>
         <Avatar.Root class={`cursor-pointer rounded-full h-12 w-12 text-lg data-[status=loaded]:${getRingColor()} data-[status=loading]:border-transparent`}>
-            <div class="flex h-full w-full items-center justify-center overflow-hidden rounded-full border-2 border-transparent">
+            <div class={`flex h-full w-full items-center justify-center overflow-hidden rounded-full border-2 ${getRingColor()}`}>
                 {#if userInfo && userInfo.avatar}
                 <Avatar.Image src={userInfo.avatar} alt={`Account Settings for ${userInfo.nick}`} />
                 {:else}
@@ -72,7 +72,7 @@
     <Popover.Portal>
         <Popover.Content class="shadow-popover data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-30 rounded-xl border-0 flex flex-col max-w-[328px] bg-white shadow-profile p-2 me-2 mt-2">
             <Button.Root id="profile" class="flex gap-4 items-center hover:bg-gray-100 rounded-xl p-4" href={user === undefined ? localizeHref("/account/login") : localizeHref("/account/profile")}>
-                <Avatar.Root delayMs={200} class={`rounded-full h-16 w-16 text-base ${getRingColor()}`}>
+                <Avatar.Root delayMs={200} class={`rounded-full h-16 w-16 text-base border-2 ${getRingColor()}`}>
                     <div class="flex h-full w-full items-center justify-center overflow-hidden rounded-full border-2 border-transparent">
                         {#if userInfo && userInfo.avatar}
                         <Avatar.Image src={userInfo.avatar} alt={`Account Settings for ${userInfo.nick}`} />
@@ -88,9 +88,9 @@
                     <p class="text-gray-300">
                         {userInfo ? 
                             userInfo.role === "project_manager" ? 
-                                m.profile_role_and_project({ role: m[`role.${userInfo.role}`], proj: ""}):
+                                m.profile_role_and_project({ role: m[`role.${userInfo.role}`](), proj: ""}):
                             userInfo.role ?
-                                m[`role.${userInfo.role}`]:
+                                m[`role.${userInfo.role}`]():
                                 m.profile_login()
                             :m.profile_get_role()
                         }

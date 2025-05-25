@@ -73,7 +73,7 @@
 		"pref_lang_desc": "Select language to contribute usually.",
 		"pref_lang_select": "Choose language",
 		"signup_complete_error": "Failed to upload or update profile. Try again later.",
-		"signup_complete_success": "Sign up Completed! You can now contribute to any projects in here.", 
+		"signup_complete_success": "Sign up Completed! You will be redirected to Home shortly.", 
 		"last_login": "You've tried to login via {method} recently",
 		"start_github_btn": "Start with GitHub",
 		"start_github_error": "Failed to start with GitHub account. Try again.",

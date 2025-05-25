@@ -4,7 +4,7 @@ import type { UserInfo } from "../types/account";
 import { PUBLIC_SUPABASE_ANON_KEY, PUBLIC_SUPABASE_PROJECT_URL } from "$env/static/public";
 import { localizeHref } from "$lib/paraglide/runtime";
 
-export const load: LayoutServerLoad = async ({ url, cookies, locals: { safeGetSession } }) => {
+export const load: LayoutServerLoad = async ({ url, cookies, locals: { safeGetSession, supabase } }) => {
   
   const { session, user } = await safeGetSession();
   const userInfo = cookies.get("user");
@@ -15,21 +15,14 @@ export const load: LayoutServerLoad = async ({ url, cookies, locals: { safeGetSe
     if (userInfo) {
       userData = JSON.parse(userInfo);
     } else if (!url.pathname.includes("/account/signup/step2")) {
-      const req = await fetch(`${PUBLIC_SUPABASE_PROJECT_URL}/rest/v1/user?uid=${user.id}`, {
-        method: "GET",
-        headers: {
-          "apiKey": PUBLIC_SUPABASE_ANON_KEY,
-          "Authorization": `Bearer ${PUBLIC_SUPABASE_ANON_KEY}`
-        }
-      });
+      const { data, error } = await supabase.from("user").select().eq("uid", user.id);
 
-      if (req.ok) {
-        const data = await req.json();
+      if (data) {
 
         if (data.length > 0) {
           userData = data[0];
           if (userData) {
-            cookies.set("user", userData.toString(), { path: "/" });
+            cookies.set("user", JSON.stringify(userData), { path: "/" });
           }
         } else {
           throw redirect(303, localizeHref("/account/signup/step2"));
