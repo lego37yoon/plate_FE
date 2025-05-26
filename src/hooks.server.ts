@@ -54,11 +54,13 @@ const authGuard: Handle = async ({ event, resolve }) => {
 	const privatePaths = ["/account/profile", "/projects/settings", "/org/settings", "/account/reset/step2"];
 	const authPaths = ["/account/login", "/account/signup"];
 
-	if (!event.locals.session && privatePaths.includes(deLocalizeHref(event.url.pathname))) {
+	console.log(deLocalizeHref(event.url.pathname));
+
+	if (!event.locals.user && privatePaths.includes(deLocalizeHref(event.url.pathname))) {
 		redirect(303, "/account/login");
 	}
 
-	if (event.locals.session && authPaths.includes(deLocalizeHref(event.url.pathname))) {
+	if (event.locals.user && authPaths.includes(deLocalizeHref(event.url.pathname))) {
 		redirect(303, "/");
 	}
 
