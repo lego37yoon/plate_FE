@@ -61,7 +61,7 @@ const authGuard: Handle = async ({ event, resolve }) => {
 	}
 
 	if (event.locals.user && authPaths.includes(deLocalizeHref(event.url.pathname))) {
-		redirect(303, "/");
+		redirect(303, "/home");
 	}
 
 	return resolve(event);
