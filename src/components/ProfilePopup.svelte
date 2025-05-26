@@ -4,6 +4,7 @@
     import { Separator, Avatar, Popover, Button } from "bits-ui";
     import { Moon, Sun, Monitor, UserRoundCog, LogOut, LogIn } from "lucide-svelte";
     import { error as kitError } from "@sveltejs/kit";
+    import { writable } from "svelte/store";
     import { getContext } from "svelte";
     import type { UserInfo } from "../types/account";
     import { localizeHref } from "$lib/paraglide/runtime";
@@ -15,8 +16,10 @@
 
     const currentScreenMode : { mode : "system" | "light" | "dark" } = getContext("screenMode");
     const userInfo : { data: UserInfo | undefined } = getContext("account");
+    const isOpen = writable(false);
 
     async function logout() {
+        isOpen.set(false);
         const deleteCookieReq = await fetch("/account/logout");
         
         if (!deleteCookieReq.ok) {
@@ -62,8 +65,7 @@
         }
     }
 </script>
-
-<Popover.Root>
+<Popover.Root bind:open={$isOpen}>
     <Popover.Trigger>
         <Avatar.Root class={`cursor-pointer rounded-full h-12 w-12 text-lg data-[status=loaded]:${getRingColor()} data-[status=loading]:border-transparent`}>
             <div class={`flex h-full w-full items-center justify-center overflow-hidden rounded-full border-2 ${getRingColor()}`}>
@@ -79,7 +81,7 @@
     </Popover.Trigger>
     <Popover.Portal>
         <Popover.Content class="shadow-popover data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-30 rounded-xl border-0 flex flex-col max-w-[328px] bg-white shadow-profile p-2 me-2 mt-2">
-            <Button.Root id="profile" class="flex gap-4 items-center hover:bg-gray-100 rounded-xl p-4" href={user === undefined ? localizeHref("/account/login") : localizeHref("/account/profile")}>
+            <Button.Root id="profile" class="flex gap-4 items-center hover:bg-gray-100 rounded-xl p-4" href={!user ? localizeHref("/account/login") : localizeHref("/account/profile")} onclick={() => isOpen.set(false)}>
                 <Avatar.Root delayMs={200} class={`rounded-full h-16 w-16 text-base border-2 ${getRingColor()}`}>
                     <div class="flex h-full w-full items-center justify-center overflow-hidden rounded-full border-2 border-transparent">
                         {#if userInfo.data && userInfo.data.avatar}
@@ -108,7 +110,7 @@
                 </div>
             </Button.Root>
             <Separator.Root class="bg-gray-300 my-1 block h-px" />
-            <Button.Root class="flex gap-2 p-4 hover:bg-gray-100 rounded-xl" onclick={changeMode} type="button">
+            <Button.Root class="flex gap-2 p-4 hover:bg-gray-100 rounded-xl cursor-pointer" onclick={changeMode} type="button">
                 {#if currentScreenMode.mode === "light"}
                     <Moon />
                     {m.profile_switch_dark_btn()}
@@ -133,7 +135,7 @@
                 {m.profile_logout_btn()}
             </Button.Root>
             {:else}
-            <Button.Root class="flex gap-2 text-gray-500 p-4 hover:bg-gray-100 rounded-xl" href={localizeHref("/account/login")}>
+            <Button.Root class="flex gap-2 text-gray-500 p-4 hover:bg-gray-100 rounded-xl" href={localizeHref("/account/login")} onclick={() => isOpen.set(false)}>
                 <LogIn />
                 {m.profile_login_btn()}
             </Button.Root>
