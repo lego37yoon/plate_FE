@@ -1,6 +1,7 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
-	"hello_world": "Hello, {name} from ko!",
+	"back_btn": "뒤로",
+	"close_btn": "닫기",
 	"role": {
 		"super_admin": "최고 관리자",
 		"project_manager": "프로젝트 관리자",
@@ -33,6 +34,7 @@
 	"profile_please_login": "로그인",
 	"profile_get_role": "로그인 / 가입하여 역할 부여",
 	"profile_logout_error": "로그아웃 도중 오류가 발생했습니다.",
+	"profile_switch_languge": "언어 변경",
 	"menu": {
 		"proj": "프로젝트",
 		"lang": "언어",
@@ -57,7 +59,6 @@
 		"signup_next_btn": "이메일 발송으로 확인",
 		"signup_resend_q": "이메일을 받을 수 없나요?",
 		"signup_resend_btn": "다시 보내기",
-		"back_btn": "뒤로",
 		"error_email_blank": "이메일 항목을 확인해주세요.",
 		"error_password_blank": "비밀번호 항목을 확인해주세요.",
 		"error_failed_login": "로그인에 실패했습니다. 입력하신 정보를 확인해주세요.", 
@@ -87,5 +88,78 @@
 		"change_password_failed": "비밀번호 변경에 실패했습니다. 나중에 다시 시도해 보세요.",
 		"change_password_title": "새 비밀번호 입력",
 		"change_password_btn": "변경 및 재로그인"
+	},
+	"projects": {
+		"add_project_btn": "프로젝트 추가",
+		"common_guide_btn": "공통 가이드",
+		"brochure_btn": "제품 소개서",
+		"community_guide_btn": "커뮤니티 가이드",
+		"search_placeholder": "제품명으로 필터링",
+		"sort_btn": "정렬",
+		"total_count": "총 {count} 개의 프로젝트",
+		"header_name": "프로젝트명",
+		"header_version": "버전",
+		"header_languages": "언어 수",
+		"header_files": "파일 수",
+		"header_progress": "진행률",
+		"header_last_updated": "마지막 수정",
+		"header_manager": "프로젝트 담당자",
+		"header_progress_tooltip": "왼쪽에서 오른쪽 순으로 완료됨, 검토 전, 미번역된 항목을 나타냅니다. 각 퍼센트는 반올림되므로, 합계가 100을 넘을 수 있습니다.",
+		"modify_project": "프로젝트 수정",
+		"add_project_initial_version": "최초 버전",
+		"add_project_license": "라이선스",
+		"add_project_source": "소스 저장소",
+		"add_project_manager": "프로젝트 담당자",
+		"add_project_files": "번역 파일",
+		"add_project_docs": "문서",
+		"add_project_docs_type": "문서 유형",
+		"add_project_docs_contains_rules": "문서에서 규칙 자동으로 확인",
+		"add_project_langs": "지원 언어",
+		"add_project_register": "프로젝트 생성"
+	},
+	"locale": {
+		"search_placeholder": "언어 코드 또는 검색으로 수정",
+		"add_language_btn": "언어 추가",
+		"add_language_desc": "프로젝트에 새 언어를 추가하세요.",
+		"add_language_done": "적용",
+		"total_count": "총 {count} 언어"
+	},
+	"resources": {
+		"btn": "버튼",
+		"h1": "제목 1",
+		"h2": "제목 2",
+		"h3": "제목 3",
+		"h4": "제목 4",
+		"p": "문단",
+		"blockquote": "인용",
+		"a": "링크",
+		"untranslated": "미번역",
+		"unreviewed": "검토 전",
+		"completed": "완료됨",
+		"analysis": "번역 자원 분석 중"
+	},
+	"l10n": {
+		"input_placeholder": "여기에 번역 입력",
+		"input_commit": "등록",
+		"input_review_approve": "승인",
+		"input_review_need_comment": "설명 필요 / 보류",
+		"input_review_deny": "거절",
+		"input_comment_title": "댓글",
+		"input_comment_send": "보내기",
+		"l10n_guide_btn": "지역화 가이드",
+		"context": "문맥",
+		"manage_string_button": "문자열 추가 / 삭제",
+		"modify_relations": "문장 간 관계 수정",
+		"input_hide_panel_btn": "패널 숨기기",
+		"input_show_panel_btn": "패널 보이기",
+		"glossary_add_btn": "용어집에 추가",
+		"glossary_suggest_btn": "용어집에 제안"
+	},
+	"glossary": {
+		"from_tm": "출처: 번역 기록",
+		"from_glossary": "출처: 용어집",
+		"from_machine": "출처: {provider} (번역 API)",
+		"tab_history": "번역 기록",
+		"tab_glossary": "용어집"
 	}
 }

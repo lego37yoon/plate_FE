@@ -1,6 +1,7 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
-	"hello_world": "Hello, {name} from en!",
+	"back_btn": "Back",
+	"close_btn": "Close",
 	"role": {
 		"super_admin": "Super Administrator",
 		"project_manager": "Project Manager",
@@ -33,6 +34,7 @@
 	"profile_please_login": "Please Login",
 	"profile_get_role": "Login / Signup to get a role",
 	"profile_logout_error": "Error occured during logout.",
+	"profile_switch_languge": "Switch Language",
 	"menu": {
 		"proj": "Projects",
 		"lang": "Languages",
@@ -57,7 +59,6 @@
 		"signup_next_btn": "Send Email to confirm",
 		"signup_resend_q": "Cannot receive a mail?",
 		"signup_resend_btn": "Resend",
-		"back_btn": "Back",
 		"error_email_blank": "Check your email field",
 		"error_password_blank": "Check your password field",
 		"error_failed_login": "Failed to login. Check your credentials and try again.",
@@ -87,5 +88,78 @@
 		"change_password_failed": "Failed to change your password. Try again later.",
 		"change_password_title": "Enter new password",
 		"change_password_btn": "Change and Re-login"
+	},
+	"projects": {
+		"add_project_btn": "Add Project",
+		"common_guide_btn": "Common Guides",
+		"brochure_btn": "Product Brochure",
+		"community_guide_btn": "Community Guides",
+		"search_placeholder": "Filter by Product Name",
+		"sort_btn": "Sort",
+		"total_count": "Total {count} Projects",
+		"header_name": "Project Name",
+		"header_version": "Version",
+		"header_languages": "Languages",
+		"header_files": "Files",
+		"header_progress": "Progress",
+		"header_last_updated": "Last Updated",
+		"header_manager": "Project Manager",
+		"header_progress_tooltip": "In order from left to right, Completed, Unreviewed, Untranslated. Each percentage is rounded, so the total can add up to more than 100.",
+		"modify_project": "Modify Project",
+		"add_project_initial_version": "Initial Version",
+		"add_project_license": "License",
+		"add_project_source": "Source Repository",
+		"add_project_manager": "Project Manager",
+		"add_project_files": "Translation Resources",
+		"add_project_docs": "Document",
+		"add_project_docs_type": "Document Type",
+		"add_project_docs_contains_rules": "Check rules in document automatically",
+		"add_project_langs": "Supported Language",
+		"add_project_register": "Create Project"
+	},
+	"locale": {
+		"search_placeholder": "Filter by Language Code or Name",
+		"add_language_btn": "Add Language",
+		"add_language_desc": "Add new language to projects.",
+		"add_language_done": "Apply",
+		"total_count": "Total {count} Languages"
+	},
+	"resources": {
+		"btn": "Button",
+		"h1": "Title",
+		"h2": "Subtitle",
+		"h3": "Header 3",
+		"h4": "Header 4",
+		"p": "Body",
+		"blockquote": "Quote",
+		"a": "Link",
+		"untranslated": "Untranslated",
+		"unreviewed": "Unreviewed",
+		"completed": "Completed",
+		"analysis": "Analyzing Resources"
+	},
+	"l10n": {
+		"input_placeholder": "Place your translation here",
+		"input_commit": "Commit",
+		"input_review_approve": "Approve",
+		"input_review_need_comment": "Needs Comment",
+		"input_review_deny": "Deny",
+		"input_comment_title": "Comments",
+		"input_comment_send": "Send",
+		"l10n_guide_btn": "L10n Guide",
+		"context": "Context",
+		"manage_string_button": "Delete / Add String",
+		"modify_relations": "Modify Relations",
+		"input_hide_panel_btn": "Hide Panel",
+		"input_show_panel_btn": "Show Panel",
+		"glossary_add_btn": "Add to Glossary",
+		"glossary_suggest_btn": "Suggest to Glossary"
+	},
+	"glossary": {
+		"from_tm": "from Translation History",
+		"from_glossary": "from Glossary",
+		"from_machine": "from {provider} (Translation API)",
+		"tab_history": "Translation History",
+		"tab_glossary": "Glossary"
 	}
 }
