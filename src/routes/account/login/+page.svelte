@@ -71,7 +71,7 @@
     <span>{m["account.login_btn"]()}</span>
     <ArrowRight size={20} />
   </Button.Root>
-    <Button.Root type="button" class="rounded-lg bg-black text-white shadow-sm text-base flex justify-center items-center p-2 my-2 w-full md:max-w-80 gap-1 cursor-pointer" onclick={loginWithGithub} formaction="?/github">
+  <Button.Root type="button" class="rounded-lg bg-black text-white shadow-sm text-base flex justify-center items-center p-2 my-2 w-full md:max-w-80 gap-1 cursor-pointer" onclick={loginWithGithub} formaction="?/github">
     <span>{m["account.start_github_btn"]()}</span>
     <Code size={20} />
   </Button.Root>
