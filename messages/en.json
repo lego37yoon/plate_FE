@@ -96,7 +96,7 @@
 		"community_guide_btn": "Community Guides",
 		"search_placeholder": "Filter by Product Name",
 		"sort_btn": "Sort",
-		"total_count": "Total {count} Projects",
+		"total_count": "Total {count} Project(s)",
 		"header_name": "Project Name",
 		"header_version": "Version",
 		"header_languages": "Languages",
@@ -119,10 +119,11 @@
 	},
 	"locale": {
 		"search_placeholder": "Filter by Language Code or Name",
+		"header_code": "Code",
 		"add_language_btn": "Add Language",
 		"add_language_desc": "Add new language to projects.",
 		"add_language_done": "Apply",
-		"total_count": "Total {count} Languages"
+		"total_count": "Total {count} Language(s)"
 	},
 	"resources": {
 		"btn": "Button",
