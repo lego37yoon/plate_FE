@@ -6,12 +6,12 @@
     import type { PageProps } from "./$types";
     import { goto } from "$app/navigation";
     import { localizeHref } from "$lib/paraglide/runtime";
+    import { returnFileSize } from "$lib/plate/files";
+    import FileSection from "../../../../components/FileSection.svelte";
 
     let { data, form }: PageProps = $props();
 
-    let avatarLocalUrl = $state("");
-    let avatarLocalName = $state("");
-    let avatarLocalSize = $state(0);
+    let avatarFile = $state<File|undefined>(undefined);
     let pref_lang = $state("");
 
     function changeAvatar (e: Event) {
@@ -22,22 +22,10 @@
         const file = files.item(0);
 
         if (file) {
-          avatarLocalUrl = URL.createObjectURL(file);
-          avatarLocalName = file.name;
-          avatarLocalSize = file.size;
+          avatarFile = file;
         }
       }
-    }
-
-    function returnFileSize(size: number) {
-      if (size < 1024) {
-        return size + "bytes";
-      } else if (size >= 1024 && size < 1048576) {
-        return (size / 1024).toFixed(1) + "KB";
-      } else if (size >= 1048576) {
-        return (size / 1048576).toFixed(1) + "MB";
-      }
-    }
+    }    
 
     if (form && form.success) {
       setTimeout(() => {
@@ -87,13 +75,10 @@
   </Label.Root>
   <p id="avatar-desc" class="text-sm text-gray-500 mb-1">{m["account.avatar_desc"]()}</p>
   <input type="file" id="avatar" name="avatar" accept="image/*" onchange={(e) => {changeAvatar(e)}} class="border-dotted border-2 w-full md:max-w-80 border-primary rounded-lg p-2 cursor-pointer" />
-  {#if avatarLocalUrl.length > 0}
-  <section id="avatar-preview" class="flex gap-4 flex-wrap mt-1 rounded-lg bg-lime-50 w-full md:max-w-80 p-4">
-    <img class="w-20 h-20 rounded-full" src={avatarLocalUrl} alt="Avatar Preview" />
-    <p class="flex flex-col justify-center">
-      <span>{m["account.avatar_size"]()} {returnFileSize(avatarLocalSize)}</span>
-    </p>
-  </section>
+  {#if avatarFile}
+  <ul id="avatar-preview">
+    <FileSection img={{ alt: "Avatar Preview" }} file={avatarFile} />
+  </ul>
   {/if}
 
   <Label.Root id="pref_lang-label" for="pref_lang" class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block my-2">
