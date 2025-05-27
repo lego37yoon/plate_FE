@@ -2,7 +2,7 @@
   import { m } from '$lib/paraglide/messages';
   import { localizeHref } from '$lib/paraglide/runtime';
   import { Button, Popover, Separator } from 'bits-ui';
-  import { Calendar, ChevronRight, HelpCircle, ListFilter, Plus, Regex } from 'lucide-svelte';
+  import { Calendar, ChevronRight, HelpCircle, Languages, ListFilter, Plus, Regex } from 'lucide-svelte';
   import { getContext } from 'svelte';
   import type { UserRole } from '../../../types/account.js';
 
@@ -61,7 +61,8 @@
   <table class="overflow-scroll w-full">
     <thead class="border border-transparent border-y-gray-300" >
       <tr class="text-primary">
-        <th class="font-semibold min-w-1/3 w-full text-start p-2">{m["projects.header_languages"]()}</th>
+        <th class="font-semibold min-w-1/3 w-1/2 text-start p-2">{m["projects.header_languages"]()}</th>
+        <th class="font-semibold text-end">{m["locale.header_code"]()}</th>
         <th class="font-semibold text-end">{m["projects.header_files"]()}</th>
         <th class="font-semibold flex gap-1 justify-end items-center p-2">
           <span>{m["projects.header_progress"]()}</span>
@@ -79,13 +80,25 @@
       </tr>
     </thead>
     <tbody>
+      {#each data.projects[0].langs as lang}
+      <tr>
+        <td class="min-w-1/3 w-1/2 shrink text-start p-2">
+          <a href={localizeHref(`/locale/${lang.code}/${data.projects[0].id}`)}>
+            {lang.lang_codes.origin_name}
+          </a>
+        </td>
+        <td class="text-end">{lang.code}</td>
+        <td class="text-end">{data.projects[0].files[0].count}</td>
+        <td></td>
+      </tr>
+      {/each}
     </tbody>
 </section>
 
 <section id="total-count">
   <Separator.Root class="bg-gray-300 my-4 w-full block h-px" />
   <div class="flex justify-between gap-2 text-primary">
-    <p>{m["locale.total_count"]({ count: data.projects.length })}</p>
+    <p>{m["locale.total_count"]({ count: data.projects[0].langs.length })}</p>
     <p></p>
   </div>
 </section>
