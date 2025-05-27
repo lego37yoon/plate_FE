@@ -94,6 +94,8 @@
 		"common_guide_btn": "Common Guides",
 		"brochure_btn": "Product Brochure",
 		"community_guide_btn": "Community Guides",
+		"style_guide_btn": "Style Guides",
+		"document_btn": "References",
 		"search_placeholder": "Filter by Product Name",
 		"sort_btn": "Sort",
 		"total_count": "Total {count} Project(s)",
@@ -108,14 +110,20 @@
 		"modify_project": "Modify Project",
 		"add_project_initial_version": "Initial Version",
 		"add_project_license": "License",
+		"add_project_desc_input": "Description",
 		"add_project_source": "Source Repository",
 		"add_project_manager": "Project Manager",
+		"add_project_manager_select": "Pick Project Manager",
 		"add_project_files": "Translation Resources",
-		"add_project_docs": "Document",
+		"add_project_docs": "Documents",
 		"add_project_docs_type": "Document Type",
 		"add_project_docs_contains_rules": "Check rules in document automatically",
 		"add_project_langs": "Supported Language",
-		"add_project_register": "Create Project"
+		"add_project_langs_select": "Choose all supported languages",
+		"add_project_register": "Create Project",
+		"add_project_src_lang": "Source Language of Resource",
+		"add_project_src_lang_select": "Select resource language",
+		"add_project_change_src_lang": "If you change source language of resource, previous source language will be kept as supported language."
 	},
 	"locale": {
 		"search_placeholder": "Filter by Language Code or Name",
@@ -162,5 +170,13 @@
 		"from_machine": "from {provider} (Translation API)",
 		"tab_history": "Translation History",
 		"tab_glossary": "Glossary"
+	},
+	"document": {
+		"type_none": "Unspecified",
+		"type_others": "Others",
+		"type_style": "Style Guides",
+		"type_common": "Common Guides",
+		"type_community": "Community Guides",
+		"type_brochure": "Product Brochure"
 	}
 }

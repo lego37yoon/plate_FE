@@ -94,6 +94,8 @@
 		"common_guide_btn": "공통 가이드",
 		"brochure_btn": "제품 소개서",
 		"community_guide_btn": "커뮤니티 가이드",
+		"style_guide_btn": "번역 스타일 안내",
+		"document_btn": "참고문서",
 		"search_placeholder": "제품명으로 필터링",
 		"sort_btn": "정렬",
 		"total_count": "총 {count} 개의 프로젝트",
@@ -109,13 +111,19 @@
 		"add_project_initial_version": "최초 버전",
 		"add_project_license": "라이선스",
 		"add_project_source": "소스 저장소",
+		"add_project_desc_input": "설명",
 		"add_project_manager": "프로젝트 담당자",
+		"add_project_manager_select": "프로젝트 담당자 선택",
 		"add_project_files": "번역 파일",
 		"add_project_docs": "문서",
 		"add_project_docs_type": "문서 유형",
 		"add_project_docs_contains_rules": "문서에서 규칙 자동으로 확인",
 		"add_project_langs": "지원 언어",
-		"add_project_register": "프로젝트 생성"
+		"add_project_langs_select": "지원하는 모든 언어를 선택하세요.",
+		"add_project_register": "프로젝트 생성",
+		"add_project_src_lang": "번역 자원의 기본 언어",
+		"add_project_src_lang_select": "자원의 언어를 선택하세요.",
+		"add_project_change_src_lang": "번역 자원의 기본 언어를 변경하면, 기존 기본 언어는 지원 언어로 변경됩니다."
 	},
 	"locale": {
 		"search_placeholder": "언어 코드 또는 검색으로 수정",
@@ -162,5 +170,13 @@
 		"from_machine": "출처: {provider} (번역 API)",
 		"tab_history": "번역 기록",
 		"tab_glossary": "용어집"
+	},
+	"document": {
+		"type_none": "지정 안 함",
+		"type_others": "기타",
+		"type_style": "번역 스타일 안내",
+		"type_common": "공통 안내서",
+		"type_community": "커뮤니티 규정",
+		"type_brochure": "제품 소개서"
 	}
 }
