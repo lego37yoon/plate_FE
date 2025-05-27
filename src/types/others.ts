@@ -1,0 +1,1 @@
+type DocCategories = "none" | "others" | "style" | "common" | "community" | "brochure";
