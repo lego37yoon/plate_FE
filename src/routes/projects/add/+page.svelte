@@ -55,7 +55,7 @@
   <span class="font-semibold">{m["projects.add_project_btn"]()}</span>
 </p>
 
-<form method="POST" class="flex flex-wrap md:gap-2 lg:gap-6">
+<form method="POST" enctype="multipart/form-data" class="flex flex-wrap md:gap-2 lg:gap-6">
   <section id="base-info">
     <Label.Root for="name" class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block my-2">{m["projects.header_name"]()}</Label.Root>
     <Input id="name" name="name" required={true} />
@@ -213,7 +213,7 @@
     </Label.Root>
     <input type="file" id="resource" name="resource" accept=".json" onchange={(e) => {changeFileList(e, "resource")}} class="border-dotted border-2 w-full md:max-w-80 border-primary rounded-lg p-2 cursor-pointer" multiple />
     {#if fileList.length > 0}
-    <ul id="avatar-preview" >
+    <ul id="resource-preview" >
       {#each fileList as file}
       <FileSection file={file} />
       {/each}
@@ -226,7 +226,7 @@
     </Label.Root>
     <input type="file" id="documents" name="documents" accept=".md,.txt" onchange={(e) => {changeFileList(e, "document")}} class="border-dotted border-2 w-full md:max-w-80 border-primary rounded-lg p-2 cursor-pointer" multiple />
     {#if docsList.length > 0}
-    <ul id="avatar-preview" >
+    <ul id="docsfile-preview" >
       {#each docsList as file, idx}
       <FileSection file={file} idx={idx} type="doc"/>
       {/each}
@@ -240,6 +240,6 @@
   </Button.Root>
   </section>
   <input type="hidden" name="src_lang_real" value={src_lang} />
-  <input type="hidden" name="suppoted_lang_real" value={supported_lang} />
+  <input type="hidden" name="supported_lang_real" value={supported_lang} />
   <input type="hidden" name="manager_real" value={manager} />
 </form>
