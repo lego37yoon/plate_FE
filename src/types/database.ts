@@ -48,14 +48,15 @@ type Projects = {
 }
 
 type Resources = {
-    id: number,
-    last_updated: string,
-    origin: string,
+    id?: number,
+    last_updated?: string,
+    origin: string | null,
     category: string,
-    parent_id: number,
+    parent_id?: number,
     group_idx: number,
-    context: string,
+    context?: string,
     file_id: number,
+    key: string
 }
 
 type Results = {
