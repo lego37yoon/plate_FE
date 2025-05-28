@@ -239,4 +239,7 @@
     <ArrowRight size={20} />
   </Button.Root>
   </section>
+  <input type="hidden" name="src_lang_real" value={src_lang} />
+  <input type="hidden" name="suppoted_lang_real" value={supported_lang} />
+  <input type="hidden" name="manager_real" value={manager} />
 </form>

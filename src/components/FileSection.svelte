@@ -1,8 +1,9 @@
 <script lang="ts">
-    import { m } from "$lib/paraglide/messages";
+  import { m } from "$lib/paraglide/messages";
   import { returnFileSize } from "$lib/plate/files";
-    import { Checkbox, Label, Select } from "bits-ui";
+  import { Checkbox, Label, Select } from "bits-ui";
   import { Check, ChevronDown, ChevronUp, StickyNote, Wand } from "lucide-svelte";
+  import type { DocCategories } from "../types/others";
 
   let { img, file, type, idx } : { img?: { alt: string }, file: File, type?: "doc", idx?: number } = $props();
 
@@ -76,5 +77,6 @@
       </Select.Content>
     </Select.Portal>
   </Select.Root>
+  <input type="hidden" name={`doc-category_real`} value={category} />
   {/if}
 </li>
