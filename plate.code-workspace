@@ -1,0 +1,21 @@
+{
+  "folders": [
+    {
+      "path": "projects/web"
+    },
+    {
+      "path": "projects/email"
+    }
+  ],
+  "settings": {
+    "search.exclude": {
+      "**/node_modules": true,
+      "**/bower_components": true,
+      "**/*.code-search": true,
+      "**/.yarn": true,
+      "**/.pnp": true,
+      "**/dist": true,
+      "tsconfig.tsbuildinfo": true
+    }
+  }
+}
