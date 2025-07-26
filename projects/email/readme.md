@@ -37,6 +37,10 @@ Open [localhost:3000](http://localhost:3000) with your browser to see the result
 yarn run export
 ```
 
-## License
+## Open Source License
 
-MIT License
+본 프로젝트는 MIT License로 배포되며, 아래 오픈소스 소프트웨어를 사용하고 있습니다.
+
+- React - [MIT License](https://github.com/facebook/react?tab=MIT-1-ov-file#readme)
+- React Email - [MIT License](https://github.com/resend/react-email?tab=MIT-1-ov-file#readme)
+- PostCSS - [MIT License](https://github.com/postcss/postcss?tab=MIT-1-ov-file#readme)
