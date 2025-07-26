@@ -38,7 +38,7 @@ export const ConfirmSignup = () => (
     <Preview>이메일 변경 확인 / Confirm Change of Email</Preview>
     <Body style={main}>
       <Container style={container}>
-        <Img src={"/static/plate-logo.png"} width={"48px"} style={{ margin: "16px 0 8px -8px" }} />
+        <Img src="https://raw.githubusercontent.com/lego37yoon/plate_FE/refs/heads/main/projects/web/static/favicon.png" width={"48px"} style={{ margin: "16px 0 8px -8px" }} />
         <Heading style={h1}>이메일 변경 확인</Heading>
         <Text style={h2}>Confirm Change of Email</Text>
         <Text style={text}>
