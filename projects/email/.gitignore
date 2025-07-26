@@ -1,2 +1,4 @@
 .yarn/unplugged
 .yarn/install-state.gz
+out
+.env
