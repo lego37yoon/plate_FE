@@ -74,3 +74,5 @@ v1에서 사용하는 접두사는 그대로 사용하되, 프로젝트 구분�
 ## Open Source Licenses
 
 각 프로젝트 저장소에서 확인하실 수 있으며, 본 저장소는 [BSD-2-Clause 라이선스](https://github.com/yarnpkg/berry?tab=BSD-2-Clause-1-ov-file#readme)를 적용하는 Yarn의 monorepo 시스템을 사용하고 있습니다.
+
+Plate의 모든 소스코드는 MIT License에 의거하여 배포됩니다.
