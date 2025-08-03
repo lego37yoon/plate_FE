@@ -65,7 +65,7 @@ export const ConfirmSignup = () => (
           또는 아래 링크를 브라우저에 붙여 넣어 완료하실 수 있습니다.<br />
           or copy and paste this link to complete changing your email:
         </Text>
-        <code style={code}>{`{{ .ConfirmationURL }}`}</code>
+        <code style={code}>{`{{ .SiteURL }}/account/migration/confirm?token_hash={{ .TokenHash }}&type=change_email`}</code>
         <hr style={hr} />
         <Text
           style={{

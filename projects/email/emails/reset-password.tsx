@@ -65,7 +65,7 @@ export const ConfirmSignup = () => (
           또는 아래 링크를 붙여 넣어 완료하실 수 있습니다.<br />
           or copy and paste this link:
         </Text>
-        <code style={code}>{`{{ .ConfirmationURL }}`}</code>
+        <code style={code}>{`{{ .SiteURL }}/account/reset/confirm?token_hash={{ .TokenHash }}&type=reset`}</code>
         <hr style={hr} />
         <Text
           style={{
