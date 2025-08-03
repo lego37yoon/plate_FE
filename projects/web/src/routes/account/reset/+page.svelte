@@ -1,40 +1,10 @@
 <script lang="ts">
     import { m } from "$lib/paraglide/messages";
-    import { localizeHref } from "$lib/paraglide/runtime";
-    import { supabase } from "$lib/supabase";
-    import { redirect } from "@sveltejs/kit";
-    import { Button, Label, Separator } from "bits-ui";
-    import { ArrowRight, Code, Info, RefreshCw, TriangleAlert, UserRoundPlus } from "lucide-svelte";
+    import { Button, Label } from "bits-ui";
+    import { ArrowRight, Info, TriangleAlert } from "lucide-svelte";
+    import type { PageProps } from "./$types";
 
-    let isError = $state(false);
-    let errorMessage = $state("");
-    let resultMessage = $state("");
-
-    async function reset(e : SubmitEvent) {
-      e.preventDefault();
-
-      const formData = new FormData(e.currentTarget as HTMLFormElement);
-      const email = formData.get("email");
-      
-      isError = false;
-
-      if (email) {
-        const { error } = await supabase.auth.resetPasswordForEmail(email.toString(), {
-          redirectTo: localizeHref("/account/reset/step2")
-        });
-
-        if (error) {
-          errorMessage = m["account.reset_send_failed"]();
-          isError = true;
-        } else {
-          resultMessage = m["account.reset_send_success"]();
-
-          setTimeout(() => { 
-            resultMessage = m["account.reset_send_after_info"]();
-          }, 10000);
-        }
-      }
-    }
+    let { form }:PageProps = $props();
 </script>
 
 <svelte:head>
@@ -44,11 +14,11 @@
 <h1 class="text-3xl text-primary">{m["title.reset"]()}</h1>
 <p class="mb-6 font-normal text-sm text-lime-900">{m["account.reset_desc"]()}</p>
 
-<form onsubmit={(e) => reset(e)}>
-  {#if isError}
+<form method="POST">
+  {#if form?.isError}
   <section id="error-message" class="flex gap-2 border border-red-900 bg-red-50 rounded-lg w-full md:max-w-80 p-2 items-center mb-2">
     <TriangleAlert size={24} class="text-red-900" />
-    <span class="text-red-900">{errorMessage}</span>
+    <span class="text-red-900">{form?.errorMessage}</span>
   </section>
   {/if}
 
@@ -67,10 +37,10 @@
     <ArrowRight size={20} />
   </Button.Root>
 
-  {#if resultMessage.length > 0}
+  {#if form?.resultMessage && form.resultMessage.length > 0}
   <section id="result-message" class="flex gap-2 border border-lime-900 bg-green-50 rounded-lg w-full md:max-w-80 p-2 items-center mb-2">
-    <Info size={24} class="text-lime-900" />
-    <span class="text-lime-900">{resultMessage}</span>
+    <Info size={24} class="text-lime-900 min-w-5" />
+    <span class="text-lime-900">{form.resultMessage}</span>
   </section>
   {/if}
 </form>

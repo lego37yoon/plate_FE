@@ -1,41 +1,25 @@
 <script lang="ts">
     import { m } from "$lib/paraglide/messages";
-    import { supabase } from "$lib/supabase";
     import { Button, Label } from "bits-ui";
-    import { ArrowRight, Info, TriangleAlert } from "lucide-svelte";
-    import { error as kitError } from "@sveltejs/kit";
+    import { ArrowRight, TriangleAlert } from "lucide-svelte";
+    import type { PageProps } from "./$types";
 
     let isError = $state(false);
     let errorMessage = $state("");
+    let { form }:PageProps = $props();
 
-    async function changePassword(e : SubmitEvent) {
-      e.preventDefault();
 
+    async function validatePassword(e : SubmitEvent) {
+      isError = false;
+      
       const formData = new FormData(e.currentTarget as HTMLFormElement);
       const password = formData.get("password");
-      
-      isError = false;
+      const retype = formData.get("retype");
 
-      if (password) {
-        const { error } = await supabase.auth.updateUser({
-          password: password.toString()
-        });
-
-        if (error) {
-          errorMessage = m["account.change_password_failed"]();
-          isError = true;
-        } else {
-          const { error } = await supabase.auth.signOut();
-
-          const deleteCookieReq = await fetch("/api/account/logout");
-          
-          if (!deleteCookieReq.ok || error && error.status) {
-              kitError(
-                  error ? (error.status ?? 500) : 500,
-                  m.profile_logout_error()
-              );
-          }
-        }
+      if (password === retype) {
+        e.preventDefault();
+        isError = true;
+        errorMessage = m["account.change_password_not_same"]()
       }
     }
 </script>
@@ -47,11 +31,11 @@
 <h1 class="text-3xl text-primary">{m["account.change_password_title"]()}</h1>
 <p class="mb-6 font-normal text-sm text-lime-900">{m["account.reset_desc"]()}</p>
 
-<form onsubmit={(e) => changePassword(e)}>
-  {#if isError}
+<form onsubmit={(e) => validatePassword(e)} method="POST">
+  {#if isError || form?.isError}
   <section id="error-message" class="flex gap-2 border border-red-900 bg-red-50 rounded-lg w-full md:max-w-80 p-2 items-center mb-2">
     <TriangleAlert size={24} class="text-red-900" />
-    <span class="text-red-900">{errorMessage}</span>
+    <span class="text-red-900">{isError ? errorMessage : form?.errorMessage}</span>
   </section>
   {/if}
 
