@@ -2,3 +2,4 @@
 .yarn/install-state.gz
 out
 .env
+node_modules
