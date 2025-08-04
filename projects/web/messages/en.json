@@ -87,6 +87,7 @@
 		"reset_send_after_info": "Cannot find a mail? Check if our mail categorized as spam or Try to send once again.",
 		"change_password_failed": "Failed to change your password. Try again later.",
 		"change_password_not_same": "Value of two password fields are not same.",
+		"change_password_retype": "Re-type password",
 		"change_password_title": "Enter new password",
 		"change_password_btn": "Change and Re-login"
 	},
