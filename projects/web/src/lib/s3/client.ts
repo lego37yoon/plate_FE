@@ -30,7 +30,7 @@ export async function UploadObject(file: File, name: string, path: string | null
 
     try {
       await s3.putObject(params);
-      resolve(`${S3_ALIAS}/${path}/${name}`);
+      resolve(`${S3_ALIAS}/${path}${name}`);
     } catch (err) {
       reject(err);
     }
