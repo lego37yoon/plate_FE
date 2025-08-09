@@ -1,8 +1,15 @@
 # Locale Codes
 
-[![Travis](https://img.shields.io/travis/TiagoDanin/Locale-Codes.svg?branch=master&style=flat-square)](https://travis-ci.org/TiagoDanin/Locale-Codes) [![Downloads](https://img.shields.io/npm/dt/locale-codes.svg?style=flat-square)](https://npmjs.org/package/locale-codes) [![Node](https://img.shields.io/node/v/locale-codes.svg?style=flat-square)](https://npmjs.org/package/locale-codes) [![Version](https://img.shields.io/npm/v/locale-codes.svg?style=flat-square)](https://npmjs.org/package/locale-codes) [![XO code style](https://img.shields.io/badge/code%20style-XO-red.svg?style=flat-square)](https://github.com/xojs/xo) 
-
  Language codes & country codes
+ Originally written by Tiago Danin. Modified by paperbox for this project.
+
+ > This project uses subtree added by squash mode, so you can see original code at https://github.com/TiagoDanin/Locale-Codes
+
+## Difference with original project
+
+- using newer version of Yarn, dev dependencies, remove deprecated or unused settings.
+- using ES Module grammer (`import`) instaed of CommonJS one.(`require`)
+- add lower tag mode (use _ instead of - in language tags) for this project
 
 ## Installation
 
@@ -910,13 +917,25 @@ yarn test
 	<summary><a href="https://ghub.io/tsd">tsd</a>: Check TypeScript type definitions</summary>
 	<b>Author</b>: Sam Verschueren</br>
 	<b>License</b>: MIT</br>
-	<b>Version</b>: ^0.11.0
+	<b>Version</b>: ^0.33.0
 </details>
 <details>
 	<summary><a href="https://ghub.io/xo">xo</a>: JavaScript/TypeScript linter with great defaults</summary>
 	<b>Author</b>: Sindre Sorhus</br>
 	<b>License</b>: MIT</br>
-	<b>Version</b>: ^0.30.0
+	<b>Version</b>: ^1.2.1
+</details>
+<details>
+	<summary><a href="https://github.com/yarnpkg/berry">@yarnpkg/sdks</a>: Generate editor SDKs and settings for Yarn Berry's PnP feature.</summary>
+	<b>Author</b>: Yarn</br>
+	<b>License</b>: BSD-2-Clause</br>
+	<b>Version</b>: ^3.2.2
+</details>
+<details>
+	<summary><a href="https://ghub.io/typescript">@microsoft/typescript</a>: Make @yarnpkg/sdks generate editor SDKs for TypeScript definitions inside this package.</summary>
+	<b>Author</b>: Microsoft Corporation</br>
+	<b>License</b>: Apache 2.0</br>
+	<b>Version</b>: ^5.9.2
 </details>
 
 ## Contributors
