@@ -1,16 +1,14 @@
 # Langs
 
-<img src="http://media.giphy.com/media/ZJqPtMjmHbNN6/giphy.gif" alt="Langs" align="right" width=280/>
-
-[![Master branch build status][ico-build]][travis]
-[![Published version][ico-package]][npm]
 [![MIT Licensed][ico-license]][license]
 
-### `$ npm install langs`
-
 This library provides ISO 639-1/2/3 language codes with English and local
-names. It can be installed in whichever way you prefer, but I recommend
-[NPM][npm].
+names. It can be installed from npm registry orignally from the [source](https://github.com/adlawson/nodejs-langs), but in this project it locally installed with yarn package manager.
+
+## Difference between original package and this package
+
+- use newer JavaScript, Node.js grammer, but compatible with @types/langs package.
+- update dev dependecies for test
 
 ## What's with all the ISO version numbers?
 ISO 639 is broken up into many different parts, each either defining language
@@ -28,120 +26,108 @@ Arabic `arb` and Arabic `ara`. There's more information on the
 
 ## Documentation
 ```js
-var langs = require('langs');
+import { all, names, codes, where, has } from 'langs';
 
-langs.all();
+all();
 // [
 //     {"name":"English", "local":"English", "1":"en", "2":"eng", "2T":"eng", "2B":"eng", "3":"eng"},
 //     {"name":"Korean", "local":"한국어", "1":"ko", "2":"kor", "2T":"kor", "2B":"kor", "3":"kor"},
 //     ...
 // ]
 
-langs.names();
+names();
 // [
 //     "English",
 //     "Korean",
 //     ...
 // ]
 
-langs.names(true);
+names(true);
 // [
 //     "English",
 //     "한국어",
 //     ...
 // ]
 
-langs.codes("1");
+codes("1");
 // [
 //     "en",
 //     "ko",
 //     ...
 // ]
 
-langs.codes("2T" /*same as "2"*/);
+codes("2T" /*same as "2"*/);
 // [
 //     "eng",
 //     "kor",
 //     ...
 // ]
 
-langs.codes("2B");
+codes("2B");
 // [
 //     "eng",
 //     "kor",
 //     ...
 // ]
 
-langs.codes("3");
+codes("3");
 // [
 //     "eng",
 //     "kor",
 //     ...
 // ]
 
-langs.where("name", "Korean");
+where("name", "Korean");
 // {"name":"Korean", "local":"한국어", "1":"ko", "2":"kor", "2T":"kor", "2B":"kor", "3":"kor"}
 
-langs.where("local", "한국어, 조선어");
+where("local", "한국어, 조선어");
 // {"name":"Korean", "local":"한국어", "1":"ko", "2":"kor", "2T":"kor", "2B":"kor", "3":"kor"}
 
-langs.where("1", "ko");
+where("1", "ko");
 // {"name":"Korean", "local":"한국어", "1":"ko", "2":"kor", "2T":"kor", "2B":"kor", "3":"kor"}
 
-langs.where("2", "kor");
+where("2", "kor");
 // {"name":"Korean", "local":"한국어", "1":"ko", "2":"kor", "2T":"kor", "2B":"kor", "3":"kor"}
 
-langs.where("2T", "kor");
+where("2T", "kor");
 // {"name":"Korean", "local":"한국어", "1":"ko", "2":"kor", "2T":"kor", "2B":"kor", "3":"kor"}
 
-langs.where("2B", "kor");
+where("2B", "kor");
 // {"name":"Korean", "local":"한국어", "1":"ko", "2":"kor", "2T":"kor", "2B":"kor", "3":"kor"}
 
-langs.where("3", "kor");
+where("3", "kor");
 // {"name":"Korean", "local":"한국어", "1":"ko", "2":"kor", "2T":"kor", "2B":"kor", "3":"kor"}
 
-langs.has("name", "Korean");
+has("name", "Korean");
 // true
 
-langs.has("local", "한국어, 조선어");
+has("local", "한국어, 조선어");
 // true
 
-langs.has("1", "ko");
+has("1", "ko");
 // true
 
-langs.has("2", "kor");
+has("2", "kor");
 // true
 
-langs.has("2T", "kor");
+has("2T", "kor");
 // true
 
-langs.has("2B", "kor");
+has("2B", "kor");
 // true
 
-langs.has("3", "kor");
+has("3", "kor");
 // true
 
-langs.has("name", "Geordie");
+has("name", "Geordie");
 // false
 
-langs.has("high", "fives");
+has("high", "fives");
 // false
-```
-
-## Contributing
-I accept contributions to the source via Pull Request, but passing unit tests
-must be included before it will be considered for merge.
-```bash
-$ curl -O https://raw.githubusercontent.com/adlawson/vagrantfiles/master/nodejs/Vagrantfile
-$ vagrant up
-$ vagrant ssh
-$ cd /srv
-
-$ npm test
 ```
 
 ### License
-The content of this library is released under the **MIT License** by
+The content of this library is originally released under the **MIT License** by
 **Andrew Lawson**.<br/> You can find a copy of this license in
 [`LICENSE`][license] or at http://www.opensource.org/licenses/mit.
 

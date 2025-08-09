@@ -8,6 +8,9 @@
     },
     {
       "path": "projects/locale"
+    },
+    {
+      "path": "projects/langs"
     }
   ],
   "settings": {

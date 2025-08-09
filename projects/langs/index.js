@@ -1,6 +1,6 @@
-var data = require('./data');
+import data, { length } from './data';
 
-var langs = {
+const langs = {
     all:   allLanguages,
     has:   hasLanguage,
     codes: getCodes,
@@ -8,7 +8,7 @@ var langs = {
     where: findBy
 };
 
-module.exports = langs;
+export default langs;
 
 // allLanguages :: -> Language[]
 function allLanguages() {
@@ -38,7 +38,7 @@ function getNames(local) {
 
 // findBy :: String, String -> Language
 function findBy(crit, val) {
-    for (var i = 0; i < data.length; i++) {
+    for (let i = 0; i < length; i++) {
         if (val === data[i][crit]) {
             return data[i];
         }
@@ -47,7 +47,7 @@ function findBy(crit, val) {
 
 // forAll :: Array, Function -> Array
 function forAll(arr, fn) {
-    var out = [], i;
+    let out = [], i;
     for (i = 0; i < arr.length; i++) {
         out.push(fn(arr[i], i));
     }
@@ -57,6 +57,6 @@ function forAll(arr, fn) {
 
 // isValidType :: String -> Boolean
 function isValidType(type) {
-    var types = [1, 2, 3, '1', '2', '2B', '2T', '3'];
+    let types = [1, 2, 3, '1', '2', '2B', '2T', '3'];
     return -1 !== types.indexOf(type);
 }

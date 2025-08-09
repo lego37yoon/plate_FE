@@ -41,6 +41,12 @@ Weblate, Pontoon 등과 비교했을 때 아래와 같은 주요 기능을 추�
 
 언어 코드를 가져오는 데 사용하는 [locale-codes](https://github.com/TiagoDanin/Locale-Codes) 패키지를 본 프로젝트의 필요에 맞게 업데이트 및 수정하여 관리합니다. 원본 소스코드가 과거 버전에 머물러 있기에, 가급적 최신 사양에 맞게 갱신하고 신규 속성 값을 추가하는 작업을 진행할 예정입니다.
 
+### nodejs-langs
+
+[프로젝트 저장소](./projects/langs/)를 확인하세요.
+
+Locale Codes의 의존성 패키지인 nodejs-langs 패키지가 오래됨에 따라 최신 사양에 맞도록 업데이트하는 저장소입니다.
+
 ### Back-end
 
 - Supabase Cloud 또는 Self-Hosted Supabase가 필요합니다.
@@ -75,6 +81,7 @@ v1에서 사용하는 접두사는 그대로 사용하되, 프로젝트 구분�
 | (web) | 프론트엔드 웹 앱에서 발생하는 변경사항에 붙입니다. |
 | (email) | Supabase 인증 과정에서 사용하는 이메일 템플릿 관련 변경사항에 붙입니다. |
 | (locale) | locale-codes 패키지를 fork한 후 발생한 변경 사항을 반영합니다. |
+| (langs) | nodejs-langs 패키지를 fork한 후 발생한 변경 사항을 반영합니다. |
 
 백엔드 및 AI 관련 저장소는 Yarn monorepo를 사용하기 어려운 환경이므로 별도의 저장소로 분리하여 제공할 예정입니다. 개발 시 문서를 갱신하여 연결 가능한 링크를 덧붙이게 됩니다.
 
