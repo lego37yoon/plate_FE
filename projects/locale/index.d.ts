@@ -19,9 +19,11 @@ declare namespace localeCodes {
 
 		/**
 		 * Tag for the locale - e.g. English (UK) becomes: en-GB
+		 * Lower Tag uses _ instaed - ; e.g. English (UK) becomes en_GB instaed of en-GB
 		 * Provided by LCID
 		 */
 		tag: string;
+		lowerTag: string;
 
 		/**
 		 * Windows LCID decimal identifier for a locale

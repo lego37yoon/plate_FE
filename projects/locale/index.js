@@ -14,6 +14,7 @@ lcidKeys.map(id => {
 		local: null,
 		location: lcid[lcidLanguage].location,
 		tag: lcid[lcidLanguage].tag,
+		lowerTag: lcid[lcidLanguage].tag.replaceAll('-', '_'),
 		lcid: lcid[lcidLanguage].id,
 		'iso639-2': null,
 		'iso639-1': null
@@ -56,6 +57,8 @@ const getByLocation = text => where('location', text)
 
 const getByTag = text => where('tag', text)
 
+const getByLowerTag = text => where('lowerTag', text)
+
 const getByLCID = id => where('lcid', Number(id))
 
 const getByISO6392 = text => where('iso639-2', text)
@@ -69,6 +72,7 @@ export default {
 	getByNameLocal,
 	getByLocation,
 	getByTag,
+	getByLowerTag,
 	getByLCID,
 	getByISO6392,
 	getByISO6391
