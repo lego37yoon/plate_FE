@@ -2,13 +2,20 @@
 	"name": "locale-codes",
 	"main": "index.js",
 	"preferGlobal": false,
-	"version": "1.3.1",
-	"description": " Language codes & country codes",
+	"version": "1.3.2-paperbox",
+	"description": " Language codes and Country codes. Originally written by Tiago Danin. Modified by paperbox, for Plate project.",
 	"author": {
 		"name": "Tiago Danin",
 		"email": "TiagoDanin@outlook.com",
 		"url": "https://TiagoDanin.github.io"
 	},
+	"contributors": [
+		{
+			"name": "Jungmin Yoon",
+			"email": "7126454+lego37yoon@users.noreply.github.com",
+			"url": "https://paperbox.pe.kr"
+		}
+	],
 	"license": "MIT",
 	"keywords": [
 		"code",
@@ -39,7 +46,6 @@
 	"engines": {
 		"node": ">=v14.17.4"
 	},
-	"private": false,
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/TiagoDanin/Locale-Codes.git"
@@ -64,8 +70,10 @@
 		"windows-locale": "^1.1.0"
 	},
 	"devDependencies": {
-		"tsd": "^0.13.1",
-		"xo": "^0.30.0"
+		"@yarnpkg/sdks": "^3.2.2",
+		"tsd": "^0.33.0",
+		"typescript": "^5.9.2",
+		"xo": "^1.2.1"
 	},
 	"xo": {
 		"semicolon": false,
