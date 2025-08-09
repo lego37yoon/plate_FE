@@ -5,6 +5,9 @@
     },
     {
       "path": "projects/email"
+    },
+    {
+      "path": "projects/locale"
     }
   ],
   "settings": {
