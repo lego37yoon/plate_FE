@@ -28,6 +28,7 @@ const RAW_RUNTIME_STATE =
       [null, {\
         "packageLocation": "./",\
         "packageDependencies": [\
+          ["@types/langs", "npm:2.0.5"],\
           ["@yarnpkg/sdks", "npm:3.2.2"],\
           ["iso639-codes", "npm:1.0.1"],\
           ["langs", "npm:2.0.0"],\
@@ -613,6 +614,15 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@types/keyv", "npm:3.1.4"],\
           ["@types/node", "npm:14.0.5"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@types/langs", [\
+      ["npm:2.0.5", {\
+        "packageLocation": "../../../../../../home/paperbox/.yarn/berry/cache/@types-langs-npm-2.0.5-8c761248b9-10c0.zip/node_modules/@types/langs/",\
+        "packageDependencies": [\
+          ["@types/langs", "npm:2.0.5"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -4541,6 +4551,7 @@ const RAW_RUNTIME_STATE =
       ["workspace:.", {\
         "packageLocation": "./",\
         "packageDependencies": [\
+          ["@types/langs", "npm:2.0.5"],\
           ["@yarnpkg/sdks", "npm:3.2.2"],\
           ["iso639-codes", "npm:1.0.1"],\
           ["langs", "npm:2.0.0"],\

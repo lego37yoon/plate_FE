@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions, @typescript-eslint/no-unused-vars */
-import * as locale from '.'
+import locale from '.'
 import {ILocale} from '.'
 
 locale.all // [language: '...']

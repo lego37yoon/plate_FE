@@ -474,6 +474,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/langs@npm:^2.0.5":
+  version: 2.0.5
+  resolution: "@types/langs@npm:2.0.5"
+  checksum: 10c0/91f76173d2457788d947ad5d9f42364166117ef036a1a62a6b410319fc5ea0bdd5350aea7ed5e90b7ab280386f4bfa0eb20a280df1234d41203be337ac4b8d0a
+  languageName: node
+  linkType: hard
+
 "@types/minimist@npm:^1.2.0":
   version: 1.2.0
   resolution: "@types/minimist@npm:1.2.0"
@@ -3706,6 +3713,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "locale-codes@workspace:."
   dependencies:
+    "@types/langs": "npm:^2.0.5"
     "@yarnpkg/sdks": "npm:^3.2.2"
     iso639-codes: "npm:^1.0.1"
     langs: "npm:^2.0.0"

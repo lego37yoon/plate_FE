@@ -1,6 +1,6 @@
-const lcid = require('windows-locale')
-const iso = require('iso639-codes')
-const langs = require('langs').all()
+import lcid from 'windows-locale'
+import iso from 'iso639-codes'
+import langs from 'langs'
 
 const all = []
 
@@ -65,7 +65,7 @@ const getByISO6392 = text => where('iso639-2', text)
 
 const getByISO6391 = text => where('iso639-1', text)
 
-module.exports = {
+export default {
 	all,
 	where,
 	getByName,

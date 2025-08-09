@@ -1,5 +1,5 @@
 import {expectType} from 'tsd'
-import * as localeCodes from '.'
+import localeCodes from '.'
 import {ILocale} from '.'
 
 expectType<ILocale[]>(localeCodes.all)

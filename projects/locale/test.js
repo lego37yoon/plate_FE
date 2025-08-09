@@ -1,9 +1,9 @@
-const locale = require('.')
-const assert = require('assert')
+import { all, getByTag } from '.'
+import { equal } from 'assert'
 
-assert.equal(locale.all.length > 20, true)
-assert.equal(locale.getByTag('pt-br').name, 'Portuguese')
-assert.equal(locale.getByTag('pt-br').local, 'Português')
-assert.equal(locale.getByTag('js-best'), undefined)
+equal(all.length > 20, true)
+equal(getByTag('pt-br').name, 'Portuguese')
+equal(getByTag('pt-br').local, 'Português')
+equal(getByTag('js-best'), undefined)
 
 console.log('Done!')

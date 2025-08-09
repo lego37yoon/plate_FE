@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-expressions */
-const locale = require('.')
+import { all, getByTag, where } from '.'
 
-locale.all // [language: '...']
-locale.getByTag('pt-br').name // 'Portuguese'
-locale.where('tag', 'pt-br').name // 'Portuguese'
+all // [language: '...']
+getByTag('pt-br').name // 'Portuguese'
+where('tag', 'pt-br').name // 'Portuguese'

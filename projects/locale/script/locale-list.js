@@ -1,6 +1,6 @@
-const locale = require('..')
+import { all } from '..'
 
-locale.all.map(locale => {
+all.map(locale => {
 	console.log(
 		locale.name, '|',
 		locale.local, '|',
