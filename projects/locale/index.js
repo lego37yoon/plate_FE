@@ -4,14 +4,11 @@ import langs from 'langs'
 
 const all = []
 
-let lcidLanguage
-let isoLanguage
-
 const lcidKeys = Object.keys(lcid)
 const isoKeys = Object.keys(iso)
 
 lcidKeys.map(id => {
-	lcidLanguage = id
+	const lcidLanguage = id
 	const locale = {
 		name: lcid[lcidLanguage].language,
 		local: null,
@@ -22,7 +19,7 @@ lcidKeys.map(id => {
 		'iso639-1': null
 	}
 
-	isoLanguage = isoKeys.find(name => name.toLowerCase() === lcid[lcidLanguage].language.toLowerCase())
+	const isoLanguage = isoKeys.find(name => name.toLowerCase() === lcid[lcidLanguage].language.toLowerCase())
 	if (isoLanguage) {
 		locale['iso639-2'] = iso[isoLanguage]['iso639-2']
 		locale['iso639-1'] = iso[isoLanguage]['iso639-1']
