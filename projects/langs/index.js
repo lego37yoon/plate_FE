@@ -1,4 +1,4 @@
-import data, { length } from './data';
+import data from './data.js';
 
 const langs = {
     all:   allLanguages,
@@ -38,7 +38,7 @@ function getNames(local) {
 
 // findBy :: String, String -> Language
 function findBy(crit, val) {
-    for (let i = 0; i < length; i++) {
+    for (let i = 0; i < data.length; i++) {
         if (val === data[i][crit]) {
             return data[i];
         }
