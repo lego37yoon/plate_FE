@@ -1,4 +1,4 @@
-import { all } from '..'
+import {all} from '../index.js'
 
 all.map(locale => {
 	console.log(

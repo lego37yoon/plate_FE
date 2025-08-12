@@ -1,5 +1,5 @@
-import { all, getByTag } from '.'
-import { equal } from 'assert'
+import {equal} from 'node:assert'
+import {all, getByTag} from './index.js'
 
 equal(all.length > 20, true)
 equal(getByTag('pt-br').name, 'Portuguese')

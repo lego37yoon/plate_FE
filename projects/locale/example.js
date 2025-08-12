@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-expressions */
-import { all, getByTag, where } from '.'
+import {all, getByTag, where} from './index.js'
 
 all // [language: '...']
 getByTag('pt-br').name // 'Portuguese'

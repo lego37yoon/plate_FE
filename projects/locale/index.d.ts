@@ -1,5 +1,5 @@
 declare namespace localeCodes {
-	interface ILocale {
+	type ILocale = {
 		/**
 		 * The name of the locale in English
 		 */

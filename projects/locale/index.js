@@ -17,7 +17,7 @@ lcidKeys.map(id => {
 		lowerTag: lcid[lcidLanguage].tag.replaceAll('-', '_'),
 		lcid: lcid[lcidLanguage].id,
 		'iso639-2': null,
-		'iso639-1': null
+		'iso639-1': null,
 	}
 
 	const isoLanguage = isoKeys.find(name => name.toLowerCase() === lcid[lcidLanguage].language.toLowerCase())
@@ -75,5 +75,5 @@ export default {
 	getByLowerTag,
 	getByLCID,
 	getByISO6392,
-	getByISO6391
+	getByISO6391,
 }

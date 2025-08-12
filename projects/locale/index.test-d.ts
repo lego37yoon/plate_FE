@@ -1,6 +1,6 @@
 import {expectType} from 'tsd'
-import localeCodes from '.'
-import {ILocale} from '.'
+import type {ILocale} from './index.js'
+import localeCodes from './index.js'
 
 expectType<ILocale[]>(localeCodes.all)
 expectType<ILocale>(localeCodes.where('name', ''))
