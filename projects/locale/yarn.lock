@@ -3676,10 +3676,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"langs@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "langs@npm:2.0.0"
-  checksum: 10c0/0eae81d768d579946f4df1c0fac29380e2ffc9071ffc037506754a09fa44c41ec0f0e61dc1ee384ea4b639d7de6cf68dd62083cc89a460eb302216792191b0a6
+"langs@file:../langs::locator=locale-codes%40workspace%3A.":
+  version: 2.0.1-paperbox
+  resolution: "langs@file:../langs#../langs::hash=ad004a&locator=locale-codes%40workspace%3A."
+  checksum: 10c0/89155fcec1b3316c8e5419714a9c99d05092e24845b3b83fc7f3db849bd085a7758984fe2e87e56fee8124da504d6cedef787995997570ce43ff3a236fa4ce7c
   languageName: node
   linkType: hard
 
@@ -3716,7 +3716,7 @@ __metadata:
     "@types/langs": "npm:^2.0.5"
     "@yarnpkg/sdks": "npm:^3.2.2"
     iso639-codes: "npm:^1.0.1"
-    langs: "npm:^2.0.0"
+    langs: "file:../langs"
     tsd: "npm:^0.33.0"
     typescript: "npm:^5.9.2"
     windows-locale: "npm:^1.1.0"

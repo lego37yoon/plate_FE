@@ -28,7 +28,7 @@ npm install locale-codes --save
 
 ```js
 /* eslint-disable no-unused-expressions */
-const locale = require('locale-codes')
+import locale from 'locale-codes'
 
 locale.all // [language: '...']
 locale.getByTag('pt-br').name // 'Portuguese'
@@ -39,8 +39,8 @@ locale.where('tag', 'pt-br').name // 'Portuguese'
 
 ```ts
 /* eslint-disable @typescript-eslint/no-unused-expressions, @typescript-eslint/no-unused-vars */
-import * as locale from 'locale-codes'
-import {ILocale} from '.'
+import locale from 'locale-codes'
+import type {ILocale} from './index.js'
 
 locale.all // [language: '...']
 const localeSelect: ILocale = locale.all[0]

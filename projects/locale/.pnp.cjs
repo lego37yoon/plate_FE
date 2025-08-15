@@ -31,7 +31,7 @@ const RAW_RUNTIME_STATE =
           ["@types/langs", "npm:2.0.5"],\
           ["@yarnpkg/sdks", "npm:3.2.2"],\
           ["iso639-codes", "npm:1.0.1"],\
-          ["langs", "npm:2.0.0"],\
+          ["langs", "file:../langs#../langs::hash=ad004a&locator=locale-codes%40workspace%3A."],\
           ["locale-codes", "workspace:."],\
           ["tsd", "npm:0.33.0"],\
           ["typescript", "patch:typescript@npm%3A5.9.2#optional!builtin<compat/typescript>::version=5.9.2&hash=5786d5"],\
@@ -4509,10 +4509,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["langs", [\
-      ["npm:2.0.0", {\
-        "packageLocation": "../../../../../../home/paperbox/.yarn/berry/cache/langs-npm-2.0.0-bb741ef8ff-10c0.zip/node_modules/langs/",\
+      ["file:../langs#../langs::hash=ad004a&locator=locale-codes%40workspace%3A.", {\
+        "packageLocation": "../../../../../../home/paperbox/.yarn/berry/cache/langs-file-b6d241e550-10c0.zip/node_modules/langs/",\
         "packageDependencies": [\
-          ["langs", "npm:2.0.0"]\
+          ["langs", "file:../langs#../langs::hash=ad004a&locator=locale-codes%40workspace%3A."]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -4554,7 +4554,7 @@ const RAW_RUNTIME_STATE =
           ["@types/langs", "npm:2.0.5"],\
           ["@yarnpkg/sdks", "npm:3.2.2"],\
           ["iso639-codes", "npm:1.0.1"],\
-          ["langs", "npm:2.0.0"],\
+          ["langs", "file:../langs#../langs::hash=ad004a&locator=locale-codes%40workspace%3A."],\
           ["locale-codes", "workspace:."],\
           ["tsd", "npm:0.33.0"],\
           ["typescript", "patch:typescript@npm%3A5.9.2#optional!builtin<compat/typescript>::version=5.9.2&hash=5786d5"],\
