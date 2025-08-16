@@ -1,0 +1,3 @@
+[submodule "projects/wlocale"]
+	path = projects/wlocale
+	url = https://github.com/lego37yoon/Windows-Locale
