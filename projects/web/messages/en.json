@@ -125,7 +125,8 @@
 		"add_project_register": "Create Project",
 		"add_project_src_lang": "Source Language of Resource",
 		"add_project_src_lang_select": "Select resource language",
-		"add_project_change_src_lang": "If you change source language of resource, previous source language will be kept as supported language."
+		"add_project_change_src_lang": "If you change source language of resource, previous source language will be kept as supported language.",
+		"add_project_langs_desc": "This project will support {supported} languages based on {source} language. You can add languages to support later."
 	},
 	"locale": {
 		"search_placeholder": "Filter by Language Code or Name",

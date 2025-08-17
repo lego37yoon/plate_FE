@@ -14,12 +14,13 @@
   let docsList = $state<File[]>([]);
 
   function supportedLangDisplay() {
-    const selected : string[] = [];
-
+    const selected : string[] = [];    
     supported_lang.map((code) => {
-      selected.push(
-        data.lang_codes.find((lang) => lang.code === code)?.origin_name
-      )
+      const origin = data.lang_codes.find((lang) => lang.code === code)?.origin_name
+
+      if (origin) {
+        selected.push(origin)
+      }
     });
 
     return selected.toString();
@@ -243,3 +244,11 @@
   <input type="hidden" name="supported_lang_real" value={supported_lang} />
   <input type="hidden" name="manager_real" value={manager} />
 </form>
+{#if supported_lang && src_lang}
+<section id="project_language_desc" class="my-2">
+  <p class="font-light">{m["projects.add_project_langs_desc"]({
+    supported: supportedLangDisplay(),
+    source: data.lang_codes.find((lang) => lang.code === src_lang)?.origin_name ?? ""
+  })}</p>
+</section>
+{/if}

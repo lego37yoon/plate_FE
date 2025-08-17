@@ -125,7 +125,8 @@
 		"add_project_register": "프로젝트 생성",
 		"add_project_src_lang": "번역 자원의 기본 언어",
 		"add_project_src_lang_select": "자원의 언어를 선택하세요.",
-		"add_project_change_src_lang": "번역 자원의 기본 언어를 변경하면, 기존 기본 언어는 지원 언어로 변경됩니다."
+		"add_project_change_src_lang": "번역 자원의 기본 언어를 변경하면, 기존 기본 언어는 지원 언어로 변경됩니다.",
+		"add_project_langs_desc": "이 프로젝트는 {source} 언어를 기반으로 {supported} 언어들을 지원하게 됩니다. 나중에 지원할 언어를 추가할 수 있습니다."
 	},
 	"locale": {
 		"search_placeholder": "언어 코드 또는 검색으로 수정",

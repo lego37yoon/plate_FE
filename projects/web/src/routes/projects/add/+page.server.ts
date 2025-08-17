@@ -4,18 +4,42 @@ import type { ProjectForm } from "../../../types/others";
 import { UploadObject } from "$lib/s3/client";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { parseAndUpdate } from "$lib/plate/parser";
+import { countries, languages, type TCountries, type TLanguages } from "countries-list";
 
 export const load: PageServerLoad = async ({ locals: { supabase }}) => {
-  const [codeReq, userReq] = await Promise.all([
-    supabase.from("lang_codes").select("code, origin_name"),
-    supabase.from("user").select("id, nick, avatar, pref_lang")
-  ]);
+  const userReq = await supabase.from("user").select("id, nick, avatar, pref_lang");
+  const codeReq:Lang_codes[] = [];
 
-  if (codeReq.error || userReq.error) {
-    throw kitError(500, `Fetching Language Code = ${codeReq.error ?? "Successful"} / Fetching User List = ${userReq.error ?? "Successful"}`);
+  Object.keys(countries).map(regionCode => {
+    const region = countries[regionCode as keyof TCountries];
+
+    if (region.languages.length > 0) {
+      region.languages.map(lang => {
+        codeReq.push({
+          code: `${lang}_${regionCode}`,
+          eng_name: `${languages[lang as keyof TLanguages].name} (${region.name})`,
+          origin_name: `${languages[lang as keyof TLanguages].native} (${region.native})`
+        });
+      });
+    }
+  });
+
+  if (userReq.error || codeReq.length === 0) {
+    throw kitError(500, `Fetching User List = ${userReq.error ?? "Successful"}`);
   } else {
     return {
-      lang_codes: codeReq.data,
+      lang_codes: codeReq.sort(function(a, b) {
+        const aCode = a.code.toUpperCase();
+        const bCode = b.code.toUpperCase();
+
+        if (aCode < bCode) {
+          return -1;
+        } else if (aCode > bCode) {
+          return 1;
+        }
+
+        return 0;
+      }),
       users: userReq.data
     }
   }
