@@ -7,6 +7,8 @@ export const GET:RequestHandler = async({ cookies, url, locals: { safeGetSession
   let userData : UserInfo | null = null;
   const { session, user } = await safeGetSession();
 
+  console.log(session, user);
+
   if (session && user) {
     if (userInfo) {
       userData = JSON.parse(userInfo);
@@ -20,10 +22,10 @@ export const GET:RequestHandler = async({ cookies, url, locals: { safeGetSession
             cookies.set("user", JSON.stringify(userData), { path: "/" });
           }
         } else {
-          throw redirect(303, localizeHref("/account/signup/step2"));
+          redirect(303, localizeHref("/account/signup/step2"));
         }
       } else {
-        throw redirect(303, localizeHref("/account/signup/step2"));
+        redirect(303, localizeHref("/account/signup/step2"));
       }
     }
   }

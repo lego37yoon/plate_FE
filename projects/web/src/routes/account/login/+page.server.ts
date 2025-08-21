@@ -43,10 +43,10 @@ export const actions: Actions = {
   },
   
   github: async ({ locals: { supabase }}) => {
-      const { error } = await supabase.auth.signInWithOAuth({
+      const { data, error } = await supabase.auth.signInWithOAuth({
         provider: "github",
         options: {
-          redirectTo: localizeHref("/account/login")
+          redirectTo: localizeHref("/account/login/github")
         }
       });
 
@@ -55,6 +55,8 @@ export const actions: Actions = {
           error: true,
           message: m["account.start_github_error"]()
         }
+      } else {
+        redirect(303, data.url);
       }
 
   }

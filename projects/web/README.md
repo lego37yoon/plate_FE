@@ -35,6 +35,10 @@ Then add tables and set RLSs (Row Level Policy) to adjust permissions. Details w
 | S3_PERMISSION | 비공개 여부입니다. 일부 호환 저장소에서 지원하지 않는 경우 private로 두어도 무방합니다. |
 | PUBLIC_BASE_URL | 프로젝트가 실행 중인 주소를 나타냅니다. 주소 끝에 `/` 기호는 입력하지 않습니다. |
 
+## Known Issues
+
+- See Issues tab in GitHub
+
 ## Open Source License
 
 - AWS SDK - [Apache 2.0 License](https://github.com/aws/aws-sdk-js-v3?tab=Apache-2.0-1-ov-file#readme)
