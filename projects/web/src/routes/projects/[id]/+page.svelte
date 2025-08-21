@@ -18,7 +18,7 @@
 <section id="project_desc">
   <h1 class="text-3xl text-primary">{data.projects[0].name}</h1>
   <p class="text-primary flex gap-1 items-center mb-4">
-    <a class="font-light" href={localizeHref("/home")}>Projects</a>
+    <a class="font-light" href={localizeHref("/projects")}>Projects</a>
     <ChevronRight size={16} />
     <span class="font-semibold">{data.projects[0].name}</span>
   </p>

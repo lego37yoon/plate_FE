@@ -22,7 +22,7 @@
             <span class="h-min">Plate</span>
         </a>
         <nav class="hidden gap-2 md:flex">
-            <MenuLink href="/home" enabled={enabled.includes("proj")}>{m["menu.proj"]()}</MenuLink>
+            <MenuLink href="/projects" enabled={enabled.includes("proj")}>{m["menu.proj"]()}</MenuLink>
             <MenuLink href="/locale" enabled={enabled.includes("lang")}>{m["menu.lang"]()}</MenuLink>
             <MenuLink href="/docs" enabled={enabled.includes("doc")}>{m["menu.doc"]()}</MenuLink>
             <MenuLink href="/glossary" enabled={enabled.includes("dic")}>{m["menu.glossary"]()}</MenuLink>        

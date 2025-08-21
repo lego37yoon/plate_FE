@@ -3,8 +3,8 @@
   import { localizeHref } from "$lib/paraglide/runtime";
   import { Button, Popover, Separator } from "bits-ui";
   import { HelpCircle, ListFilter, Plus } from "lucide-svelte";
-    import { getContext } from "svelte";
-    import type { UserRole } from "../../types/account";
+  import { getContext } from "svelte";
+  import type { UserRole } from "../../types/account";
 
   const { data: { role } } : { data : { role : UserRole | null | undefined }} = getContext("account");
 
