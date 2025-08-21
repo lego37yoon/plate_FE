@@ -2,6 +2,19 @@
 
 ## Getting Started
 
+### Setting up from Supabase
+
+#### Database
+
+Before test this project with new Supabase project, enable aggregate functions via following SQL command, at SQL Editor:
+
+```sql
+ALTER ROLE authenticator SET pgrst.db_aggregates_enabled = 'true';
+NOTIFY pgrst, 'reload config';
+```
+
+Then add tables and set RLSs (Row Level Policy) to adjust permissions. Details will be updated.
+
 ### Requirements
 
 - Node.js 20 이상 버전 필요
