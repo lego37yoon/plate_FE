@@ -1,6 +1,5 @@
 import { error as kitError, redirect, type Actions } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
-import type { ProjectForm } from "../../../types/others";
 import { UploadObject } from "$lib/s3/client";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { parseAndUpdate } from "$lib/plate/parser";
@@ -85,21 +84,21 @@ export const actions: Actions = {
           if (!error) {
             if (files) {
               if (Array.isArray(files)) {
-                files.forEach((file: File, idx: number) => {
-                  uploadFiles(file, data[0].id, supabase, "resource", idx, f);
+                files.forEach(async (file: File, idx: number) => {
+                  await uploadFiles(file, data[0].id, supabase, "resource", idx, f);
                 })
               } else {
-                uploadFiles(files as File, data[0].id, supabase, "resource", 0, f);
+                await uploadFiles(files as File, data[0].id, supabase, "resource", 0, f);
               }
             }
             
             if (docs) {
               if (Array.isArray(docs)) {
-                docs.forEach((doc, idx) => {
-                  uploadFiles(doc as File, data[0].id, supabase, "doc", idx);
+                docs.forEach(async (doc, idx) => {
+                  await uploadFiles(doc as File, data[0].id, supabase, "doc", idx);
                 })
               } else {
-                uploadFiles(docs as File, data[0].id, supabase, "doc", 0, f);
+                await uploadFiles(docs as File, data[0].id, supabase, "doc", 0, f);
               }
             }
 
