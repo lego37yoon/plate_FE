@@ -4,7 +4,11 @@ import { error as kitError } from "@sveltejs/kit";
 export const load: PageServerLoad = async ({ params, locals: { supabase }}) => {
   const { data, error } = await supabase.from("projects").select(`
     *,
-    files(count),
+    files(
+      name,
+      src,
+      last_updated
+    ),
     langs(
       code,
       lang_codes (
@@ -16,6 +20,8 @@ export const load: PageServerLoad = async ({ params, locals: { supabase }}) => {
   if (error) {
     throw kitError(500, error.message); 
   } else {
+    console.log(data[0].files);
+
     return { projects: data };
   }
 }

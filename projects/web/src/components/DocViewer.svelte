@@ -1,30 +1,32 @@
 <script lang="ts">
     import { browser } from "$app/environment";
-    import { Button } from "bits-ui";
+    import { Button, Separator } from "bits-ui";
     import { Calendar, UserRound, X } from "lucide-svelte";
     import MarkdownIt from "markdown-it";
-    import type { Writable } from "svelte/store";
 
-    const { isOpen, docMeta, doc } : { isOpen: Writable<boolean>, docMeta: Docs, doc: string } = $props();
+    const { doc } : { doc: Docs } = $props();
     const mdParser = MarkdownIt();
     let renderResult = $state<string|null>(null);
 
     function closeViewer() {
-        isOpen.set(false);
+        doc.isOpen = false;
     }
 
-    if (browser) {
-        renderResult = mdParser.render(doc);
+    if (browser && doc.body) {
+        renderResult = mdParser.render(doc.body);
     }
 </script>
 
-<section id="docs" class="shadow-md z-0 flex flex-col"> 
-    <div id="docs-buttonset">
-        <Button.Root onclick={closeViewer} class="rounded-md">
-            <X size={48} />
+<section id="docs" class="shadow-md -ms-4 ps-6 py-4 pe-4 rounded-xl my-2 me-2 bg-white z-0 flex flex-col shrink "> 
+    <div id="docs-buttonset" class="flex justify-between items-center">
+        <h1 class="text-3xl text-primary">{doc.meta ? doc.meta.title.slice(0, -3) : "Untitled"}</h1>
+        <Button.Root onclick={closeViewer} class="rounded-md p-2 bg-secondary">
+            <X size={24} />
         </Button.Root>
     </div>
-    <h1>{docMeta.title}</h1>
+
+    <Separator.Root class="bg-gray-300 my-4 w-full block h-px" />
+    
     <div id="docs-info">
         <!-- TODO: GET LAST UPDATED DATA
         <p class="text-gray-400 flex gap-2">

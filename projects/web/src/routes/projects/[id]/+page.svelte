@@ -2,13 +2,40 @@
   import { m } from '$lib/paraglide/messages';
   import { localizeHref } from '$lib/paraglide/runtime';
   import { Button, Popover, Separator } from 'bits-ui';
-  import { Calendar, ChevronRight, HelpCircle, Languages, ListFilter, Plus, Regex } from 'lucide-svelte';
+  import { Calendar, ChevronRight, FileText, HelpCircle, Languages, ListFilter, Plus, Regex } from 'lucide-svelte';
   import { getContext } from 'svelte';
   import type { UserRole } from '../../../types/account.js';
+
+  type Doc = {
+    name: string, src: string, last_updated: string
+  }
 
   const { data: { role } } : { data : { role : UserRole | null | undefined }} = getContext("account");
 
   let { data } = $props();
+  const docs = data.projects[0].files.filter(
+    (doc : Doc) => doc.name.endsWith(".md")
+  );
+  const docOrigin = getContext<Docs>("doc");
+
+  async function openDocument(doc: Doc) {
+    docOrigin.meta = {
+      src: doc.src,
+      title: doc.name,
+      last: doc.last_updated,
+      lang: "markdown"
+    };
+    const docBodyReq = await fetch(doc.src);
+
+    if (docBodyReq.ok) {
+      docOrigin.body = await docBodyReq.text();
+    } else {
+      docOrigin.error = true;
+      docOrigin.errorMessage = docBodyReq.statusText;
+    }
+
+    docOrigin.isOpen = true;
+  }
 </script>
 {#if data.projects && data.projects.length > 0}
 <svetle:head>
@@ -48,6 +75,14 @@
     </Button.Root> 
   </div>
   <div id="manage-and-docs" class="flex gap-2 flex-wrap">
+    {#if docs.length > 0}
+      {#each docs as doc}
+      <Button.Root type="button" class="rounded-lg bg-secondary flex gap-2 justify-center items-center py-2 px-3 cursor-pointer" onclick={() => openDocument(doc)}>
+        <FileText />
+        {doc.name.slice(0, -3)}
+      </Button.Root>
+      {/each}
+    {/if}
     {#if role && ["super_admin", "project_manager"].includes(role)}
       <Button.Root type="button" class="rounded-lg bg-secondary flex gap-2 justify-center items-center py-2 px-3 cursor-pointer">
         <Plus />
@@ -88,7 +123,7 @@
           </a>
         </td>
         <td class="text-end">{lang.code}</td>
-        <td class="text-end">{data.projects[0].files[0].count}</td>
+        <td class="text-end">{data.projects[0].files.length}</td>
         <td></td>
       </tr>
       {/each}

@@ -12,9 +12,7 @@
 
   let { children, data } : 
     { children: Snippet, data: 
-      { 
-        meta: Docs,
-        doc?: string,
+      {
         error?: number,
         session: Session | null,
         supabase: SupabaseClient,
@@ -32,9 +30,11 @@
       break;
   }
 
-  const isOpen = writable(false);
+  const doc = $state<Docs>({ meta: undefined, isOpen: false, error: false });
   const theme = $state<{ mode : "system"|"light"|"dark" }>({ mode: "system" });
   const info = $state({ data: data.info });
+
+  setContext("doc", doc);
   setContext("screenMode", theme);
   setContext("account", info);
 
@@ -56,16 +56,13 @@
 </script>
 
 <Header enabled={[null]} user={data.user} />
-<main>
-  <section class="shadow-md rounded-xl z-10 m-2 p-4 bg-white">
+<main class="flex">
+  <section class="shadow-md rounded-xl z-10 m-2 p-4 bg-white grow shrink min-w-1/2">
     {@render children()}
   </section>
-{#if isOpen && data.doc}
-  <DocViewer isOpen={isOpen} docMeta={data.meta} doc={data.doc} />
-{:else if $isOpen && data.error}
-  <DocViewer isOpen={isOpen} docMeta={data.meta} doc={error_message} />
+{#if doc.isOpen}
+  <DocViewer {doc} />
 {/if}
-
 </main>
 
 <style>

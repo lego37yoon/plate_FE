@@ -1,10 +1,14 @@
 type Docs = {
-    id: number, 
-    src: string, 
-    title: string, 
-    for: string,
-    related: number,
-    lang: string
+    meta: {
+        src: string, 
+        title: string, 
+        last: string,
+        lang: string,
+    } | undefined,
+    body?: string,
+    error: boolean,
+    errorMessage?: string,
+    isOpen: boolean
 }
 
 type Dictionary = {

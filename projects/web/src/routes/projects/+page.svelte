@@ -37,7 +37,7 @@
   </div>
 </section>
 
-<section id="project_list" class="py-2 overflow-scroll h-full">
+<section id="project_list" class="py-2 overflow-scroll">
   <table class="overflow-scroll w-full">
     <thead class="border border-transparent border-y-gray-300" >
       <tr class="text-primary">
