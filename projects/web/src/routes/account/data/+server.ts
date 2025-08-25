@@ -1,13 +1,12 @@
 import { redirect, type RequestHandler } from "@sveltejs/kit";
 import type { UserInfo } from "../../../types/account";
 import { localizeHref } from "$lib/paraglide/runtime";
+import { PUBLIC_BASE_URL } from "$env/static/public";
 
 export const GET:RequestHandler = async({ cookies, url, locals: { safeGetSession, supabase } }) => {
   const userInfo = cookies.get("user");
   let userData : UserInfo | null = null;
   const { session, user } = await safeGetSession();
-
-  console.log(session, user);
 
   if (session && user) {
     if (userInfo) {
@@ -22,10 +21,16 @@ export const GET:RequestHandler = async({ cookies, url, locals: { safeGetSession
             cookies.set("user", JSON.stringify(userData), { path: "/" });
           }
         } else {
-          redirect(303, localizeHref("/account/signup/step2"));
+          return Response.json({
+            redirect: true,
+            url: `${PUBLIC_BASE_URL}${localizeHref("/account/signup/step2")}`
+          });
         }
       } else {
-        redirect(303, localizeHref("/account/signup/step2"));
+        return Response.json({
+          redirect: true,
+          url: `${PUBLIC_BASE_URL}${localizeHref("/account/signup/step2")}`
+        });
       }
     }
   }

@@ -6,7 +6,6 @@
     import type { PageProps } from "./$types";
     import { goto } from "$app/navigation";
     import { localizeHref } from "$lib/paraglide/runtime";
-    import { returnFileSize } from "$lib/plate/files";
     import FileSection from "../../../../components/FileSection.svelte";
 
     let { data, form }: PageProps = $props();

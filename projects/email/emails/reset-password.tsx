@@ -46,7 +46,7 @@ export const ConfirmSignup = () => (
             Click the Confirm button to reset your password.
         </Text>
         <Button
-          href="{{ .ConfirmationURL }}"
+          href="{{ .SiteURL }}/account/reset/confirm?token_hash={{ .TokenHash }}&type=recovery"
           target="_blank"
           style={{
             background: "#ECEFD5",
@@ -65,7 +65,7 @@ export const ConfirmSignup = () => (
           또는 아래 링크를 붙여 넣어 완료하실 수 있습니다.<br />
           or copy and paste this link:
         </Text>
-        <code style={code}>{`{{ .SiteURL }}/account/reset/confirm?token_hash={{ .TokenHash }}&type=reset`}</code>
+        <code style={code}>{`{{ .SiteURL }}/account/reset/confirm?token_hash={{ .TokenHash }}&type=recovery`}</code>
         <hr style={hr} />
         <Text
           style={{

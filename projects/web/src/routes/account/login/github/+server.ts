@@ -16,13 +16,13 @@ export const GET = async (event) => {
         const { data } = await supabase.from("user").select().eq("uid", user.id);
 
         if (!data || data.length === 0) {
-          throw redirect(303, "/account/signup/step2");
+          redirect(303, "/account/signup/step2");
         }
       }
 
-      throw redirect(303, `/${next.slice(1)}`);
+      redirect(303, `/${next.slice(1)}`);
     }
   }
   
-  throw redirect(303, "/auth/auth-code-error");
+  redirect(303, "/auth/auth-code-error");
 }

@@ -3,6 +3,7 @@ import { PUBLIC_SUPABASE_ANON_KEY, PUBLIC_SUPABASE_PROJECT_URL } from "$env/stat
 import type { LayoutLoad } from "./$types";
 import type { PostgrestSingleResponse } from "@supabase/supabase-js";
 import { goto } from "$app/navigation";
+import { redirect } from "@sveltejs/kit";
 
 export const load:LayoutLoad = async ({ url, data, depends, fetch }) => {
   depends("supabase:auth");
@@ -22,11 +23,12 @@ export const load:LayoutLoad = async ({ url, data, depends, fetch }) => {
   const infoReq = await fetch("/account/data");
   
   if (infoReq.ok) {
-    if (infoReq.redirected) {
-      goto(infoReq.url);
-    }
-    
     const info = await infoReq.json();
+
+    if (info && info.redirect && !url.pathname.includes("step2")) {
+      redirect(303, info.url);
+    }
+
     if (docId) {
       const { data } : PostgrestSingleResponse<{
         id: number, src: string, title: string, for: string, related: number, lang: string
@@ -51,8 +53,8 @@ export const load:LayoutLoad = async ({ url, data, depends, fetch }) => {
       }
     }
 
-    return { session, supabase, user, info }; 
+    return { session, supabase, user, info };  
   }
-  
+
   return { session, supabase, user };
 }

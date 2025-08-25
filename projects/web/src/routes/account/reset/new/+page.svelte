@@ -16,7 +16,7 @@
       const password = formData.get("password");
       const retype = formData.get("retype");
 
-      if (password === retype) {
+      if (password !== retype) {
         e.preventDefault();
         isError = true;
         errorMessage = m["account.change_password_not_same"]()

@@ -2,6 +2,7 @@ import { m } from "$lib/paraglide/messages";
 import { localizeHref } from "$lib/paraglide/runtime";
 import { redirect } from "@sveltejs/kit";
 import type { Actions, PageServerLoad } from "./$types";
+import { PUBLIC_BASE_URL } from "$env/static/public";
 
 export const actions: Actions = {
   login: async ({ request, locals: { supabase }}) => {
@@ -46,7 +47,7 @@ export const actions: Actions = {
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: "github",
         options: {
-          redirectTo: localizeHref("/account/login/github")
+          redirectTo: `${PUBLIC_BASE_URL}${localizeHref("/account/login/github")}`
         }
       });
 

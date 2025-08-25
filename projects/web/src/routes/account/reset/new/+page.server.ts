@@ -1,7 +1,7 @@
 import { localizeHref } from "$lib/paraglide/runtime";
-import type { Actions } from "./$types";
+import type { Actions, PageServerLoad } from "./$types";
 import { m } from "$lib/paraglide/messages";
-import { error as kitError } from "@sveltejs/kit";
+import { error as kitError, redirect } from "@sveltejs/kit";
 
 export const actions: Actions = {
   default: async ({ request, locals: { supabase }}) => {
@@ -15,20 +15,13 @@ export const actions: Actions = {
       });
 
       if (error) {
+        console.log(error.message);
         return {
           errorMessage: m["account.change_password_failed"](),
           isError: true
         }
       } else {
-        const { error } = await supabase.auth.signOut();
-        const deleteCookieReq = await fetch("/api/account/logout");
-        
-        if (!deleteCookieReq.ok || error && error.status) {
-          kitError(
-              error ? (error.status ?? 500) : 500,
-              m.profile_logout_error()
-          );
-        }
+        redirect(303, "/account/logout");
       }
     } else if (password !== retype) {
         return {
