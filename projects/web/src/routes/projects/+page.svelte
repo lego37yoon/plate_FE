@@ -6,7 +6,9 @@
   import { getContext } from "svelte";
   import type { UserRole } from "../../types/account";
 
-  const { data: { role } } : { data : { role : UserRole | null | undefined }} = getContext("account");
+  const account = getContext<{ data: { role: UserRole | null | undefined } | null}>("account");
+
+  const role: UserRole | null | undefined = account && account.data ? account.data.role : null;
 
   const { data } = $props();
 </script>

@@ -2,11 +2,13 @@
   import { m } from '$lib/paraglide/messages';
   import { localizeHref } from '$lib/paraglide/runtime';
   import { Button, Popover, Separator } from 'bits-ui';
-  import { Calendar, ChevronRight, HelpCircle, Languages, ListFilter, Plus, Regex } from "@lucide/svelte";
+  import { Calendar, ChevronRight, CircleQuestionMark, Languages, ListFilter, Plus, Regex } from "@lucide/svelte";
   import { getContext } from 'svelte';
   import type { UserRole } from '../../../types/account.js';
 
-  const { data: { role } } : { data : { role : UserRole | null | undefined }} = getContext("account");
+  const account = getContext<{ data: { role: UserRole | null | undefined } | null}>("account");
+
+  const role: UserRole | null | undefined = account && account.data ? account.data.role : null;
 
   let { data } = $props();
 </script>
@@ -58,7 +60,7 @@
           <span>{m["projects.header_progress"]()}</span>
           <Popover.Root>
           <Popover.Trigger class="text-gray-400 rounded-full flex justify-center items-center cursor-pointer hover:bg-gray-50 p-1">
-            <HelpCircle size={16}/>
+            <CircleQuestionMark size={16}/>
           </Popover.Trigger>
           <Popover.Portal>
             <Popover.Content class="border-lime-50 border rounded-lg shadow-md max-w-80 w-full p-4 m-2 bg-white dark:bg-lime-900">
