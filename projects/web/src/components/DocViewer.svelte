@@ -1,12 +1,13 @@
 <script lang="ts">
     import { browser } from "$app/environment";
     import { Button, Separator } from "bits-ui";
-    import { Calendar, Loader2, LoaderCircle, UserRound, X } from "@lucide/svelte";
+    import { Calendar, LoaderCircle, UserRound, X } from "@lucide/svelte";
     import MarkdownIt from "markdown-it";
     import hljs from "highlight.js";
-    import { isLocale } from "$lib/paraglide/runtime";
+    import { blur } from "svelte/transition";
 
     const { doc } : { doc: Docs } = $props();
+
     let renderResult = $state<string|null>(null);
     let iconRotation = $state(0);
     let rotateInterval: NodeJS.Timeout|undefined;
@@ -46,40 +47,38 @@
     });
 </script>
 
-<section id="docs" class="shadow-md -ms-4 ps-6 py-4 pe-4 rounded-xl my-2 me-2 bg-white z-0 flex flex-col shrink"> 
-    <div id="docs-buttonset" class="flex justify-between items-center">
-        <h1 class="text-3xl text-primary">{doc.meta ? doc.meta.title.slice(0, -3) : "Untitled"}</h1>
-        <Button.Root onclick={closeViewer} class="rounded-md p-2 bg-secondary">
-            <X size={24} />
-        </Button.Root>
-    </div>
+<div id="docs-buttonset" class="flex justify-between items-center">
+    <h1 class="text-3xl text-primary">{doc.meta ? doc.meta.title.slice(0, -3) : "Untitled"}</h1>
+    <Button.Root onclick={closeViewer} class="rounded-md p-2 bg-secondary">
+        <X size={24} />
+    </Button.Root>
+</div>
 
-    <Separator.Root class="bg-gray-300 my-4 w-full block h-px" />
-    
-    <div id="docs-info">
-        <!-- TODO: GET LAST UPDATED DATA
-        <p class="text-gray-400 flex gap-2">
-            <Calendar />
-            
-        </p>
+<Separator.Root class="bg-gray-300 my-4 w-full block h-px" />
+
+<div id="docs-info">
+    <!-- TODO: GET LAST UPDATED DATA
+    <p class="text-gray-400 flex gap-2">
+        <Calendar />
+        
+    </p>
+    -->
+    <!-- TODO: GET AUTHOR FROM DATA
+    <p class="text-gray-400 flex gap-2">
+        <UserRound />
+        {author}
+    </p>
         -->
-        <!-- TODO: GET AUTHOR FROM DATA
-        <p class="text-gray-400 flex gap-2">
-            <UserRound />
-            {author}
-        </p>
-         -->
+</div>
+<div id="docs-view" class="font-normal text-wrap min-w-0 theme-atom-one-light overflow-scroll" in:blur={{ duration: 500, delay: 0 }}>
+    {#if renderResult !== null}
+    {@html renderResult}
+    {:else}
+    <div id="loading-view" class="flex w-full h-full grow items-center justify-center">
+        <LoaderCircle size={48} style={`transform: rotate(${iconRotation}deg)`} class="text-primary" />
     </div>
-    <div id="docs-view" class="font-normal text-wrap min-w-0 theme-atom-one-light">
-        {#if renderResult !== null}
-        {@html renderResult}
-        {:else}
-        <div id="loading-view" class="flex w-full h-full grow items-center justify-center">
-            <LoaderCircle size={48} style={`transform: rotate(${iconRotation}deg)`} class="text-primary" />
-        </div>
-        {/if}
-    </div>
-</section>
+    {/if}
+</div>
 
 <style>
     #docs-view :global(h1),
