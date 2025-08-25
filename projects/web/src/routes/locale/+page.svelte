@@ -2,7 +2,7 @@
   import { m } from '$lib/paraglide/messages';
   import { localizeHref } from '$lib/paraglide/runtime';
   import { Button, Separator } from 'bits-ui';
-  import { ListFilter, Plus } from 'lucide-svelte';
+  import { ListFilter, Plus } from "@lucide/svelte";
   import { getContext } from 'svelte';
   import type { UserRole } from '../../types/account.js';
 

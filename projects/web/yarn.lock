@@ -1007,6 +1007,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@lucide/svelte@npm:^0.541.0":
+  version: 0.541.0
+  resolution: "@lucide/svelte@npm:0.541.0"
+  peerDependencies:
+    svelte: ^5
+  checksum: 10c0/c17136a00481cf0c23ff91b1963091c3c4b1d9e0697869f9eb193b4d785a83e530a4fa9e027ea059d580fd257033a1dff805ac41b6ac9d4416849cc6d8db36f5
+  languageName: node
+  linkType: hard
+
 "@npmcli/agent@npm:^3.0.0":
   version: 3.0.0
   resolution: "@npmcli/agent@npm:3.0.0"
@@ -2795,6 +2804,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"highlight.js@npm:^11.11.1":
+  version: 11.11.1
+  resolution: "highlight.js@npm:11.11.1"
+  checksum: 10c0/40f53ac19dac079891fcefd5bd8a21cf2e8931fd47da5bd1dca73b7e4375c1defed0636fc39120c639b9c44119b7d110f7f0c15aa899557a5a1c8910f3c0144c
+  languageName: node
+  linkType: hard
+
 "http-cache-semantics@npm:^4.1.1":
   version: 4.1.1
   resolution: "http-cache-semantics@npm:4.1.1"
@@ -3090,15 +3106,6 @@ __metadata:
   version: 10.4.3
   resolution: "lru-cache@npm:10.4.3"
   checksum: 10c0/ebd04fbca961e6c1d6c0af3799adcc966a1babe798f685bb84e6599266599cd95d94630b10262f5424539bc4640107e8a33aa28585374abf561d30d16f4b39fb
-  languageName: node
-  linkType: hard
-
-"lucide-svelte@npm:^0.507.0":
-  version: 0.507.0
-  resolution: "lucide-svelte@npm:0.507.0"
-  peerDependencies:
-    svelte: ^3 || ^4 || ^5.0.0-next.42
-  checksum: 10c0/0544399aababb51b0f589b17ddcd328bb9b92ef4b24d8667bfc8d95b744643ee71aa0460d6089feeb10d32d933cc92f03c26697b593eeb70a93248e6e37b61a0
   languageName: node
   linkType: hard
 
@@ -3403,6 +3410,7 @@ __metadata:
     "@aws-sdk/types": "npm:^3.804.0"
     "@ibm/plex-sans-kr": "npm:^1.1.0"
     "@inlang/paraglide-js": "npm:2.0.12"
+    "@lucide/svelte": "npm:^0.541.0"
     "@supabase/ssr": "npm:^0.6.1"
     "@supabase/supabase-js": "npm:^2.49.4"
     "@sveltejs/adapter-auto": "npm:^4.0.0"
@@ -3413,7 +3421,7 @@ __metadata:
     "@types/markdown-it": "npm:^14"
     bits-ui: "npm:^1.4.4"
     countries-list: "npm:^3.1.1"
-    lucide-svelte: "npm:^0.507.0"
+    highlight.js: "npm:^11.11.1"
     markdown-it: "npm:^14.1.0"
     supabase: "npm:2.23.4"
     svelte: "npm:^5.0.0"

@@ -2,7 +2,7 @@
     import { m } from "$lib/paraglide/messages";
     import type { User } from "@supabase/supabase-js";
     import { Separator, Avatar, Popover, Button } from "bits-ui";
-    import { Moon, Sun, Monitor, UserRoundCog, LogOut, LogIn } from "lucide-svelte";
+    import { Moon, Sun, Monitor, UserRoundCog, LogOut, LogIn } from "@lucide/svelte";
     import { error as kitError } from "@sveltejs/kit";
     import { writable } from "svelte/store";
     import { getContext } from "svelte";

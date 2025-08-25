@@ -2,7 +2,7 @@
     import { applyAction, enhance } from "$app/forms";
     import { m } from "$lib/paraglide/messages";
     import { Button, Label, Select } from "bits-ui";
-    import { ArrowRight, BookType, Check, CheckCircle2, ChevronDown, ChevronUp, TriangleAlert } from "lucide-svelte";
+    import { ArrowRight, BookType, Check, CheckCircle2, ChevronDown, ChevronUp, TriangleAlert } from "@lucide/svelte";
     import type { PageProps } from "./$types";
     import { goto } from "$app/navigation";
     import { localizeHref } from "$lib/paraglide/runtime";

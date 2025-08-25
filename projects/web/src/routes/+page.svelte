@@ -2,7 +2,7 @@
   import { m } from "$lib/paraglide/messages";
     import { localizeHref } from "$lib/paraglide/runtime";
     import { Button } from "bits-ui";
-    import { Boxes, Code, LogIn } from "lucide-svelte";
+    import { Boxes, Code, LogIn } from "@lucide/svelte";
     import { getContext } from "svelte";
     import type { UserInfo } from "../types/account";
 

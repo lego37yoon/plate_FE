@@ -1,20 +1,49 @@
 <script lang="ts">
     import { browser } from "$app/environment";
     import { Button, Separator } from "bits-ui";
-    import { Calendar, UserRound, X } from "lucide-svelte";
+    import { Calendar, Loader2, LoaderCircle, UserRound, X } from "@lucide/svelte";
     import MarkdownIt from "markdown-it";
+    import hljs from "highlight.js";
+    import { isLocale } from "$lib/paraglide/runtime";
 
     const { doc } : { doc: Docs } = $props();
-    const mdParser = MarkdownIt();
     let renderResult = $state<string|null>(null);
+    let iconRotation = $state(0);
+    let rotateInterval: NodeJS.Timeout|undefined;
 
     function closeViewer() {
         doc.isOpen = false;
     }
 
     if (browser && doc.body) {
+        renderResult = null;
+        const mdParser = MarkdownIt({
+            highlight: function (str, lang) {
+                if (lang && hljs.getLanguage(lang)) {
+                    try {
+                        return hljs.highlight(str, { language: lang }).value;
+                    } catch (e) {
+                        console.log("highlighting failed");
+                    }
+                }
+                
+                return "";
+            }
+        });
         renderResult = mdParser.render(doc.body);
     }
+
+    $effect(() => {
+        if (!renderResult && doc.isOpen) {
+            rotateInterval = setInterval(() =>  {
+                iconRotation < 360 ? iconRotation += 15 : iconRotation = 0;
+            }, 45);
+        } else {
+            if (rotateInterval) {
+                clearTimeout(rotateInterval);
+            }
+        }
+    });
 </script>
 
 <section id="docs" class="shadow-md -ms-4 ps-6 py-4 pe-4 rounded-xl my-2 me-2 bg-white z-0 flex flex-col shrink"> 
@@ -41,8 +70,14 @@
         </p>
          -->
     </div>
-    <div id="docs-view" class="font-normal text-wrap min-w-0">
+    <div id="docs-view" class="font-normal text-wrap min-w-0 theme-atom-one-light">
+        {#if renderResult !== null}
         {@html renderResult}
+        {:else}
+        <div id="loading-view" class="flex w-full h-full grow items-center justify-center">
+            <LoaderCircle size={48} style={`transform: rotate(${iconRotation}deg)`} class="text-primary" />
+        </div>
+        {/if}
     </div>
 </section>
 
@@ -104,6 +139,14 @@
         background: var(--color-gray-100);
         padding: 1rem;
         border-radius: 4px;
+    }
+
+    #docs-view :global(blockquote) {
+        background: var(--color-secondary-back);
+        
+        border-left: 0.25rem var(--color-primary) solid;
+        padding: 0.25rem 0.5rem;
+        margin: 1rem 0;
     }
 
     #docs-view :global(ol), #docs-view :global(ul) {

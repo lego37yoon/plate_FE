@@ -1,7 +1,7 @@
 <script lang="ts">
     import { m } from "$lib/paraglide/messages";
     import { Button, Label } from "bits-ui";
-    import { ArrowRight, Info, TriangleAlert } from "lucide-svelte";
+    import { ArrowRight, Info, TriangleAlert } from "@lucide/svelte";
     import type { PageProps } from "./$types";
 
     let { form }:PageProps = $props();

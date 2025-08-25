@@ -2,7 +2,7 @@
     import { m } from "$lib/paraglide/messages";
     import { localizeHref } from "$lib/paraglide/runtime";
     import { Button, Label, Separator } from "bits-ui";
-    import { ArrowRight, Code, Info, RefreshCw, TriangleAlert, UserRoundPlus } from "lucide-svelte";
+    import { ArrowRight, Code, Info, RefreshCw, TriangleAlert, UserRoundPlus } from "@lucide/svelte";
     import { onMount } from "svelte";
     import type { PageProps } from "./$types";
     import { applyAction, enhance } from "$app/forms";

@@ -2,7 +2,7 @@
   import { m } from '$lib/paraglide/messages';
   import { localizeHref } from '$lib/paraglide/runtime';
   import { Button, Popover, Separator } from 'bits-ui';
-  import { Calendar, ChevronRight, HelpCircle, Languages, ListFilter, Plus, Regex } from 'lucide-svelte';
+  import { Calendar, ChevronRight, HelpCircle, Languages, ListFilter, Plus, Regex } from "@lucide/svelte";
   import { getContext } from 'svelte';
   import type { UserRole } from '../../../types/account.js';
 
