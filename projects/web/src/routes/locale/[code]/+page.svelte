@@ -70,6 +70,9 @@
       </tr>
     </thead>
     <tbody>
+      <!--
+        Errors in name, version, files are not really error: Supabase SDK defined wrong types when single item returned inside a row.
+      -->
       {#each data.projects as project}
       <tr>
         <td class="min-w-1/3 w-1/2 shrink text-start p-2">
