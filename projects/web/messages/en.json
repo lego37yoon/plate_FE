@@ -21,6 +21,7 @@
 		"account_settings": "Account Settings",
 		"project_settings": "Project Settings",
 		"manage_resource": "Manage Resources",
+		"files": "{project} File List",
 		"translate": "Translate {file}",
 		"glossary": "Search Glossary and Memories"
 	},
@@ -183,5 +184,12 @@
 		"type_common": "Common Guides",
 		"type_community": "Community Guides",
 		"type_brochure": "Product Brochure"
+	},
+	"files": {
+		"header_name": "File name",
+		"header_progress": "Progress",
+		"add_files_btn": "Add file(s)",
+		"search_placeholder": "Filter by file name",
+		"total_count": "Total {count} file(s)"
 	}
 }

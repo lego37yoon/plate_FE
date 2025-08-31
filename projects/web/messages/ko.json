@@ -21,6 +21,7 @@
 		"account_settings": "계정 설정",
 		"project_settings": "프로젝트 설정",
 		"manage_resource": "리소스 관리",
+		"files": "{project} 파일 목록",
 		"translate": "{file} 번역",
 		"glossary": "용어집 및 이력 검색"
 	},
@@ -183,5 +184,12 @@
 		"type_common": "공통 안내서",
 		"type_community": "커뮤니티 규정",
 		"type_brochure": "제품 소개서"
+	},
+	"files": {
+		"header_name": "파일 이름",
+		"header_progress": "진행률",
+		"add_files_btn": "파일 추가",
+		"search_placeholder": "파일 이름으로 검색",
+		"total_count": "총 {count} 파일"
 	}
 }
