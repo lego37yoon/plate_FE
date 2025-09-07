@@ -7,16 +7,17 @@ export const load: PageServerLoad = async ({ params, locals: { supabase }}) => {
     project_id,
     name,
     src,
+    type,
     projects(
       name,
       version,
       id
     )
-  `).eq("project_id", params.project);
+  `).eq("project_id", params.project).eq("type", "resource");
 
   if (error) {
     throw kitError(500, error.message); 
   } else {
-    return { projects: data, locale: params.code };
+    return { files: data, locale: params.code };
   }
 }

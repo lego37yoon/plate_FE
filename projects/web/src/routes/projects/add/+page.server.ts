@@ -121,7 +121,9 @@ async function uploadFiles(file : File, id: number, supabase: SupabaseClient, ty
     const { data, error } = await supabase.from("files").insert({
       project_id: id,
       name: file.name,
-      src: path
+      src: path,
+      from: "object",
+      type: type
     }).select("id");
 
     if (data) {

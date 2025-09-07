@@ -15,7 +15,7 @@ export const load: PageServerLoad = async ({ params, locals: { supabase }}) => {
         origin_name
       )
     )
-  `).eq("id", params.id);
+  `).eq("id", params.id).eq("files.type", "resource");
 
   if (error) {
     throw kitError(500, error.message); 

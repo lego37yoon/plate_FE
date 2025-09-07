@@ -12,18 +12,18 @@
 
   let { data } = $props();
 </script>
-{#if data.projects && data.projects.length > 0}
+{#if data.files && data.files.length > 0}
 <svetle:head>
-  <title>{m["title.files"]({ project: data.projects[0].projects.name })} : Plate</title>
+  <title>{m["title.files"]({ project: data.files[0].projects.name })} : Plate</title>
 </svetle:head>
 
 
 <section id="file_list_desc">
-  <h1 class="text-primary text-3xl">{m["title.files"]({ project: data.projects[0].projects.name })}</h1>
+  <h1 class="text-primary text-3xl">{m["title.files"]({ project: data.files[0].projects.name })}</h1>
   <p class="text-primary flex gap-1 items-center mb-4">
     <a class="font-light" href={localizeHref("/projects")}>{m["menu.proj"]()}</a>
     <ChevronRight size={16} />
-    <a class="font-light" href={localizeHref(`/projects/${data.projects[0].project_id}`)}>{data.projects[0].projects.name}</a>
+    <a class="font-light" href={localizeHref(`/projects/${data.files[0].project_id}`)}>{data.files[0].projects.name}</a>
     <ChevronRight size={16} />
     <span class="font-semibold">{data.locale}</span>
   </p>
@@ -61,10 +61,10 @@
       </tr>
     </thead>
     <tbody>
-      {#each data.projects as file : { id: string, }}
+      {#each data.files as file}
       <tr>
         <td class="min-w-1/3 w-1/2 shrink text-start p-2">
-          <a href={localizeHref(`/translate/${data.locale}/${file.id}`)}>
+          <a href={localizeHref(`/translate/${data.locale}/${file.project_id}/${file.id}`)}>
             {file.name}
           </a>
         </td>
@@ -77,7 +77,7 @@
 <section id="total-count">
   <Separator.Root class="bg-gray-300 my-4 w-full block h-px" />
   <div class="flex justify-between gap-2 text-primary">
-    <p>{m["files.total_count"]({ count: data.projects.length })}</p>
+    <p>{m["files.total_count"]({ count: data.files.length })}</p>
     <p></p>
   </div>
 </section>
