@@ -13,8 +13,8 @@ type Item = {
 
 export const load: PageServerLoad = async ({ params, locals: { supabase } }) => {
   const dataReq = await Promise.all([
-    supabase.from("resources").select(`id, key, origin, category, parent_id, group_idx, context`).eq("file_id", params.file),
-    supabase.from("files").select(`name, project_id, projects(name)`).eq("id", params.file)
+    supabase.from("resources").select(`id, key, origin, category, parent_id, group_idx, context, results(origin_id, approved, author, result, lang_code)`).eq("file_id", params.file).eq("results.lang_code", params.locale).eq("results.approved", true),
+    supabase.from("files").select(`name, project_id, projects(name)`).eq("id", params.file),
   ]);
 
   if (dataReq[0].error || dataReq[1].error) {

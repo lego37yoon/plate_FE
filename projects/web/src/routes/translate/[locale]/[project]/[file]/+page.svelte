@@ -1,36 +1,95 @@
 <script lang="ts">
   import { m } from "$lib/paraglide/messages";
   import { localizeHref } from "$lib/paraglide/runtime";
-  import { ChevronRight } from "@lucide/svelte";
-    import ResourceList from "../../../../../components/ResourceList.svelte";
+  import { ChevronRight, PanelLeftClose, PanelLeftOpen } from "@lucide/svelte";
+  import ResourceList from "../../../../../components/ResourceList.svelte";
+  import { page } from "$app/state";
+  import { Button } from "bits-ui";
+  import { MediaQuery } from "svelte/reactivity";
 
   let { data } = $props();
+  const panelDefault = new MediaQuery('width >= 48rem');
+  let panelState = $state<boolean|null>(null);
+
+  console.log(data);
 </script>
 
 <svelte:head>
   <title>{data.metadata[0].name} ({data.locale}) : Plate</title>
 </svelte:head>
 
-<section id="resource_desc">
-  <p class="text-primary flex gap-1 items-center mb-2">
-    <a class="font-light" href={localizeHref(`/`)}>Plate</a>
-    <ChevronRight size={16} />
-    <a class="font-light" href={localizeHref(`/locale/${data.locale}`)}>{data.locale}</a>
-    <ChevronRight size={16} />
-    <a class="font-light" href={localizeHref(`/locale/${data.locale}/${data.metadata[0].project_id}`)}>{data.metadata[0].projects.name}</a>
-    <ChevronRight size={16} />
-    <span class="font-semibold">{data.metadata[0].name}</span>
-  </p>
-</section>
-
-<ul id="resource_list" class="w-1/4 bg-secondary-back rounded-md p-2 overflow-scroll">
-  {#each data.resources.parent as item}
-    <ResourceList parent={item} children={data.resources.child.filter((child) => child.parent_id === item.id)} />
-  {/each}
-</ul>
+<div class="flex gap-2">
+  <nav class={
+    (panelDefault.current && panelState === null) || panelState ?
+    `block w-1/4 min-w-72 max-md:w-full` : `hidden`
+  }>
+    <section id="resource_desc" class="flex justify-between items-center mb-4 ms-1">
+      <p class="text-primary flex gap-1 items-center pt-2">
+        <a class="font-light" href={localizeHref(`/`)}>Plate</a>
+        <ChevronRight size={16} />
+        <a class="font-light" href={localizeHref(`/locale/${data.locale}`)}>{data.locale}</a>
+        <ChevronRight size={16} />
+        <a class="font-light" href={localizeHref(`/locale/${data.locale}/${data.metadata[0].project_id}`)}>{data.metadata[0].projects.name}</a>
+        <ChevronRight size={16} />
+        <span class="font-semibold">{data.metadata[0].name}</span>
+      </p>
+      <Button.Root type="button" aria-label={m["l10n.input_hide_panel_btn"]()} onclick={() => panelState = false}
+        class="rounded-lg bg-secondary text-white shadow-sm text-base flex justify-center items-center p-2 md:max-w-80 gap-1 md:hidden">
+        <PanelLeftClose size={24} class="text-lime-900" />
+      </Button.Root>
+    </section>
+    <ul id="resource_list" class=" bg-secondary-back rounded-md p-2 overflow-scroll">
+      {#each data.resources.parent as item}
+        <ResourceList parent={item} children={data.resources.child.filter((child) => child.parent_id === item.id)} />
+      {/each}
+    </ul>
+  </nav>
+  
+  {#if (!panelState && !panelDefault.current) || panelDefault.current}
+  <section class={ panelState ? "w-3/4 h-full" : "w-full h-full" }>
+    <div id="button_bar" class="w-full flex mb-2">
+      {#if (panelState && panelDefault.current) || !panelState}
+      <Button.Root type="button" aria-label={m["l10n.input_hide_panel_btn"]()} onclick={() => { 
+        if (panelDefault.current && panelState === null) {
+          panelState = false;
+        } else {
+          panelState = !panelState;
+        }
+      }}
+        class="rounded-lg bg-secondary text-white shadow-sm text-base flex justify-center items-center p-2 md:max-w-80 gap-1">
+        {#if panelState || (panelDefault.current && panelState === null)}
+        <PanelLeftClose size={24} class="text-lime-900" />
+        {:else}
+        <PanelLeftOpen size={24} class="text-lime-900" />
+        {/if}
+      </Button.Root>
+      {/if}
+    </div>
+    {#key page.url.hash}
+    <div id="translation_area" class="flex gap-2">
+      <div id="suggest_form" class="p-4 rounded-md w-full h-full border-gray-400 border">
+        <!-- Resource and Results -->
+        <p>{page.url.hash}</p>
+        <!-- Comments --> <!-- Suggestions -->
+      </div>
+      <div id="additional_data" class="p-4 rounded-md min-w-1/4 h-full border-primary border">
+        <!-- Glossary -->
+        <!-- Machine Translations / Translation Memories -->
+        <div>
+          <h3>Glossary</h3>
+        </div>
+        <div>
+          <h3>Automatic Suggestions</h3>
+        </div>
+      </div>
+    </div>
+    {/key}
+  </section>
+  {/if}
+</div>
 
 <style>
   #resource_list {
-    height: calc(100vh - 10rem);
+    height: calc(100vh - 11.5rem);
   }
 </style>
