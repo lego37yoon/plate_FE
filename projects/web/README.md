@@ -15,25 +15,30 @@ NOTIFY pgrst, 'reload config';
 
 Then add tables and set RLSs (Row Level Policy) to adjust permissions. Details will be updated.
 
+> **Why these commands are required?**
+> Some pages uses aggregate functions to query data from multiple tables; and Supabase database basically disabled this feature as default.
+
 ### Requirements
 
-- Node.js 20 이상 버전 필요
-- `corepack enable` 및 `git clone` 후 `yarn set version stable`로 최신 버전 여부 확인 필요 (Yarn v1 Classic 미지원)
-- .env 파일
+- Node.js 20 or higher
+- `corepack enable`, `git clone`, and `yarn set version stable` to check if latest version of package manager installed in your computer. Yarn v1 Classic is not supported for this project.
+- .env File to save secrets
 
 | 값 | 설명 |
 | -- | ----- |
-| PUBLIC_SUPABASE_PROJECT_URL | Supabase의 프로젝트 URL을 입력합니다. 주소 끝 `/` 기호는 입력하지 않습니다. |
-| PUBLIC_SUPABASE_ANON_KEY | Supabase의 ANON 키를 입력합니다.
-| SUPER_ADMIN_EMAIL | 최고 관리자로 가입할 때 사용할 이메일 주소를 입력합니다. |
-| S3_BUCKET | S3 또는 S3 호환 저장소의 버킷 이름을 지정합니다. |
-| S3_ENDPOINT | S3 또는 S3 호환 저장소의 주소를 지정합니다. 주소 끝 `/` 기호는 입력하지 않습니다. |
-| S3_ALIAS | S3 또는 S3 호환 저장소에서 공개용 주소가 별도로 있는 경우(CloudFlare R2 등) 파일을 읽을 수 있도록 지정합니다. 주소 끝 `/` 기호는 입력하지 않습니다. |
-| S3_REGION | S3 또는 S3 호환 저장소의 지역을 지정합니다. 호환 저장소의 경우 업체마다 다르거나, `auto`와 같은 값을 요구할 수 있습니다. |
-| AWS_ACCESS_KEY | S3 사용시 Access Key를 입력합니다. 호환 저장소의 경우에도 Access Key를 발급받아 입력하면 됩니다. |
-| AWS_SECRET_ACCESS_KEY | S3 사용시 Secret Access Key를 입력합니다. 호환 저장소의 경우에도 Secret Access Key를 발급받아 입력하면 됩니다. |
-| S3_PERMISSION | 비공개 여부입니다. 일부 호환 저장소에서 지원하지 않는 경우 private로 두어도 무방합니다. |
-| PUBLIC_BASE_URL | 프로젝트가 실행 중인 주소를 나타냅니다. 주소 끝에 `/` 기호는 입력하지 않습니다. |
+| PUBLIC_SUPABASE_PROJECT_URL | Project URL of Supabase. DO NOT INCLUDE `/` end of an address. |
+| PUBLIC_SUPABASE_ANON_KEY | ANON Key of Supabase. |
+| SUPER_ADMIN_EMAIL | E-mail address of Super Administrator. |
+| S3_BUCKET | Bucket name of S3 or S3-Compatible Object Storage |
+| S3_ENDPOINT | Address of S3 or S3-Compatible Object Storage. DO NOT INCLUDE `/` end of an address. |
+| S3_ALIAS | Pulic Address of S3 or S3-Compatible Object Storage. Database saves address and path of uploaded files based on this address. DO NOT INCLUDE `/` end of an address. |
+| S3_REGION | Region of S3 or S3-Compatible Object Storage. Note that Compatible Services may not support region or requires `auto` instead of specify a region to save objects. |
+| AWS_ACCESS_KEY | Access Key of S3 or S3-Compatible Object Storage. |
+| AWS_SECRET_ACCESS_KEY | Secret Access key of S3 or S3-Compatible Object Storage. |
+| S3_PERMISSION | Default access permission of S3, S3-Compatible Object Storage. Some compatible services like CloudFlare R2 requires `private` value. |
+| PUBLIC_BASE_URL | Network address of this project. For example, local development server will have `http://localhost:5173` here. DO NOT INCLUDE `/` end of an address too. |
+
+> Please note that due to Supabase Product Update since Q3 2025, ANON Key is an old way to use Supabase data. Migration for token-based access will be supported after Q4 2025.
 
 ## Known Issues
 

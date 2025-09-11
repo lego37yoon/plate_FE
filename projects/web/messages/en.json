@@ -154,7 +154,7 @@
 		"analysis": "Analyzing Resources"
 	},
 	"l10n": {
-		"input_placeholder": "Place your translation here",
+		"input_placeholder": "Type tranlation in your language.",
 		"input_commit": "Commit",
 		"input_review_approve": "Approve",
 		"input_review_need_comment": "Needs Comment",
