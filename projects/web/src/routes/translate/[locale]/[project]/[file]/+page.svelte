@@ -6,6 +6,7 @@
   import { page } from "$app/state";
   import { Button } from "bits-ui";
   import { MediaQuery } from "svelte/reactivity";
+  import { fade } from "svelte/transition";
 
   let { data } = $props();
   const panelDefault = new MediaQuery('width >= 48rem');
@@ -29,10 +30,8 @@
 </svelte:head>
 
 <div class="flex gap-2">
-  <nav class={
-    (panelDefault.current && panelState === null) || panelState ?
-    `block w-1/4 min-w-72 max-md:w-full` : `hidden`
-  }>
+  {#if (panelDefault.current && panelState === null) || panelState}
+  <nav class="block w-full md:max-w-1/3 lg:max-w-1/4 " transition:fade>
     <section id="resource_desc" class="flex justify-between items-center mb-4 ms-1">
       <p class="text-primary flex gap-1 items-center pt-2">
         <a class="font-light" href={localizeHref(`/`)}>Plate</a>
@@ -54,6 +53,7 @@
       {/each}
     </ul>
   </nav>
+  {/if}
   
   {#if (!panelState && !panelDefault.current) || panelDefault.current}
   <section class={ panelState ? "w-3/4 h-full" : "w-full h-full" }>
