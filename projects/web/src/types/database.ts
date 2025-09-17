@@ -52,15 +52,20 @@ type Projects = {
 }
 
 type Resources = {
-    id?: number,
-    last_updated?: string,
-    origin: string | null,
-    category: string,
-    parent_id?: number,
-    group_idx: number,
-    context?: string,
-    file_id: number,
-    key: string
+    id: number;
+    key: string;
+    origin: string;
+    category: string;
+    parent_id: number | null;
+    group_idx: number | null;
+    context: string | null;
+    results: {
+        origin_id: number,
+        approved: boolean,
+        author: string,
+        result: string,
+        lang_code: string
+    }[];
 }
 
 type Results = {

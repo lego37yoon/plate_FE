@@ -1,15 +1,5 @@
-import { error, redirect } from "@sveltejs/kit";
+import { error } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types"
-
-type Item = {
-    id: number;
-    key: string;
-    origin: string;
-    category: string;
-    parent_id: number | null;
-    group_idx: number | null;
-    context: string | null;
-}
 
 export const load: PageServerLoad = async ({ params, locals: { supabase } }) => {
   const dataReq = await Promise.all([
@@ -21,8 +11,8 @@ export const load: PageServerLoad = async ({ params, locals: { supabase } }) => 
     error(500, dataReq[0].error?.message ?? dataReq[1].error?.message);
   }
 
-  const parents: Item[] = [];
-  const children: Item[] = [];
+  const parents: Resources[] = [];
+  const children: Resources[] = [];
   
   dataReq[0].data.forEach((item) => {
     if (item.category === "group" || !item.parent_id) {

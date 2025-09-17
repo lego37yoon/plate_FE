@@ -10,8 +10,18 @@
   let { data } = $props();
   const panelDefault = new MediaQuery('width >= 48rem');
   let panelState = $state<boolean|null>(null);
+  let selectedItem = $state<number>(-1);
 
-  console.log(data);
+  if (data.resources.parent.length > 0) {
+    if (
+      data.resources.parent[0].category === "group"
+      && data.resources.child.length > 0
+    ) {
+      selectedItem = data.resources.child[0].id;
+    } else if (data.resources.parent[0].category !== "group") {
+      selectedItem = data.resources.parent[0].id;
+    }
+  }
 </script>
 
 <svelte:head>
@@ -40,7 +50,7 @@
     </section>
     <ul id="resource_list" class=" bg-secondary-back rounded-md p-2 overflow-scroll">
       {#each data.resources.parent as item}
-        <ResourceList parent={item} children={data.resources.child.filter((child) => child.parent_id === item.id)} />
+        <ResourceList parent={item} children={data.resources.child.filter((child) => child.parent_id === item.id)} hash={page.url.hash} />
       {/each}
     </ul>
   </nav>
@@ -69,7 +79,7 @@
     <div id="translation_area" class="flex gap-2">
       <div id="suggest_form" class="p-4 rounded-md w-full h-full border-gray-400 border">
         <!-- Resource and Results -->
-        <p>{page.url.hash}</p>
+        <p>{page.url.hash ? page.url.hash : `#${selectedItem}`}</p>
         <!-- Comments --> <!-- Suggestions -->
       </div>
       <div id="additional_data" class="p-4 rounded-md min-w-1/4 h-full border-primary border">
