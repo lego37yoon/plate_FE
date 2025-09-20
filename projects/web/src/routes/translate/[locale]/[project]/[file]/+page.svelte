@@ -7,12 +7,18 @@
   import { Accordion, Button } from "bits-ui";
   import { MediaQuery } from "svelte/reactivity";
   import { fade, slide } from "svelte/transition";
+    import GlossaryList from "../../../../../components/GlossaryList.svelte";
 
   let { data } = $props();
   const panelDefault = new MediaQuery('width >= 48rem');
   let panelState = $state<boolean|null>(null);
   let selectedItem = $state<number>(-1);
   let selectedItemObject = $state<Resources>();
+  let suggest_text = $state<{ text: string, focus: boolean }>({ 
+    text: "", focus: true 
+  });
+  let glossaries = $state<Dictionary[]>(data.glossary);
+  let text_area = $state<HTMLTextAreaElement|undefined>();
 
   if (data.resources.parent.length > 0) {
     if (
@@ -31,11 +37,26 @@
     if (page.url.hash) {
       const id = Number(page.url.hash.slice(1));
 
-      selectedItemObject = 
-        data.resources.parent.find((i) => i.id === id)
-        ?? data.resources.child.find((i) => i.id === id);
+      if (!isNaN(id) && (!selectedItemObject || selectedItemObject.id !== id)) {
+        selectedItemObject = 
+          data.resources.parent.find((i) => i.id === id)
+          ?? data.resources.child.find((i) => i.id === id);
+
+        if (selectedItemObject && selectedItemObject.results.length > 0) {
+          suggest_text.text = selectedItemObject.results.find((item) => item.approved)?.result ?? "";
+        } else {
+          suggest_text.text = "";
+        }
+
+        glossaries = data.glossary.filter((item) => selectedItemObject?.origin.includes(item.origin));
+      }
     }
-  })
+
+    if (suggest_text.focus && text_area) {
+      text_area.focus();
+      suggest_text.focus = false;
+    }
+  });
 </script>
 
 <svelte:head>
@@ -110,7 +131,7 @@
         {/if}
         <hr class="border-gray-400 my-2">
         <form class="flex flex-col items-end gap-2">
-          <textarea placeholder={m["l10n.input_placeholder"]()} id="suggest_message" class="rounded-md border-0 w-full min-h-24"></textarea>
+          <textarea placeholder={m["l10n.input_placeholder"]()} id="suggest_message" class="rounded-md border-0 w-full min-h-24" bind:value={suggest_text.text} bind:this={text_area}></textarea>
           <Button.Root type="submit" class="flex gap-2 rounded-md bg-secondary text-lime-900 p-3 w-min">
             <CornerDownLeft />
             <span>{m["l10n.input_commit"]()}</span>
@@ -167,9 +188,7 @@
           <Accordion.Content forceMount={true} hiddenUntilFound>
             {#snippet child({ props, open })}
               {#if open}
-              <div {...props} transition:slide={{ duration: 300 }}>
-                Blah 3
-              </div>
+              <GlossaryList bind:suggest_text={suggest_text} glossary_data={glossaries} {...props} /> 
               {/if}
             {/snippet}
           </Accordion.Content>
@@ -203,7 +222,7 @@
     height: calc(100vh - 11.5rem);
   }
 
-  :global(div[data-state="open"] button svg) {
+  :global(div[data-state="open"] > button > svg) {
     rotate: 180deg;
   }
 </style>

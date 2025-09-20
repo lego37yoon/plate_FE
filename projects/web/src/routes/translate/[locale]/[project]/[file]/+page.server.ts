@@ -3,13 +3,13 @@ import type { Actions, PageServerLoad } from "./$types"
 
 export const load: PageServerLoad = async ({ params, locals: { supabase } }) => {
   const dataReq = await Promise.all([
-    supabase.from("resources").select(`id, key, origin, category, parent_id, group_idx, context, results(origin_id, approved, author, result, lang_code)`).eq("file_id", params.file).eq("results.lang_code", params.locale).eq("results.approved", true),
+    supabase.from("resources").select(`id, key, origin, category, parent_id, group_idx, context, results(origin_id, approved, author, result, lang_code)`).eq("file_id", params.file).eq("results.lang_code", params.locale),
     supabase.from("files").select(`name, project_id, projects(name)`).eq("id", params.file),
     supabase.from("dictionary").select("*").eq("lang_code", params.locale)
   ]);
 
-  if (dataReq[0].error || dataReq[1].error) {
-    error(500, dataReq[0].error?.message ?? dataReq[1].error?.message);
+  if (dataReq[0].error || dataReq[1].error || dataReq[2].error) {
+    error(500, dataReq[0].error?.message ?? dataReq[1].error?.message ?? dataReq[2].error?.message);
   }
 
   const parents: Resources[] = [];
@@ -28,6 +28,7 @@ export const load: PageServerLoad = async ({ params, locals: { supabase } }) => 
       parent: parents,
       child: children
     },
+    glossary: dataReq[2].data as Dictionary[],
     metadata: dataReq[1].data,
     locale: params.locale,
   }
@@ -39,5 +40,23 @@ export const actions: Actions = {
     const suggestMessage = form.get("suggest_message");
 
     
+  },
+  approve: async ({ request, locals: { supabase } }) => {
+
+  },
+  deny: async ({ request, locals: { supabase } }) => {
+
+  },
+  suggest_delete: async ({ request, locals: { supabase } }) => {
+
+  },
+  comment_new: async ({ request, locals: { supabase } }) => {
+
+  },
+  comment_update: async ({ request, locals: { supabase } }) => {
+    
+  },
+  comment_delete: async ({ request, locals: { supabase } }) => {
+
   }
 }
