@@ -2036,6 +2036,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@lucide/svelte@npm:^0.541.0":
+  version: 0.541.0
+  resolution: "@lucide/svelte@npm:0.541.0"
+  peerDependencies:
+    svelte: ^5
+  checksum: 10c0/c17136a00481cf0c23ff91b1963091c3c4b1d9e0697869f9eb193b4d785a83e530a4fa9e027ea059d580fd257033a1dff805ac41b6ac9d4416849cc6d8db36f5
+  languageName: node
+  linkType: hard
+
 "@napi-rs/wasm-runtime@npm:^0.2.11":
   version: 0.2.12
   resolution: "@napi-rs/wasm-runtime@npm:0.2.12"
@@ -4464,15 +4473,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/mdast@npm:^4.0.4":
-  version: 4.0.4
-  resolution: "@types/mdast@npm:4.0.4"
-  dependencies:
-    "@types/unist": "npm:*"
-  checksum: 10c0/84f403dbe582ee508fd9c7643ac781ad8597fcbfc9ccb8d4715a2c92e4545e5772cbd0dbdf18eda65789386d81b009967fdef01b24faf6640f817287f54d9c82
-  languageName: node
-  linkType: hard
-
 "@types/mdurl@npm:^2":
   version: 2.0.0
   resolution: "@types/mdurl@npm:2.0.0"
@@ -4589,20 +4589,6 @@ __metadata:
   version: 1.0.3
   resolution: "@types/treeify@npm:1.0.3"
   checksum: 10c0/758902638ff83a790c13359729d77aeb80aae50f7039670037e3a0ba2bcc7b09dd49173ab21a96946d83af1682fcd70e448e49151ecd46e190f8925077142d4a
-  languageName: node
-  linkType: hard
-
-"@types/unist@npm:*":
-  version: 3.0.3
-  resolution: "@types/unist@npm:3.0.3"
-  checksum: 10c0/2b1e4adcab78388e088fcc3c0ae8700f76619dbcb4741d7d201f87e2cb346bfc29a89003cfea2d76c996e1061452e14fcd737e8b25aacf949c1f2d6b2bc3dd60
-  languageName: node
-  linkType: hard
-
-"@types/unist@npm:^2.0.0, @types/unist@npm:^2.0.2, @types/unist@npm:^2.0.3":
-  version: 2.0.11
-  resolution: "@types/unist@npm:2.0.11"
-  checksum: 10c0/24dcdf25a168f453bb70298145eb043cfdbb82472db0bc0b56d6d51cd2e484b9ed8271d4ac93000a80da568f2402e9339723db262d0869e2bf13bc58e081768d
   languageName: node
   linkType: hard
 
@@ -6236,6 +6222,13 @@ __metadata:
     typescript:
       optional: true
   checksum: 10c0/1c1703be4f02a250b1d6ca3267e408ce16abfe8364193891afc94c2d5c060b69611fdc8d97af74b7e6d5d1aac0ab2fb94d6b079573146bc2d756c2484ce5f0ee
+  languageName: node
+  linkType: hard
+
+"countries-list@npm:^3.1.1":
+  version: 3.1.1
+  resolution: "countries-list@npm:3.1.1"
+  checksum: 10c0/26734d5927ee9dafa30e4da214b6ab7ecf7cdd93516e5bb077d6fdb1f9f37b4fd8698987b0062c1f3b0c95d18fe947f941ef0ab8c3cc486ef33f1c3dca2678b7
   languageName: node
   linkType: hard
 
@@ -8324,6 +8317,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"highlight.js@npm:^11.11.1":
+  version: 11.11.1
+  resolution: "highlight.js@npm:11.11.1"
+  checksum: 10c0/40f53ac19dac079891fcefd5bd8a21cf2e8931fd47da5bd1dca73b7e4375c1defed0636fc39120c639b9c44119b7d110f7f0c15aa899557a5a1c8910f3c0144c
+  languageName: node
+  linkType: hard
+
 "hosted-git-info@npm:^2.1.4":
   version: 2.8.9
   resolution: "hosted-git-info@npm:2.8.9"
@@ -9236,10 +9236,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"langs@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "langs@npm:2.0.0"
-  checksum: 10c0/0eae81d768d579946f4df1c0fac29380e2ffc9071ffc037506754a09fa44c41ec0f0e61dc1ee384ea4b639d7de6cf68dd62083cc89a460eb302216792191b0a6
+"langs@file:../langs::locator=locale-codes%40workspace%3Aprojects%2Flocale":
+  version: 2.0.1-paperbox
+  resolution: "langs@file:../langs#../langs::hash=ad004a&locator=locale-codes%40workspace%3Aprojects%2Flocale"
+  checksum: 10c0/89155fcec1b3316c8e5419714a9c99d05092e24845b3b83fc7f3db849bd085a7758984fe2e87e56fee8124da504d6cedef787995997570ce43ff3a236fa4ce7c
   languageName: node
   linkType: hard
 
@@ -9432,7 +9432,7 @@ __metadata:
     "@types/langs": "npm:^2.0.5"
     "@yarnpkg/sdks": "npm:^3.2.2"
     iso639-codes: "npm:^1.0.1"
-    langs: "npm:^2.0.0"
+    langs: "file:../langs"
     tsd: "npm:^0.33.0"
     typescript: "npm:^5.9.2"
     windows-locale: "npm:^1.1.0"
@@ -9573,15 +9573,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lucide-svelte@npm:^0.507.0":
-  version: 0.507.0
-  resolution: "lucide-svelte@npm:0.507.0"
-  peerDependencies:
-    svelte: ^3 || ^4 || ^5.0.0-next.42
-  checksum: 10c0/0544399aababb51b0f589b17ddcd328bb9b92ef4b24d8667bfc8d95b744643ee71aa0460d6089feeb10d32d933cc92f03c26697b593eeb70a93248e6e37b61a0
-  languageName: node
-  linkType: hard
-
 "magic-string@npm:^0.30.11, magic-string@npm:^0.30.17, magic-string@npm:^0.30.5":
   version: 0.30.17
   resolution: "magic-string@npm:0.30.17"
@@ -9664,22 +9655,6 @@ __metadata:
   peerDependencies:
     react: ^18.0 || ^19.0
   checksum: 10c0/0d6eedb905562d88025fbf45c79117d9d668c86427eac9a3ecc2f5082a7fac9cf55c271f8892083e994d794322e8f0ede928ee2380465c9f4f878cbd2a392999
-  languageName: node
-  linkType: hard
-
-"mdsvex@npm:^0.12.3":
-  version: 0.12.6
-  resolution: "mdsvex@npm:0.12.6"
-  dependencies:
-    "@types/mdast": "npm:^4.0.4"
-    "@types/unist": "npm:^2.0.3"
-    prism-svelte: "npm:^0.4.7"
-    prismjs: "npm:^1.17.1"
-    unist-util-visit: "npm:^2.0.1"
-    vfile-message: "npm:^2.0.4"
-  peerDependencies:
-    svelte: ^3.56.0 || ^4.0.0 || ^5.0.0-next.120
-  checksum: 10c0/97aa5631be43f9130c0fb43420d39edacc6579a0502493d5681048b088a08662fdabbae7ea31092842a250bcf8b70993267759fbffd25b0a9a0ecc64e693f192
   languageName: node
   linkType: hard
 
@@ -10703,6 +10678,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"pdf2json@npm:3.2.0":
+  version: 3.2.0
+  resolution: "pdf2json@npm:3.2.0"
+  bin:
+    pdf2json: bin/pdf2json.js
+  checksum: 10c0/affc3ddc7ba7234bf5ba0cb8aca19b75fbc9e8ddfe5e8139396804b5bf0ec84e262569d53c181f096b7e05c96c3efcdf4787a0874dd69320905db3679a3e19b2
+  languageName: node
+  linkType: hard
+
 "peberminta@npm:^0.9.0":
   version: 0.9.0
   resolution: "peberminta@npm:0.9.0"
@@ -10782,6 +10766,7 @@ __metadata:
     "@aws-sdk/types": "npm:^3.804.0"
     "@ibm/plex-sans-kr": "npm:^1.1.0"
     "@inlang/paraglide-js": "npm:2.0.12"
+    "@lucide/svelte": "npm:^0.541.0"
     "@supabase/ssr": "npm:^0.6.1"
     "@supabase/supabase-js": "npm:^2.49.4"
     "@sveltejs/adapter-auto": "npm:^4.0.0"
@@ -10791,14 +10776,14 @@ __metadata:
     "@tailwindcss/vite": "npm:^4.0.0"
     "@types/markdown-it": "npm:^14"
     bits-ui: "npm:^1.4.4"
-    lucide-svelte: "npm:^0.507.0"
+    countries-list: "npm:^3.1.1"
+    highlight.js: "npm:^11.11.1"
     markdown-it: "npm:^14.1.0"
-    mdsvex: "npm:^0.12.3"
     supabase: "npm:2.23.4"
     svelte: "npm:^5.0.0"
     svelte-check: "npm:^4.0.0"
     tailwindcss: "npm:^4.0.0"
-    typescript: "npm:^5.0.0"
+    typescript: "npm:^5.9.2"
     vite: "npm:^6.0.0"
   languageName: unknown
   linkType: soft
@@ -11014,14 +10999,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prism-svelte@npm:^0.4.7":
-  version: 0.4.7
-  resolution: "prism-svelte@npm:0.4.7"
-  checksum: 10c0/406c87e808b8ab5510fef505c02e40cfcb751dbcbbc1c12fe71959a3c2b450177110333cd4673ed1f1ae8c34327c8a3448f5bcfa21027b3463b02f5adc9437b0
-  languageName: node
-  linkType: hard
-
-"prismjs@npm:^1.17.1, prismjs@npm:^1.30.0":
+"prismjs@npm:^1.30.0":
   version: 1.30.0
   resolution: "prismjs@npm:1.30.0"
   checksum: 10c0/f56205bfd58ef71ccfcbcb691fd0eb84adc96c6ff21b0b69fc6fdcf02be42d6ef972ba4aed60466310de3d67733f6a746f89f2fb79c00bf217406d465b3e8f23
@@ -13025,7 +13003,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^5.0.0, typescript@npm:^5.8.3, typescript@npm:^5.9.2":
+"typescript@npm:^5.8.3, typescript@npm:^5.9.2":
   version: 5.9.2
   resolution: "typescript@npm:5.9.2"
   bin:
@@ -13035,7 +13013,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A^5.0.0#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^5.8.3#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^5.9.2#optional!builtin<compat/typescript>":
+"typescript@patch:typescript@npm%3A^5.8.3#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^5.9.2#optional!builtin<compat/typescript>":
   version: 5.9.2
   resolution: "typescript@patch:typescript@npm%3A5.9.2#optional!builtin<compat/typescript>::version=5.9.2&hash=5786d5"
   bin:
@@ -13100,43 +13078,6 @@ __metadata:
   dependencies:
     imurmurhash: "npm:^0.1.4"
   checksum: 10c0/d324c5a44887bd7e105ce800fcf7533d43f29c48757ac410afd42975de82cc38ea2035c0483f4de82d186691bf3208ef35c644f73aa2b1b20b8e651be5afd293
-  languageName: node
-  linkType: hard
-
-"unist-util-is@npm:^4.0.0":
-  version: 4.1.0
-  resolution: "unist-util-is@npm:4.1.0"
-  checksum: 10c0/21ca3d7bacc88853b880b19cb1b133a056c501617d7f9b8cce969cd8b430ed7e1bc416a3a11b02540d5de6fb86807e169d00596108a459d034cf5faec97c055e
-  languageName: node
-  linkType: hard
-
-"unist-util-stringify-position@npm:^2.0.0":
-  version: 2.0.3
-  resolution: "unist-util-stringify-position@npm:2.0.3"
-  dependencies:
-    "@types/unist": "npm:^2.0.2"
-  checksum: 10c0/46fa03f840df173b7f032cbfffdb502fb05b79b3fb5451681c796cf4985d9087a537833f5afb75d55e79b46bbbe4b3d81dd75a1062f9289091c526aebe201d5d
-  languageName: node
-  linkType: hard
-
-"unist-util-visit-parents@npm:^3.0.0":
-  version: 3.1.1
-  resolution: "unist-util-visit-parents@npm:3.1.1"
-  dependencies:
-    "@types/unist": "npm:^2.0.0"
-    unist-util-is: "npm:^4.0.0"
-  checksum: 10c0/231c80c5ba8e79263956fcaa25ed2a11ad7fe77ac5ba0d322e9d51bbc4238501e3bb52f405e518bcdc5471e27b33eff520db0aa4a3b1feb9fb6e2de6ae385d49
-  languageName: node
-  linkType: hard
-
-"unist-util-visit@npm:^2.0.1":
-  version: 2.0.3
-  resolution: "unist-util-visit@npm:2.0.3"
-  dependencies:
-    "@types/unist": "npm:^2.0.0"
-    unist-util-is: "npm:^4.0.0"
-    unist-util-visit-parents: "npm:^3.0.0"
-  checksum: 10c0/7b11303d82271ca53a2ced2d56c87a689dd518596c99ff4a11cdff750f5cc5c0e4b64b146bd2363557cb29443c98713bfd1e8dc6d1c3f9d474b9eb1f23a60888
   languageName: node
   linkType: hard
 
@@ -13327,16 +13268,6 @@ __metadata:
   version: 1.1.2
   resolution: "vary@npm:1.1.2"
   checksum: 10c0/f15d588d79f3675135ba783c91a4083dcd290a2a5be9fcb6514220a1634e23df116847b1cc51f66bfb0644cf9353b2abb7815ae499bab06e46dd33c1a6bf1f4f
-  languageName: node
-  linkType: hard
-
-"vfile-message@npm:^2.0.4":
-  version: 2.0.4
-  resolution: "vfile-message@npm:2.0.4"
-  dependencies:
-    "@types/unist": "npm:^2.0.0"
-    unist-util-stringify-position: "npm:^2.0.0"
-  checksum: 10c0/ce50d90e0e5dc8f995f39602dd2404f1756388a54209c983d259b17c15e6f262a53546977a638065bc487d0657799fa96f4c1ba6b2915d9724a4968e9c7ff1c8
   languageName: node
   linkType: hard
 
@@ -13592,6 +13523,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"windows-locale@workspace:projects/wlocale":
+  version: 0.0.0-use.local
+  resolution: "windows-locale@workspace:projects/wlocale"
+  dependencies:
+    pdf2json: "npm:3.2.0"
+    xo: "npm:^1.2.2"
+  languageName: unknown
+  linkType: soft
+
 "word-wrap@npm:^1.2.5":
   version: 1.2.5
   resolution: "word-wrap@npm:1.2.5"
@@ -13729,6 +13669,47 @@ __metadata:
   bin:
     xo: dist/cli.js
   checksum: 10c0/2e781cf677f6ddb0162aed963df389458589ef516ec67d86903457b3ff6853c541e6a22f4fbd4f24e64bb9ce9370031bab4a1b0cc4a577c9a07ae6d0722e58b9
+  languageName: node
+  linkType: hard
+
+"xo@npm:^1.2.2":
+  version: 1.2.2
+  resolution: "xo@npm:1.2.2"
+  dependencies:
+    "@eslint-community/eslint-plugin-eslint-comments": "npm:^4.5.0"
+    "@sindresorhus/tsconfig": "npm:^7.0.0"
+    "@stylistic/eslint-plugin": "npm:^4.2.0"
+    "@typescript-eslint/parser": "npm:^8.37.0"
+    arrify: "npm:^3.0.0"
+    cosmiconfig: "npm:^9.0.0"
+    define-lazy-prop: "npm:^3.0.0"
+    eslint: "npm:^9.31.0"
+    eslint-config-prettier: "npm:^10.1.5"
+    eslint-config-xo-react: "npm:^0.28.0"
+    eslint-config-xo-typescript: "npm:^7.0.0"
+    eslint-formatter-pretty: "npm:^6.0.1"
+    eslint-plugin-ava: "npm:^15.0.1"
+    eslint-plugin-import-x: "npm:^4.16.1"
+    eslint-plugin-n: "npm:^17.21.0"
+    eslint-plugin-no-use-extend-native: "npm:^0.7.2"
+    eslint-plugin-prettier: "npm:^5.5.1"
+    eslint-plugin-promise: "npm:^7.2.1"
+    eslint-plugin-unicorn: "npm:^59.0.1"
+    find-cache-directory: "npm:^6.0.0"
+    get-stdin: "npm:^9.0.0"
+    get-tsconfig: "npm:^4.10.1"
+    globals: "npm:^16.3.0"
+    globby: "npm:^14.1.0"
+    meow: "npm:^13.2.0"
+    micromatch: "npm:^4.0.8"
+    open-editor: "npm:^5.1.0"
+    path-exists: "npm:^5.0.0"
+    prettier: "npm:^3.6.2"
+    type-fest: "npm:^4.41.0"
+    typescript-eslint: "npm:^8.37.0"
+  bin:
+    xo: dist/cli.js
+  checksum: 10c0/acab23bacb797692a791a3190186b89d2691e5afc569dd409222bf39699b102cc880db83aacfa8c86d13185bd3c970b7c3c0130247b326473d135d50665c82fa
   languageName: node
   linkType: hard
 
