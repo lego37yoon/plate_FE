@@ -1,12 +1,12 @@
 <script lang="ts">
   import { m } from "$lib/paraglide/messages";
   import { localizeHref, urlPatterns } from "$lib/paraglide/runtime";
-  import { ChevronRight, CornerDownLeft, PanelLeftClose, PanelLeftOpen } from "@lucide/svelte";
+  import { ChevronRight, ChevronDown, CornerDownLeft, PanelLeftClose, PanelLeftOpen } from "@lucide/svelte";
   import ResourceList from "../../../../../components/ResourceList.svelte";
   import { page } from "$app/state";
-  import { Button } from "bits-ui";
+  import { Accordion, Button } from "bits-ui";
   import { MediaQuery } from "svelte/reactivity";
-  import { fade } from "svelte/transition";
+  import { fade, slide } from "svelte/transition";
 
   let { data } = $props();
   const panelDefault = new MediaQuery('width >= 48rem');
@@ -44,7 +44,7 @@
 
 <div class="flex gap-2">
   {#if (panelDefault.current && panelState === null) || panelState}
-  <nav class="block w-full md:max-w-1/3 lg:max-w-1/4 " transition:fade>
+  <nav class="block w-full md:max-w-1/3 lg:max-w-1/4 " transition:slide={{ duration: 500, axis: "x" }}>
     <section id="resource_desc" class="flex justify-between items-center mb-4 ms-1">
       <p class="text-primary flex gap-1 items-center pt-2">
         <a class="font-light" href={localizeHref(`/`)}>Plate</a>
@@ -60,7 +60,7 @@
         <PanelLeftClose size={24} class="text-lime-900" />
       </Button.Root>
     </section>
-    <ul id="resource_list" class=" rounded-md p-2 overflow-scroll">
+    <ul id="resource_list" class=" rounded-md overflow-scroll">
       {#each data.resources.parent as item}
         <ResourceList parent={item} children={data.resources.child.filter((child) => child.parent_id === item.id)} hash={page.url.hash ? page.url.hash : `#${selectedItem}`} />
       {/each}
@@ -118,16 +118,80 @@
         </form>
         <!-- Comments --> <!-- Suggestions -->
       </div>
-      <div id="additional_data" class="p-4 min-w-1/4 h-full">
+      <Accordion.Root type="multiple" class="p-4 min-w-1/4 h-full flex flex-col gap-2" value={["suggested", "glossary", "auto_suggestion"]}>
+        <Accordion.Item value="suggested" class="border-primary border rounded-md p-2">
+          <Accordion.Header>
+            <Accordion.Trigger class="flex justify-between w-full">
+              <p>{m["l10n.input_suggestions_title"]()}</p>
+              <ChevronDown />
+            </Accordion.Trigger>
+          </Accordion.Header>
+          <Accordion.Content forceMount={true} hiddenUntilFound>
+            {#snippet child({ props, open })}
+              {#if open}
+              <div {...props} transition:slide={{ duration: 300 }}>
+                Blah 1
+              </div>
+              {/if}
+            {/snippet}
+          </Accordion.Content>
+        </Accordion.Item>
+        <!-- <Accordion.Item value="comments" class="border-primary border rounded-md p-2">
+          <Accordion.Header>
+            <Accordion.Trigger class="flex justify-between w-full">
+              <p>
+                <span>{m["l10n.input_comment_title"]()}</span>
+                <span class="mx-2 px-1 bg-secondary rounded-full">0</span>
+              </p>
+              <ChevronDown />
+            </Accordion.Trigger>
+          </Accordion.Header>
+          <Accordion.Content forceMount={true} hiddenUntilFound>
+            {#snippet child({ props, open })}
+              {#if open}
+              <div {...props} transition:slide={{ duration: 300 }}>
+                Blah 2
+              </div>
+              {/if}
+            {/snippet}
+          </Accordion.Content>
+        </Accordion.Item> -->
         <!-- Glossary -->
-        <!-- Machine Translations / Translation Memories -->
-        <div class="border-primary border rounded-md">
-          <h3>Glossary</h3>
-        </div>
-        <div class="border-primary border rounded-md">
-          <h3>Automatic Suggestions</h3>
-        </div>
-      </div>
+        <Accordion.Item value="glossary" class="border-primary border rounded-md p-2">
+          <Accordion.Header>
+            <Accordion.Trigger class="flex justify-between w-full">
+              <p>{m["glossary.tab_glossary"]()}</p>
+              <ChevronDown />
+            </Accordion.Trigger>
+          </Accordion.Header>
+          <Accordion.Content forceMount={true} hiddenUntilFound>
+            {#snippet child({ props, open })}
+              {#if open}
+              <div {...props} transition:slide={{ duration: 300 }}>
+                Blah 3
+              </div>
+              {/if}
+            {/snippet}
+          </Accordion.Content>
+        </Accordion.Item>
+        <Accordion.Item value="auto_suggestion" class="border-primary border rounded-md p-2">
+          <Accordion.Header>
+            <Accordion.Trigger class="flex justify-between w-full">
+              <p>{m["glossary.tab_history"]()} · {m["glossary.tab_machine"]()}</p>
+              <ChevronDown />
+            </Accordion.Trigger>
+          </Accordion.Header>
+          <Accordion.Content forceMount={true} hiddenUntilFound>
+            {#snippet child({ props, open })}
+              {#if open}
+              <div {...props} transition:slide={{ duration: 300 }}>
+                Blah 4
+              </div>
+              {/if}
+            {/snippet}
+          </Accordion.Content>
+        </Accordion.Item>
+      </Accordion.Root>
     </div>
     {/key}
   </section>
@@ -137,5 +201,9 @@
 <style>
   #resource_list {
     height: calc(100vh - 11.5rem);
+  }
+
+  :global(div[data-state="open"] button svg) {
+    rotate: 180deg;
   }
 </style>

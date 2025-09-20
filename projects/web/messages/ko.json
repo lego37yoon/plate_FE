@@ -156,6 +156,7 @@
 	},
 	"l10n": {
 		"input_placeholder": "여기에 번역 입력",
+		"input_suggestions_title": "제안 목록",
 		"input_commit": "등록",
 		"input_review_approve": "승인",
 		"input_review_need_comment": "설명 필요 / 보류",
@@ -176,7 +177,8 @@
 		"from_glossary": "출처: 용어집",
 		"from_machine": "출처: {provider} (번역 API)",
 		"tab_history": "번역 기록",
-		"tab_glossary": "용어집"
+		"tab_glossary": "용어집",
+		"tab_machine": "기계 번역"
 	},
 	"document": {
 		"type_none": "지정 안 함",

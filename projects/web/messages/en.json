@@ -156,6 +156,7 @@
 	},
 	"l10n": {
 		"input_placeholder": "Type translation in your language.",
+		"input_suggestions_title": "Suggestions from Contributors",
 		"input_commit": "Commit",
 		"input_review_approve": "Approve",
 		"input_review_need_comment": "Needs Comment",
@@ -176,7 +177,8 @@
 		"from_glossary": "from Glossary",
 		"from_machine": "from {provider} (Translation API)",
 		"tab_history": "Translation History",
-		"tab_glossary": "Glossary"
+		"tab_glossary": "Glossary",
+		"tab_machine": "Machine Suggestions"
 	},
 	"document": {
 		"type_none": "Unspecified",
