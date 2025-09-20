@@ -7,18 +7,18 @@
 </script>
 
 {#if parent.category === "group"}
-<li>
+<li class="bg-secondary-back rounded-md my-2 py-0.5 px-1">
   <p class="flex flex-col w-full border-b-gray-200 border-b-[0.5px]">
     <span>{parent.origin ?? parent.key}</span>
   </p>
-  <ul class="w-full bg-secondary-back rounded-md p-1">
+  <ul class="w-full rounded-md p-1">
     {#each children as child}
       <ResourceItem resource={child} {hash} />
     {/each}
   </ul>
 </li>
 {:else if children.length > 0}
-<ul>
+<ul class="bg-secondary-back rounded-md">
   <ResourceItem resource={parent} {hash} />
   {#each children as child}
     <ResourceItem resource={child} {hash} />
