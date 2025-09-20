@@ -1,6 +1,4 @@
 <script lang="ts">
-    import { fly } from "svelte/transition";
-
   const { resource, hash } : { 
     resource: Resources, hash: string
   } = $props();

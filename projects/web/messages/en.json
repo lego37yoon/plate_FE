@@ -178,7 +178,13 @@
 		"from_machine": "from {provider} (Translation API)",
 		"tab_history": "Translation History",
 		"tab_glossary": "Glossary",
-		"tab_machine": "Machine Suggestions"
+		"tab_machine": "Machine Suggestions",
+		"suggest_new": "Suggest new word",
+		"suggest_src": "Word in source language",
+		"suggest_result": "Translation result",
+		"suggest_commit": "Suggest",
+		"no_words": "Glossary is empty.",
+		"word_warning": "Glossary is an open dictionary for local teams. Words approved by managers indicated by check mark, and is an offical translation. Be careful if using words marked as not approved by managers, with warning icon."
 	},
 	"document": {
 		"type_none": "Unspecified",

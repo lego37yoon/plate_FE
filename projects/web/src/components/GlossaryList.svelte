@@ -1,12 +1,15 @@
 <script lang="ts">
-  import { BadgeCheck, TriangleAlert } from "@lucide/svelte";
-  import { Button } from "bits-ui";
-    import { slide } from "svelte/transition";
+  import { m } from "$lib/paraglide/messages";
+  import { ArrowRight, BadgeCheck, CornerDownLeft, Inbox, Info, Lightbulb, TriangleAlert } from "@lucide/svelte";
+  import { Button, Label } from "bits-ui";
+  import { slide } from "svelte/transition";
+  import Input from "./Input.svelte";
 
   let { suggest_text = $bindable(), glossary_data } : {
     suggest_text: { text: string, focus: boolean },
     glossary_data: Dictionary[]
    } = $props();
+  let openSuggestNew = $state(false);
 
   function updateValue(value: string) {
     suggest_text.text += value;
@@ -14,20 +17,55 @@
   }
 </script>
 
-<ul transition:slide={{ duration: 300 }}>
-  {#each glossary_data as glossary}
-  <li>
-    <Button.Root type="button" onclick={() => updateValue(glossary.result)} class="w-full rounded-md p-2 bg-secondary-back hover:bg-secondary flex gap-2">
-      {#if glossary.approved}
-      <BadgeCheck />
-      {:else}
-      <TriangleAlert />
-      {/if}
-      <span class="font-bold">{glossary.origin}</span>
-      <span>{glossary.result}</span>
+<div id="glossary_area" class="pt-2" transition:slide={{ duration: 300 }}>
+  <ul>
+    {#each glossary_data as glossary}
+    <li>
+      <Button.Root type="button" onclick={() => updateValue(glossary.result)} class="w-full rounded-md p-2 bg-secondary-back hover:bg-secondary flex gap-2">
+        {#if glossary.approved}
+        <BadgeCheck />
+        {:else}
+        <TriangleAlert />
+        {/if}
+        <span class="font-bold">{glossary.origin}</span>
+        <span>{glossary.result}</span>
+      </Button.Root>
+    </li>
+    {:else}
+    <li class="text-center flex flex-col gap-2 items-center p-2">
+      <Inbox />
+      <p>{m["glossary.no_words"]()}</p>
+    </li>
+    {/each}
+  </ul>
+  <p class="flex gap-2 items-center font-normal border-secondary border p-2 rounded-md mt-2">
+    <Info class="shrink-0 me-2" />
+    <span>{m["glossary.word_warning"]()}</span>
+    <Button.Root type="button" class="rounded-md p-2 bg-secondary-back hover:bg-secondary flex gap-2 items-center shrink-0" onclick={() => {
+      openSuggestNew = !openSuggestNew
+    }}>
+      <Lightbulb />
+      <span>{m["glossary.suggest_new"]()}</span>
     </Button.Root>
-  </li>
-  {:else}
-  <li></li>
-  {/each}
-</ul>
+  </p>
+  {#if openSuggestNew}
+  <form id="glossary" method="POST" action="/glossary_new" class="flex gap-2 my-2 px-2 justify-between items-center" transition:slide={{ duration: 300 }}>
+    <div class="flex gap-2 items-center text-gray-500">
+      <Lightbulb class="me-2" />
+      <div class="text-sm flex flex-col">
+        <Label.Root for="suggest_word_origin">{m["glossary.suggest_src"]()}</Label.Root>
+        <Input id="suggest_word_origin" type="text" name="suggest_word" />
+      </div>
+      <ArrowRight />
+      <div class="text-sm flex flex-col">
+        <Label.Root for="suggest_word_">{m["glossary.suggest_result"]()}</Label.Root>
+        <Input id="suggest_word_origin" type="text" name="suggest_word" />
+      </div>
+    </div>
+    <Button.Root type="submit" class="rounded-md p-2 bg-secondary-back hover:bg-secondary flex gap-2 items-center text-lime-950">
+      <CornerDownLeft />
+      {m["glossary.suggest_commit"]()}
+    </Button.Root>
+  </form>
+  {/if}
+</div>
