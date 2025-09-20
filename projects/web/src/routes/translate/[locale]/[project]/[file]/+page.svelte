@@ -93,12 +93,18 @@
       <div id="suggest_form" class="p-4 rounded-md w-full h-full bg-secondary-back">
         <!-- Resource and Results -->
         <p class="flex gap-2 items-center">
-          <span class={`rounded-md text-sm p-2 bg-lime-100`}>{selectedItemObject?.category}</span>
+          <span class={`rounded-md text-sm p-2 bg-emerald-100`}>{
+            selectedItemObject && (
+              selectedItemObject.category !== undefined &&
+              selectedItemObject.category !== "group"
+            ) 
+            ? m[`resources.${selectedItemObject?.category}`]()
+            : selectedItemObject?.category}</span>
           <span>{selectedItemObject?.origin}</span>
         </p>
         {#if selectedItemObject?.context}
         <p>
-          <span>CONTEXT</span> <!-- TODO: i18n this -->
+          <span>{m["l10n.context"]()}</span>
           <span>{selectedItemObject.context}</span>
         </p>
         {/if}
@@ -112,13 +118,13 @@
         </form>
         <!-- Comments --> <!-- Suggestions -->
       </div>
-      <div id="additional_data" class="p-4 rounded-md min-w-1/4 h-full border-primary border">
+      <div id="additional_data" class="p-4 min-w-1/4 h-full">
         <!-- Glossary -->
         <!-- Machine Translations / Translation Memories -->
-        <div>
+        <div class="border-primary border rounded-md">
           <h3>Glossary</h3>
         </div>
-        <div>
+        <div class="border-primary border rounded-md">
           <h3>Automatic Suggestions</h3>
         </div>
       </div>

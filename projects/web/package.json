@@ -38,5 +38,5 @@
 		"highlight.js": "^11.11.1",
 		"markdown-it": "^14.1.0"
 	},
-	"packageManager": "yarn@4.9.2"
+	"packageManager": "yarn@4.10.2"
 }

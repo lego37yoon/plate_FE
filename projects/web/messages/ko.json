@@ -148,6 +148,7 @@
 		"p": "문단",
 		"blockquote": "인용",
 		"a": "링크",
+		"none": "-",
 		"untranslated": "미번역",
 		"unreviewed": "검토 전",
 		"completed": "완료됨",

@@ -55,7 +55,7 @@ type Resources = {
     id: number;
     key: string;
     origin: string;
-    category: string;
+    category: "btn"|"h1"|"h2"|"h3"|"h4"|"p"|"blockquote"|"a"|"none"|"group"|undefined;
     parent_id: number | null;
     group_idx: number | null;
     context: string | null;

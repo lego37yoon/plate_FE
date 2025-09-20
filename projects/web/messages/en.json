@@ -148,6 +148,7 @@
 		"p": "Body",
 		"blockquote": "Quote",
 		"a": "Link",
+		"none": "-",
 		"untranslated": "Untranslated",
 		"unreviewed": "Unreviewed",
 		"completed": "Completed",
