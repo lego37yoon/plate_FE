@@ -72,6 +72,7 @@
       </tr>
       {/each}
     </tbody>
+  </table>
 </section>
 
 <section id="total-count">

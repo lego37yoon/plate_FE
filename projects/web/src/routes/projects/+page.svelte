@@ -75,6 +75,7 @@
         <td class="text-end">{project.files[0].count}</td>
       </tr>
       {/each}
+    </tbody>
   </table>
 </section>
 
