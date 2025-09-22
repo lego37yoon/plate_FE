@@ -9,6 +9,7 @@
   import { invalidate, onNavigate } from '$app/navigation';
   import type { Session, SupabaseClient, User } from '@supabase/supabase-js';
   import type { UserInfo } from '../types/account';
+    import { page } from '$app/state';
 
   let { children, data } : 
     { children: Snippet, data: 
@@ -57,6 +58,7 @@
 
   onNavigate((navigation) => {
   	if (!document.startViewTransition) return;
+    if (page.url.pathname.includes("/translate")) return;
 
     return new Promise((resolve) => {
       document.startViewTransition(async () => {
