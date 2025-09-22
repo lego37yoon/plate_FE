@@ -76,18 +76,6 @@
 
       if (!isNaN(id) && (!selectedItem || selectedItem.data.id !== id)) {
         selectedItem = setCurrentData(id, selectedItem);
-
-        if (selectedItem) {
-          if (selectedItem.data.category !== "group") {
-            if (selectedItem.data.results.length > 0) {
-              suggest_text.text = selectedItem.data.results.find((item) => item.approved)?.result ?? "";
-            } else {
-              suggest_text.text = "";
-            }
-
-            glossaries = data.glossary.filter((item) => selectedItem?.data.origin.includes(item.origin));
-          }
-        }
       }
     } else {
       if (data.resources.parent.length > 0) {
@@ -113,6 +101,18 @@
               : data.resources.parent[0].id
           };
         }
+      }
+    }
+
+    if (selectedItem) {
+      if (selectedItem.data.category !== "group") {
+        if (selectedItem.data.results.length > 0) {
+          suggest_text.text = selectedItem.data.results.find((item) => item.approved)?.result ?? "";
+        } else {
+          suggest_text.text = "";
+        }
+
+        glossaries = data.glossary.filter((item) => selectedItem?.data.origin.includes(item.origin));
       }
     }
 
@@ -219,7 +219,7 @@
             }
           }
         }}>
-          <textarea placeholder={m["l10n.input_placeholder"]()} name="suggest_message" class="rounded-md border-0 w-full min-h-24 disabled:bg-gray-200" bind:value={suggest_text.text} bind:this={text_area}></textarea>
+          <textarea placeholder={m["l10n.input_placeholder"]()} name="suggest_message" class="rounded-md border-0 w-full min-h-24 disabled:bg-gray-200" bind:value={suggest_text.text} bind:this={text_area} required></textarea>
           <Button.Root type="submit" class="flex gap-2 rounded-md bg-secondary text-lime-900 p-3 w-min disabled:bg-gray-400 disabled:text-lime-50" disabled={data.session ? false : true}>
             <CornerDownLeft />
             <span>{m["l10n.input_commit"]()}</span>
@@ -227,10 +227,10 @@
         </form>
         <!-- Comments --> <!-- Suggestions -->
       </div>
-      <Accordion.Root type="multiple" class="p-4 min-w-1/4 h-full flex flex-col gap-2" value={["suggested", "glossary", "auto_suggestion"]}>
+      <Accordion.Root type="multiple" class="p-4 min-w-1/4 h-full overflow-scroll max-h-full" value={["suggested", "glossary", "auto_suggestion"]}>
         <Accordion.Item value="suggested" class="border-primary border rounded-md p-2">
           <Accordion.Header>
-            <Accordion.Trigger class="flex justify-between w-full">
+            <Accordion.Trigger class="flex justify-between w-full accordion">
               <p>{m["l10n.input_suggestions_title"]()}</p>
               <ChevronDown />
             </Accordion.Trigger>
@@ -268,7 +268,7 @@
         <!-- Glossary -->
         <Accordion.Item value="glossary" class="border-primary border rounded-md p-2">
           <Accordion.Header>
-            <Accordion.Trigger class="flex justify-between w-full">
+            <Accordion.Trigger class="flex justify-between w-full accordion">
               <p>{m["glossary.tab_glossary"]()}</p>
               <ChevronDown />
             </Accordion.Trigger>
@@ -283,7 +283,7 @@
         </Accordion.Item>
         <Accordion.Item value="auto_suggestion" class="border-primary border rounded-md p-2">
           <Accordion.Header>
-            <Accordion.Trigger class="flex justify-between w-full">
+            <Accordion.Trigger class="flex justify-between w-full accordion">
               <p>{m["glossary.tab_history"]()} · {m["glossary.tab_machine"]()}</p>
               <ChevronDown />
             </Accordion.Trigger>
@@ -310,7 +310,7 @@
     height: calc(100vh - 11.5rem);
   }
 
-  :global(div[data-state="open"] > button > svg) {
+  :global(div[data-state="open"] > button.accordion > svg) {
     rotate: 180deg;
   }
 </style>
