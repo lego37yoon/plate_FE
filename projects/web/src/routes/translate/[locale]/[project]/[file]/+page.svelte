@@ -6,49 +6,114 @@
   import { page } from "$app/state";
   import { Accordion, Button } from "bits-ui";
   import { MediaQuery } from "svelte/reactivity";
-  import { fade, slide } from "svelte/transition";
-    import GlossaryList from "../../../../../components/GlossaryList.svelte";
+  import { slide } from "svelte/transition";
+  import GlossaryList from "../../../../../components/GlossaryList.svelte";
+  import { applyAction, enhance } from "$app/forms";
+  import type { PageProps } from "./$types";
+  import { goto } from "$app/navigation";
 
-  let { data } = $props();
+  type currentItem = {
+    type: "parent" | "child",
+    index: number,
+    data: Resources,
+    nextParent: number
+  }
+
+  let { data, form } = $props();
   const panelDefault = new MediaQuery('width >= 48rem');
   let panelState = $state<boolean|null>(null);
-  let selectedItem = $state<number>(-1);
-  let selectedItemObject = $state<Resources>();
+  let selectedItem = $state<currentItem>();
   let suggest_text = $state<{ text: string, focus: boolean }>({ 
     text: "", focus: true 
   });
   let glossaries = $state<Dictionary[]>(data.glossary);
   let text_area = $state<HTMLTextAreaElement|undefined>();
 
-  if (data.resources.parent.length > 0) {
-    if (
-      data.resources.parent[0].category === "group"
-      && data.resources.child.length > 0
-    ) {
-      selectedItem = data.resources.child[0].id;
-      selectedItemObject = data.resources.child[0];
-    } else if (data.resources.parent[0].category !== "group") {
-      selectedItem = data.resources.parent[0].id;
-      selectedItemObject = data.resources.parent[0];
+  function setCurrentData(
+    id: number, selectedItem: currentItem | undefined
+  ) : currentItem | undefined {
+    const parentItemIndex = data.resources.parent.findIndex((i) => i.id === id);
+    
+    if (parentItemIndex !== -1) {
+      if (data.resources.parent[parentItemIndex].category === "group") {
+        const childFirstItem = data.resources.child.find((i) => id === i.parent_id);
+            
+        goto(childFirstItem ? `#${childFirstItem.id}` : "/", { noScroll: true, keepFocus: true });
+      } else {
+        return {
+          type: "parent",
+          index: parentItemIndex,
+          data: data.resources.parent[parentItemIndex],
+          nextParent: data.resources.parent.length > parentItemIndex + 1 
+          ? data.resources.parent[parentItemIndex + 1].id
+          : data.resources.parent[0].id
+        }
+      }
     }
+    
+    const childItemIndex = data.resources.child.findIndex((i) => i.id === id);
+    if (childItemIndex !== -1) {
+      const childItem = data.resources.child[childItemIndex];
+      const nextParentLoc = data.resources.parent.findIndex((item) => item.id === childItem.parent_id) + 1;
+
+      const nextParentIndex = data.resources.parent[
+        data.resources.parent.length > nextParentLoc ? nextParentLoc : 0
+      ].id;
+
+      return {
+        type: "child",
+        index: childItemIndex,
+        data: childItem,
+        nextParent: nextParentIndex
+      }
+    }
+
+    return selectedItem;
   }
 
   $effect(() => {
     if (page.url.hash) {
       const id = Number(page.url.hash.slice(1));
 
-      if (!isNaN(id) && (!selectedItemObject || selectedItemObject.id !== id)) {
-        selectedItemObject = 
-          data.resources.parent.find((i) => i.id === id)
-          ?? data.resources.child.find((i) => i.id === id);
+      if (!isNaN(id) && (!selectedItem || selectedItem.data.id !== id)) {
+        selectedItem = setCurrentData(id, selectedItem);
 
-        if (selectedItemObject && selectedItemObject.results.length > 0) {
-          suggest_text.text = selectedItemObject.results.find((item) => item.approved)?.result ?? "";
-        } else {
-          suggest_text.text = "";
+        if (selectedItem) {
+          if (selectedItem.data.category !== "group") {
+            if (selectedItem.data.results.length > 0) {
+              suggest_text.text = selectedItem.data.results.find((item) => item.approved)?.result ?? "";
+            } else {
+              suggest_text.text = "";
+            }
+
+            glossaries = data.glossary.filter((item) => selectedItem?.data.origin.includes(item.origin));
+          }
         }
-
-        glossaries = data.glossary.filter((item) => selectedItemObject?.origin.includes(item.origin));
+      }
+    } else {
+      if (data.resources.parent.length > 0) {
+        if (
+          data.resources.parent[0].category === "group"
+          && data.resources.child.length > 0
+        ) {
+          selectedItem = { 
+            type: "child", index: 0,
+            data: data.resources.child[0],
+            nextParent: 
+              data.resources.parent.length > 0 
+              ? data.resources.parent[1].id 
+              : data.resources.parent[0].id
+          };
+        } else if (data.resources.parent[0].category !== "group") {
+          selectedItem = { 
+            type: "parent", index: 0,
+            data: data.resources.parent[0],
+            nextParent:
+              data.resources.parent.length > 0 
+              ? data.resources.parent[1].id 
+              : data.resources.parent[0].id
+          };
+        }
       }
     }
 
@@ -56,7 +121,13 @@
       text_area.focus();
       suggest_text.focus = false;
     }
+
+    if (!data.session && text_area) {
+      text_area.disabled = true;
+    }
   });
+
+  $inspect(selectedItem);
 </script>
 
 <svelte:head>
@@ -81,9 +152,9 @@
         <PanelLeftClose size={24} class="text-lime-900" />
       </Button.Root>
     </section>
-    <ul id="resource_list" class=" rounded-md overflow-scroll">
+    <ul id="resource_list" class=" rounded-md overflow-scroll p-0.5">
       {#each data.resources.parent as item}
-        <ResourceList parent={item} children={data.resources.child.filter((child) => child.parent_id === item.id)} hash={page.url.hash ? page.url.hash : `#${selectedItem}`} />
+        <ResourceList parent={item} children={data.resources.child.filter((child) => child.parent_id === item.id)} hash={page.url.hash ? page.url.hash : `#${selectedItem?.data.id}`} />
       {/each}
     </ul>
   </nav>
@@ -115,23 +186,43 @@
         <!-- Resource and Results -->
         <p class="flex gap-2 items-center">
           <span class={`rounded-md text-sm p-2 bg-emerald-100`}>{
-            selectedItemObject && (
-              selectedItemObject.category !== undefined &&
-              selectedItemObject.category !== "group"
+            selectedItem && (
+              selectedItem.data.category !== undefined &&
+              selectedItem.data.category !== "group"
             ) 
-            ? m[`resources.${selectedItemObject?.category}`]()
-            : selectedItemObject?.category}</span>
-          <span>{selectedItemObject?.origin}</span>
+            ? m[`resources.${selectedItem?.data.category}`]()
+            : selectedItem?.data.category}</span>
+          <span>{selectedItem?.data.origin}</span>
         </p>
-        {#if selectedItemObject?.context}
+        {#if selectedItem?.data.context}
         <p>
           <span>{m["l10n.context"]()}</span>
-          <span>{selectedItemObject.context}</span>
+          <span>{selectedItem.data.context}</span>
         </p>
         {/if}
         <hr class="border-gray-400 my-2">
-        <form class="flex flex-col items-end gap-2">
-          <textarea placeholder={m["l10n.input_placeholder"]()} id="suggest_message" class="rounded-md border-0 w-full min-h-24" bind:value={suggest_text.text} bind:this={text_area}></textarea>
+        <form class="flex flex-col items-end gap-2" method="POST" action="?/commit" use:enhance={({ formData, action, cancel }) => {
+          return async ({ result }) => {
+            if (result.type === "success" && selectedItem) {
+              if (selectedItem.type === "parent") {
+                const child = data.resources.child.find((i) => i.parent_id === selectedItem?.data.id);
+                if (child) {
+                  goto(`#${child.id}`, { noScroll: true, keepFocus: true });
+                } else {
+                  goto(`#${selectedItem.nextParent}`, { noScroll: true, keepFocus: true });
+                }
+              } else if (data.resources.child.length > selectedItem.index + 1) {
+                goto(`#${data.resources.child[selectedItem.index + 1].id}`, { noScroll: true, keepFocus: true });
+              } else {
+                goto(`#${selectedItem.nextParent}`, { noScroll: true, keepFocus: true });
+              }
+              
+            } else {
+              await applyAction(result);
+            }
+          }
+        }}>
+          <textarea placeholder={m["l10n.input_placeholder"]()} name="suggest_message" class="rounded-md border-0 w-full min-h-24 disabled:bg-gray-200" bind:value={suggest_text.text} bind:this={text_area}></textarea>
           <Button.Root type="submit" class="flex gap-2 rounded-md bg-secondary text-lime-900 p-3 w-min">
             <CornerDownLeft />
             <span>{m["l10n.input_commit"]()}</span>
