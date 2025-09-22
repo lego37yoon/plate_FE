@@ -9,7 +9,6 @@
   import { slide } from "svelte/transition";
   import GlossaryList from "../../../../../components/GlossaryList.svelte";
   import { applyAction, enhance } from "$app/forms";
-  import type { PageProps } from "./$types";
   import { goto } from "$app/navigation";
 
   type currentItem = {
@@ -27,7 +26,7 @@
     text: "", focus: true 
   });
   let glossaries = $state<Dictionary[]>(data.glossary);
-  let text_area = $state<HTMLTextAreaElement|undefined>();
+  let text_area = $state<HTMLTextAreaElement>();
 
   function setCurrentData(
     id: number, selectedItem: currentItem | undefined
@@ -126,8 +125,6 @@
       text_area.disabled = true;
     }
   });
-
-  $inspect(selectedItem);
 </script>
 
 <svelte:head>
@@ -223,7 +220,7 @@
           }
         }}>
           <textarea placeholder={m["l10n.input_placeholder"]()} name="suggest_message" class="rounded-md border-0 w-full min-h-24 disabled:bg-gray-200" bind:value={suggest_text.text} bind:this={text_area}></textarea>
-          <Button.Root type="submit" class="flex gap-2 rounded-md bg-secondary text-lime-900 p-3 w-min">
+          <Button.Root type="submit" class="flex gap-2 rounded-md bg-secondary text-lime-900 p-3 w-min disabled:bg-gray-400 disabled:text-lime-50" disabled={data.session ? false : true}>
             <CornerDownLeft />
             <span>{m["l10n.input_commit"]()}</span>
           </Button.Root>
@@ -279,7 +276,7 @@
           <Accordion.Content forceMount={true} hiddenUntilFound>
             {#snippet child({ props, open })}
               {#if open}
-              <GlossaryList bind:suggest_text={suggest_text} glossary_data={glossaries} {...props} /> 
+              <GlossaryList bind:suggest_text={suggest_text} glossary_data={glossaries} suggest_hidden={data.session ? true : false} {...props} /> 
               {/if}
             {/snippet}
           </Accordion.Content>

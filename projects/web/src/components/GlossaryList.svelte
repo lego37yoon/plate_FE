@@ -5,9 +5,10 @@
   import { slide } from "svelte/transition";
   import Input from "./Input.svelte";
 
-  let { suggest_text = $bindable(), glossary_data } : {
+  let { suggest_text = $bindable(), glossary_data, suggest_hidden } : {
     suggest_text: { text: string, focus: boolean },
-    glossary_data: Dictionary[]
+    glossary_data: Dictionary[],
+    suggest_hidden: boolean
    } = $props();
   let openSuggestNew = $state(false);
 
@@ -41,15 +42,17 @@
   <p class="flex gap-2 items-center font-normal border-secondary border p-2 rounded-md mt-2">
     <Info class="shrink-0 me-2" />
     <span>{m["glossary.word_warning"]()}</span>
+    {#if suggest_hidden}
     <Button.Root type="button" class="rounded-md p-2 bg-secondary-back hover:bg-secondary flex gap-2 items-center shrink-0" onclick={() => {
       openSuggestNew = !openSuggestNew
     }}>
       <Lightbulb />
       <span>{m["glossary.suggest_new"]()}</span>
     </Button.Root>
+    {/if}
   </p>
   {#if openSuggestNew}
-  <form id="glossary" method="POST" action="/glossary_new" class="flex gap-2 my-2 px-2 justify-between items-center" transition:slide={{ duration: 300 }}>
+  <form id="glossary" method="POST" action="?/glossary_new" class="flex gap-2 my-2 px-2 justify-between items-center" transition:slide={{ duration: 300 }}>
     <div class="flex gap-2 items-center text-gray-500">
       <Lightbulb class="me-2" />
       <div class="text-sm flex flex-col">
