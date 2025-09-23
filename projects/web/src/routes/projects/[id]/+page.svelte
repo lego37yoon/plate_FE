@@ -7,7 +7,7 @@
   import type { UserRole } from '../../../types/account.js';
 
   type Doc = {
-    name: string, src: string, last_updated: string
+    name: string, src: string, last_updated: string, type: "resource" | "doc"
   }
 
   const account = getContext<{ data: { role: UserRole | null | undefined } | null}>("account");
@@ -125,7 +125,7 @@
           </a>
         </td>
         <td class="text-end">{lang.code}</td>
-        <td class="text-end">{data.projects[0].files.length}</td>
+        <td class="text-end">{data.projects[0].files.filter((i : Doc) => i.type === "resource").length}</td>
         <td></td>
       </tr>
       {/each}
