@@ -28,6 +28,31 @@
   let glossaries = $state<Dictionary[]>(data.glossary);
   let text_area = $state<HTMLTextAreaElement>();
 
+  if (data.resources.parent.length > 0) {
+    if (
+      data.resources.parent[0].category === "group"
+      && data.resources.child.length > 0
+    ) {
+      selectedItem = { 
+        type: "child", index: 0,
+        data: data.resources.child[0],
+        nextParent: 
+          data.resources.parent.length > 0 
+          ? data.resources.parent[1].id 
+          : data.resources.parent[0].id
+      };
+    } else if (data.resources.parent[0].category !== "group") {
+      selectedItem = { 
+        type: "parent", index: 0,
+        data: data.resources.parent[0],
+        nextParent:
+          data.resources.parent.length > 0 
+          ? data.resources.parent[1].id 
+          : data.resources.parent[0].id
+      };
+    }
+  }
+
   function setCurrentData(
     id: number, selectedItem: currentItem | undefined
   ) : currentItem | undefined {
@@ -76,31 +101,6 @@
 
       if (!isNaN(id) && (!selectedItem || selectedItem.data.id !== id)) {
         selectedItem = setCurrentData(id, selectedItem);
-      }
-    } else {
-      if (data.resources.parent.length > 0) {
-        if (
-          data.resources.parent[0].category === "group"
-          && data.resources.child.length > 0
-        ) {
-          selectedItem = { 
-            type: "child", index: 0,
-            data: data.resources.child[0],
-            nextParent: 
-              data.resources.parent.length > 0 
-              ? data.resources.parent[1].id 
-              : data.resources.parent[0].id
-          };
-        } else if (data.resources.parent[0].category !== "group") {
-          selectedItem = { 
-            type: "parent", index: 0,
-            data: data.resources.parent[0],
-            nextParent:
-              data.resources.parent.length > 0 
-              ? data.resources.parent[1].id 
-              : data.resources.parent[0].id
-          };
-        }
       }
     }
 
