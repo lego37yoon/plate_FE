@@ -27,6 +27,7 @@
   });
   let glossaries = $state<Dictionary[]>(data.glossary);
   let text_area = $state<HTMLTextAreaElement>();
+  let commitButton = $state<HTMLButtonElement|null>(null);
 
   if (data.resources.parent.length > 0) {
     if (
@@ -101,6 +102,9 @@
 
       if (!isNaN(id) && (!selectedItem || selectedItem.data.id !== id)) {
         selectedItem = setCurrentData(id, selectedItem);
+      }
+      if (text_area) {
+        text_area.focus();
       }
     }
 
@@ -219,8 +223,12 @@
             }
           }
         }}>
-          <textarea placeholder={m["l10n.input_placeholder"]()} name="suggest_message" class="rounded-md border-0 w-full min-h-24 disabled:bg-gray-200" bind:value={suggest_text.text} bind:this={text_area} required></textarea>
-          <Button.Root type="submit" class="flex gap-2 rounded-md bg-secondary text-lime-900 p-3 w-min disabled:bg-gray-400 disabled:text-lime-50" disabled={data.session ? false : true}>
+          <textarea placeholder={m["l10n.input_placeholder"]()} name="suggest_message" class="rounded-md border-0 w-full min-h-24 disabled:bg-gray-200" bind:value={suggest_text.text} bind:this={text_area} required onkeyup={e => {
+            if (e.ctrlKey && e.key === "Enter" && commitButton) {
+              commitButton.click();
+            }
+          }}></textarea>
+          <Button.Root type="submit" class="flex gap-2 rounded-md bg-secondary text-lime-900 p-3 w-min disabled:bg-gray-400 disabled:text-lime-50" disabled={data.session ? false : true} bind:ref={commitButton}>
             <CornerDownLeft />
             <span>{m["l10n.input_commit"]()}</span>
           </Button.Root>
