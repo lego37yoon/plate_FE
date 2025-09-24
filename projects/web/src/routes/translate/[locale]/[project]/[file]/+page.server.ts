@@ -39,7 +39,7 @@ export const actions: Actions = {
     const form = await request.formData();
     const suggestMessage = form.get("suggest_message");
 
-    
+    console.log(suggestMessage);
   },
   approve: async ({ request, locals: { supabase } }) => {
 
@@ -48,6 +48,12 @@ export const actions: Actions = {
 
   },
   suggest_delete: async ({ request, locals: { supabase } }) => {
+
+  },
+  glossary_new: async ({ request, locals: { supabase }}) => {
+    console.log("new word submitted");
+  },
+  glossary_approve: async ({ request, locals: { supabase } }) => {
 
   },
   comment_new: async ({ request, locals: { supabase } }) => {

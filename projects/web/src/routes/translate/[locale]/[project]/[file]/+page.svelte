@@ -108,7 +108,7 @@
       }
     }
 
-    if (selectedItem) {
+    if (selectedItem && suggest_text.text === "") {
       if (selectedItem.data.category !== "group") {
         if (selectedItem.data.results.length > 0) {
           suggest_text.text = selectedItem.data.results.find((item) => item.approved)?.result ?? "";
@@ -202,7 +202,7 @@
         </p>
         {/if}
         <hr class="border-gray-400 my-2">
-        <form class="flex flex-col items-end gap-2" method="POST" action="?/commit" use:enhance={({ formData, action, cancel }) => {
+        <form class="flex flex-col items-end gap-2" method="POST" action="?/commit" use:enhance={() => {
           return async ({ result }) => {
             if (result.type === "success" && selectedItem) {
               if (selectedItem.type === "parent") {
@@ -235,7 +235,7 @@
         </form>
         <!-- Comments --> <!-- Suggestions -->
       </div>
-      <Accordion.Root type="multiple" class="p-4 min-w-1/4 h-full overflow-scroll max-h-full" value={["suggested", "glossary", "auto_suggestion"]}>
+      <Accordion.Root type="multiple" class="p-4 min-w-1/4 h-full overflow-scroll flex flex-col gap-2" value={["suggested", "glossary", "auto_suggestion"]}>
         <Accordion.Item value="suggested" class="border-primary border rounded-md p-2">
           <Accordion.Header>
             <Accordion.Trigger class="flex justify-between w-full accordion">
@@ -277,7 +277,9 @@
         <Accordion.Item value="glossary" class="border-primary border rounded-md p-2">
           <Accordion.Header>
             <Accordion.Trigger class="flex justify-between w-full accordion">
-              <p>{m["glossary.tab_glossary"]()}</p>
+              <p>
+                <span>{m["glossary.tab_glossary"]()}</span>
+              </p>
               <ChevronDown />
             </Accordion.Trigger>
           </Accordion.Header>

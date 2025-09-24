@@ -19,8 +19,6 @@
   function updateValue(value: string) {
     suggest_text.text += value;
     suggest_text.focus = true;
-
-    console.log(suggest_text);
   }
 </script>
 
