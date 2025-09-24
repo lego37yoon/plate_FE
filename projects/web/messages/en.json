@@ -183,6 +183,7 @@
 		"suggest_src": "Word in source language",
 		"suggest_result": "Translation result",
 		"suggest_commit": "Suggest",
+		"suggest_approve": "Approve",
 		"no_words": "Glossary is empty.",
 		"word_warning": "Glossary is an open dictionary for local teams. Words approved by managers indicated by check mark, and is an offical translation. Be careful if using words marked as not approved by managers, with warning icon."
 	},
