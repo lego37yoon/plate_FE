@@ -15,6 +15,43 @@ NOTIFY pgrst, 'reload config';
 
 Then add tables and set RLSs (Row Level Policy) to adjust permissions. Details will be updated.
 
+Before access to the page including "/translate" pathname, run a command below to set query function for getting contents of the page.
+```sql
+CREATE OR REPLACE FUNCTION resources_with_dictionary()
+RETURNS SETOF jsonb AS $$
+BEGIN
+  RETURN QUERY
+  SELECT
+    jsonb_build_object( 
+      "id", before.id,
+      "key", before.key,
+      "origin", before.origin,
+      "category", before.category,
+      "parent_id", before.parent_id,
+      "group_idx", before.group_idx,
+      "context", before.context,
+      "results", COALESCE (
+        (
+          SELECT jsonb_agg(after.*)
+          FROM results AS after
+          WHERE before.id == after.origin_id
+        ),
+        "[]"::jsonb
+      ),
+      "dictionary", COALESCE (
+        (
+          SELECT jsonb_agg(d.*)
+          FROM dictionary AS d
+          WHERE before.origin LIKE "%" || d.origin || "%"
+        ),
+        "[]"::jsonb
+      )
+    )
+  FROM resources AS before;
+END;
+$$ LANGUAGE plpgsql;
+```
+
 > **Why these commands are required?**
 > Some pages uses aggregate functions to query data from multiple tables; and Supabase database basically disabled this feature as default.
 
