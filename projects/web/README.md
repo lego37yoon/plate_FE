@@ -35,6 +35,7 @@ BEGIN
           SELECT jsonb_agg(after.*)
           FROM results AS after
           WHERE before.id == after.origin_id
+            AND before.lang_code == after.lang_code
         ),
         "[]"::jsonb
       ),
