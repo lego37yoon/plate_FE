@@ -18,7 +18,9 @@ Then add tables and set RLSs (Row Level Policy) to adjust permissions. Details w
 Before access to the page including "/translate" pathname, run a command below to set query function for getting contents of the page.
 ```sql
 CREATE OR REPLACE FUNCTION resources_with_dictionary(
-  resource_id INT DEFAULT NULL
+  resource_id INT DEFAULT NULL,
+  file_id INT DEFAULT NULL,
+  locale TEXT DEFAULT NULL
 )
 RETURNS SETOF jsonb
 SECURITY DEFINER
@@ -39,7 +41,7 @@ BEGIN
           COALESCE (
             (
               SELECT jsonb_agg(after.*)
-              FROM results AS after
+              FROM public.results AS after
               WHERE
                 before.id == after.origin_id
                 AND before.lang_code == after.lang_code
@@ -50,7 +52,7 @@ BEGIN
           COALESCE (
             (
               SELECT jsonb_agg(after.*)
-              FROM results AS after
+              FROM public.results AS after
               WHERE
                 before.id == after.origin_id
                 AND before.lang_code == after.lang_code
@@ -62,7 +64,7 @@ BEGIN
       "dictionary", COALESCE (
         (
           SELECT jsonb_agg(d.*)
-          FROM dictionary AS d
+          FROM public.dictionary AS d
           WHERE
             resource_id IS NOT NULL
             AND before.origin LIKE "%" || d.origin || "%"
@@ -70,7 +72,7 @@ BEGIN
         "[]"::jsonb
       )
     )
-  FROM resources AS before;
+  FROM public.resources AS before WHERE before.file_id = file_id AND before.lang_code = locale;
 END;
 $$ LANGUAGE plpgsql;
 ```
