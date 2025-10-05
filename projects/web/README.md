@@ -17,8 +17,12 @@ Then add tables and set RLSs (Row Level Policy) to adjust permissions. Details w
 
 Before access to the page including "/translate" pathname, run a command below to set query function for getting contents of the page.
 ```sql
-CREATE OR REPLACE FUNCTION resources_with_dictionary()
-RETURNS SETOF jsonb AS $$
+CREATE OR REPLACE FUNCTION resources_with_dictionary(
+  resource_id INT DEFAULT NULL
+)
+RETURNS SETOF jsonb
+SECURITY DEFINER
+SET search_path = public AS $$
 BEGIN
   RETURN QUERY
   SELECT
@@ -30,20 +34,38 @@ BEGIN
       "parent_id", before.parent_id,
       "group_idx", before.group_idx,
       "context", before.context,
-      "results", COALESCE (
-        (
-          SELECT jsonb_agg(after.*)
-          FROM results AS after
-          WHERE before.id == after.origin_id
-            AND before.lang_code == after.lang_code
-        ),
-        "[]"::jsonb
-      ),
+      "results",
+        CASE WHEN resource_id THEN
+          COALESCE (
+            (
+              SELECT jsonb_agg(after.*)
+              FROM results AS after
+              WHERE
+                before.id == after.origin_id
+                AND before.lang_code == after.lang_code
+            ),
+            "[]"::jsonb
+          )
+        ELSE
+          COALESCE (
+            (
+              SELECT jsonb_agg(after.*)
+              FROM results AS after
+              WHERE
+                before.id == after.origin_id
+                AND before.lang_code == after.lang_code
+                AND after.approved
+            ),
+            "[]"::jsonb
+          )
+        END,
       "dictionary", COALESCE (
         (
           SELECT jsonb_agg(d.*)
           FROM dictionary AS d
-          WHERE before.origin LIKE "%" || d.origin || "%"
+          WHERE
+            resource_id IS NOT NULL
+            AND before.origin LIKE "%" || d.origin || "%"
         ),
         "[]"::jsonb
       )
