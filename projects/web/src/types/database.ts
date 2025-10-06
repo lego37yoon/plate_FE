@@ -59,13 +59,14 @@ type Resources = {
     parent_id: number | null;
     group_idx: number | null;
     context: string | null;
-    results: {
-        origin_id: number,
-        approved: boolean,
-        author: string,
-        result: string,
-        lang_code: string
-    }[];
+    results: Results[];
+    dictionary: Dictionary[];
+}
+
+type ResourcesMinimum = {
+    id: number;
+    category: "btn"|"h1"|"h2"|"h3"|"h4"|"p"|"blockquote"|"a"|"none"|"group"|undefined;
+    parent_id: number | null;
 }
 
 type Results = {

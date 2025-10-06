@@ -15,7 +15,7 @@
   resource.id === Number(hash.slice(1)) ? 
     "outline-lime-950 outline-2" :""
 }`} bind:this={resourceItem}>
-  <a href={`#${resource.id}`} class={`flex flex-col w-full p-1 border-b-gray-200 border-b-[0.5px]`}>
+  <a href={`${resource.id}`} class={`flex flex-col w-full p-1 border-b-gray-200 border-b-[0.5px]`}>
     <p class="flex gap-2 items-center">
       <span class={`rounded-full p-1 min-w-8 min-h-8 text-center shrink-0 font-light text-sm ${
         resource.results.length > 0 ?

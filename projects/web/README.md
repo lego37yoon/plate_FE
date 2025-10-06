@@ -18,9 +18,9 @@ Then add tables and set RLSs (Row Level Policy) to adjust permissions. Details w
 Before access to the page including "/translate" pathname, run a command below to set query function for getting contents of the page.
 ```sql
 CREATE OR REPLACE FUNCTION resources_with_dictionary(
-  resource_id INT DEFAULT NULL,
-  file_id INT DEFAULT NULL,
-  locale TEXT DEFAULT NULL
+  file INT,
+  locale TEXT,
+  resource_id INT DEFAULT NULL
 )
 RETURNS SETOF jsonb
 SECURITY DEFINER
@@ -29,24 +29,24 @@ BEGIN
   RETURN QUERY
   SELECT
     jsonb_build_object( 
-      "id", before.id,
-      "key", before.key,
-      "origin", before.origin,
-      "category", before.category,
-      "parent_id", before.parent_id,
-      "group_idx", before.group_idx,
-      "context", before.context,
-      "results",
-        CASE WHEN resource_id THEN
+      'id', before.id,
+      'key', before.key,
+      'origin', before.origin,
+      'category', before.category,
+      'parent_id', before.parent_id,
+      'group_idx', before.group_idx,
+      'context', before.context,
+      'results', 
+      CASE WHEN resource_id IS NOT NULL THEN
           COALESCE (
             (
               SELECT jsonb_agg(after.*)
               FROM public.results AS after
               WHERE
-                before.id == after.origin_id
-                AND before.lang_code == after.lang_code
+                before.id = after.origin_id
+                AND after.lang_code = locale
             ),
-            "[]"::jsonb
+            '[]'::jsonb
           )
         ELSE
           COALESCE (
@@ -54,25 +54,25 @@ BEGIN
               SELECT jsonb_agg(after.*)
               FROM public.results AS after
               WHERE
-                before.id == after.origin_id
-                AND before.lang_code == after.lang_code
+                before.id = after.origin_id
+                AND after.lang_code = locale
                 AND after.approved
             ),
-            "[]"::jsonb
+            '[]'::jsonb
           )
         END,
-      "dictionary", COALESCE (
+      'dictionary', COALESCE (
         (
           SELECT jsonb_agg(d.*)
           FROM public.dictionary AS d
           WHERE
-            resource_id IS NOT NULL
-            AND before.origin LIKE "%" || d.origin || "%"
+            d.lang_code = locale
+            AND before.origin LIKE '%' || d.origin || '%'
         ),
-        "[]"::jsonb
+        '[]'::jsonb
       )
     )
-  FROM public.resources AS before WHERE before.file_id = file_id AND before.lang_code = locale;
+  FROM public.resources AS before WHERE before.file_id = file;
 END;
 $$ LANGUAGE plpgsql;
 ```
