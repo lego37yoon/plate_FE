@@ -1,6 +1,6 @@
 <script lang="ts">
   import { m } from "$lib/paraglide/messages";
-  import { localizeHref, urlPatterns } from "$lib/paraglide/runtime";
+  import { localizeHref } from "$lib/paraglide/runtime";
   import { ChevronRight, ChevronDown, CornerDownLeft, PanelLeftClose, PanelLeftOpen } from "@lucide/svelte";
   import ResourceList from "../../../../../../components/ResourceList.svelte";
   import { page } from "$app/state";
@@ -10,13 +10,13 @@
   import GlossaryList from "../../../../../../components/GlossaryList.svelte";
   import { applyAction, enhance } from "$app/forms";
   import { goto } from "$app/navigation";
-    import type { Session } from "@supabase/supabase-js";
+  import type { Session } from "@supabase/supabase-js";
 
   type CurrentItem = {
     type: "parent" | "child",
     index: number,
     data: Resources,
-    nextParent: number
+    next: number
   }
 
   type OriginData = {
@@ -26,7 +26,7 @@
       name: string, project_id: number, projects: { name: string }
     }[],
     locale: string,
-    current: Resources,
+    current: CurrentItem,
     session: Session | null
   }
 
@@ -34,71 +34,22 @@
   let { data, form } : { data: OriginData, form: null }  = $props();
   const panelDefault = new MediaQuery('width >= 48rem');
   let panelState = $state<boolean|null>(null);
-  let selectedItem = $state<CurrentItem>();
   let suggest_text = $state<{ text: string, focus: boolean }>({ 
     text: "", focus: true 
   });
-  let glossaries = $state<Dictionary[]>(data.current.dictionary);
+  let glossaries = $state<Dictionary[]>(data.current.data.dictionary);
   let text_area = $state<HTMLTextAreaElement>();
   let commitButton = $state<HTMLButtonElement|null>(null);
-
-  function setCurrentData(
-    id: number, selectedItem: CurrentItem | undefined
-  ) : CurrentItem | undefined {
-    const parentItemIndex = data.parent.findIndex((i) => i.id === id);
-    
-    if (parentItemIndex !== -1) {
-      if (data.parent[parentItemIndex].category === "group") {
-        const childFirstItem = data.child.find((i) => id === i.parent_id);
-            
-        goto(childFirstItem ? `${childFirstItem.id}` : "/", { noScroll: true, keepFocus: true });
-      } else {
-        return {
-          type: "parent",
-          index: parentItemIndex,
-          data: data.parent[parentItemIndex],
-          nextParent: data.parent.length > parentItemIndex + 1 
-          ? data.parent[parentItemIndex + 1].id
-          : data.parent[0].id
-        }
-      }
-    }
-    
-    const childItemIndex = data.child.findIndex((i) => i.id === id);
-    if (childItemIndex !== -1) {
-      const childItem = data.child[childItemIndex];
-      const nextParentLoc = data.parent.findIndex((item) => item.id === childItem.parent_id) + 1;
-
-      const nextParentIndex = data.parent[
-        data.parent.length > nextParentLoc ? nextParentLoc : 0
-      ].id;
-
-      return {
-        type: "child",
-        index: childItemIndex,
-        data: childItem,
-        nextParent: nextParentIndex
-      }
-    }
-
-    return selectedItem;
-  }
-
-  // TODO: Modify results from page.server.ts
-  // svelte-ignore state_referenced_locally
-  selectedItem = setCurrentData(data.current.id, selectedItem);
 
   $effect(() => {
     if (text_area) {
       text_area.focus();
     }
 
-    if (selectedItem && suggest_text.text === "") {
-      if (selectedItem.data.category !== "group") {
-        if (selectedItem.data.results.length > 0) {
-          suggest_text.text = selectedItem.data.results.find((item) => item.approved)?.result ?? "";
-        } else {
-          suggest_text.text = "";
+    if (data.current.data.id && suggest_text.text === "") {
+      if (data.current.data.category !== "group") {
+        if (data.current.data.results.length > 0) {
+          suggest_text.text = data.current.data.results.find((item) => item.approved)?.result ?? "";
         }
       }
     }
@@ -138,7 +89,7 @@
     </section>
     <ul id="resource_list" class=" rounded-md overflow-scroll p-0.5">
       {#each data.parent as item}
-        <ResourceList parent={item} children={data.child.filter((child) => child.parent_id === item.id)} hash={page.url.hash ? page.url.hash : `#${selectedItem?.data.id}`} />
+        <ResourceList parent={item} children={data.child.filter((child) => child.parent_id === item.id)} id={data.current.data.id} />
       {/each}
     </ul>
   </nav>
@@ -164,43 +115,32 @@
       </Button.Root>
       {/if}
     </div>
-    {#key page.url.hash}
+    {#key data.current.data.id}
     <div id="translation_area" class="flex flex-col gap-2">
       <div id="suggest_form" class="p-4 rounded-md w-full h-full bg-secondary-back">
         <!-- Resource and Results -->
         <p class="flex gap-2 items-center">
           <span class={`rounded-md text-sm p-2 bg-emerald-100`}>{
-            selectedItem && (
-              selectedItem.data.category !== undefined &&
-              selectedItem.data.category !== "group"
+            data.current && (
+              data.current.data.category !== undefined &&
+              data.current.data.category !== "group"
             ) 
-            ? m[`resources.${selectedItem?.data.category}`]()
-            : selectedItem?.data.category}</span>
-          <span>{selectedItem?.data.origin}</span>
+            ? m[`resources.${data.current?.data.category}`]()
+            : data.current?.data.category}</span>
+          <span>{data.current?.data.origin}</span>
         </p>
-        {#if selectedItem?.data.context}
+        {#if data.current?.data.context}
         <p>
           <span>{m["l10n.context"]()}</span>
-          <span>{selectedItem.data.context}</span>
+          <span>{data.current.data.context}</span>
         </p>
         {/if}
         <hr class="border-gray-400 my-2">
         <form class="flex flex-col items-end gap-2" method="POST" action="?/commit" use:enhance={() => {
           return async ({ result }) => {
-            if (result.type === "success" && selectedItem) {
-              if (selectedItem.type === "parent") {
-                const child = data.child.find((i) => i.parent_id === selectedItem?.data.id);
-                if (child) {
-                  goto(`#${child.id}`, { noScroll: true, keepFocus: true });
-                } else {
-                  goto(`#${selectedItem.nextParent}`, { noScroll: true, keepFocus: true });
-                }
-              } else if (data.child.length > selectedItem.index + 1) {
-                goto(`#${data.child[selectedItem.index + 1].id}`, { noScroll: true, keepFocus: true });
-              } else {
-                goto(`#${selectedItem.nextParent}`, { noScroll: true, keepFocus: true });
-              }
-              
+            if (result.type === "success" && data.current) {
+              goto(`${data.current.next}`, { noScroll: true, keepFocus: true });
+              suggest_text.text = "";
             } else {
               await applyAction(result);
             }

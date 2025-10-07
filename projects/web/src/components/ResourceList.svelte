@@ -1,8 +1,8 @@
 <script lang="ts">
   import ResourceItem from "./ResourceItem.svelte";
 
-  const { parent, children, hash } : { 
-    parent: Resources, children: Resources[], hash: string
+  const { parent, children, id } : { 
+    parent: Resources, children: Resources[], id: number
   } = $props();
 </script>
 
@@ -13,17 +13,17 @@
   </p>
   <ul class="w-full rounded-md p-1">
     {#each children as child}
-      <ResourceItem resource={child} {hash} />
+      <ResourceItem resource={child} {id} />
     {/each}
   </ul>
 </li>
 {:else if children.length > 0}
 <ul class="bg-secondary-back rounded-md">
-  <ResourceItem resource={parent} {hash} />
+  <ResourceItem resource={parent} {id} />
   {#each children as child}
-    <ResourceItem resource={child} {hash} />
+    <ResourceItem resource={child} {id} />
   {/each}
 </ul>
 {:else}
-<ResourceItem resource={parent} {hash} />
+<ResourceItem resource={parent} {id} />
 {/if}

@@ -1,18 +1,18 @@
 <script lang="ts">
-  const { resource, hash } : { 
-    resource: Resources, hash: string
+  const { resource, id } : { 
+    resource: Resources, id: number
   } = $props();
   let resourceItem : HTMLLIElement | undefined = undefined;
 
   $effect(() => {
-    if (resource.id === Number(hash.slice(1)) && resourceItem) {
+    if (resource.id === id && resourceItem) {
       resourceItem.scrollIntoView({ behavior: "smooth"});
     }
   })
 </script>
 
 <li class={`rounded-md ${
-  resource.id === Number(hash.slice(1)) ? 
+  resource.id === id ? 
     "outline-lime-950 outline-2" :""
 }`} bind:this={resourceItem}>
   <a href={`${resource.id}`} class={`flex flex-col w-full p-1 border-b-gray-200 border-b-[0.5px]`}>
