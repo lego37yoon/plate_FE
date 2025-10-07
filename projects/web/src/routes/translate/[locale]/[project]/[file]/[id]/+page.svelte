@@ -11,6 +11,7 @@
   import { applyAction, enhance } from "$app/forms";
   import { goto } from "$app/navigation";
   import type { Session } from "@supabase/supabase-js";
+    import SuggestionList from "../../../../../../components/SuggestionList.svelte";
 
   type CurrentItem = {
     type: "parent" | "child",
@@ -166,11 +167,11 @@
               <ChevronDown />
             </Accordion.Trigger>
           </Accordion.Header>
-          <Accordion.Content forceMount={true} hiddenUntilFound>
+          <Accordion.Content forceMount={true}>
             {#snippet child({ props, open })}
               {#if open}
               <div {...props} transition:slide={{ duration: 300 }}>
-                Blah 1
+                <SuggestionList results={data.current.data.results} />
               </div>
               {/if}
             {/snippet}
@@ -186,7 +187,7 @@
               <ChevronDown />
             </Accordion.Trigger>
           </Accordion.Header>
-          <Accordion.Content forceMount={true} hiddenUntilFound>
+          <Accordion.Content forceMount={true}>
             {#snippet child({ props, open })}
               {#if open}
               <div {...props} transition:slide={{ duration: 300 }}>
@@ -206,7 +207,7 @@
               <ChevronDown />
             </Accordion.Trigger>
           </Accordion.Header>
-          <Accordion.Content forceMount={true} hiddenUntilFound>
+          <Accordion.Content forceMount={true}>
             {#snippet child({ props, open })}
               {#if open}
               <GlossaryList bind:suggest_text={suggest_text} glossary_data={glossaries} suggest_hidden={data.session ? true : false} {...props} /> 
@@ -221,7 +222,7 @@
               <ChevronDown />
             </Accordion.Trigger>
           </Accordion.Header>
-          <Accordion.Content forceMount={true} hiddenUntilFound>
+          <Accordion.Content forceMount={true}>
             {#snippet child({ props, open })}
               {#if open}
               <div {...props} transition:slide={{ duration: 300 }}>

@@ -157,6 +157,7 @@
 	"l10n": {
 		"input_placeholder": "여기에 번역 입력",
 		"input_suggestions_title": "제안 목록",
+		"input_suggestions_empty": "등록된 제안이 없습니다.",
 		"input_commit": "등록",
 		"input_review_approve": "승인",
 		"input_review_need_comment": "설명 필요 / 보류",

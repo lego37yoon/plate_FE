@@ -157,6 +157,7 @@
 	"l10n": {
 		"input_placeholder": "Type translation in your language.",
 		"input_suggestions_title": "Suggestions from Contributors",
+		"input_suggestions_empty": "There are no suggestions.",
 		"input_commit": "Commit",
 		"input_review_approve": "Approve",
 		"input_review_need_comment": "Needs Comment",
