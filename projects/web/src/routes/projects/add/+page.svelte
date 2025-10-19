@@ -3,8 +3,8 @@
   import { localizeHref } from "$lib/paraglide/runtime";
   import { Button, Label, Select } from "bits-ui";
   import { ArrowRight, BookType, Check, ChevronDown, ChevronRight, ChevronUp } from "@lucide/svelte";
-    import Input from "../../../components/Input.svelte";
-    import FileSection from "../../../components/FileSection.svelte";
+  import Input from "$lib/components/Input.svelte";
+  import FileSection from "$lib/components/FileSection.svelte";
 
   let { data } = $props();
   let src_lang = $state<string|undefined>(undefined);

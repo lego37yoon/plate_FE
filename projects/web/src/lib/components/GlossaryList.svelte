@@ -5,14 +5,14 @@
   import { slide } from "svelte/transition";
   import Input from "./Input.svelte";
   import { applyAction, enhance } from "$app/forms";
-  import type { UserInfo } from "../types/account";
   import { getContext } from "svelte";
 
-  let { suggest_text = $bindable(), glossary_data, suggest_hidden } : {
+  let { suggest_text = $bindable(), glossary_data, suggest_hidden, form } : {
     suggest_text: { text: string, focus: boolean },
     glossary_data: Dictionary[],
-    suggest_hidden: boolean
-   } = $props();
+    suggest_hidden: boolean,
+    form: Dictionary[] | null
+  } = $props();
   let openSuggestNew = $state(false);
   const userInfo : { data: UserInfo | undefined } = getContext("account");
 

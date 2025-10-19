@@ -117,27 +117,74 @@ export const load:PageServerLoad = async ({ params, locals: { supabase } }) => {
 }
 
 export const actions: Actions = {
-  commit: async ({ request, locals: { supabase }}) => {
+  commit: async ({ request, params, locals: { supabase }}) => {
     const form = await request.formData();
     const suggestMessage = form.get("suggest_message");
-    
+    const user_id = form.get("user_id");
 
-    console.log(suggestMessage);
+    if (user_id) {
+      const { data, error } = await supabase.from("results").insert({ 
+        origin_id: params.id,
+        approved: false,
+        author: Number(user_id),
+        result: suggestMessage,
+        lang_code: params.locale
+      });
+
+      if (error) {
+        kitError(500, error.message);
+      } else {
+        return {
+          status: 200,
+          type: "Commit",
+          message: "Update Successful"
+        }
+      }
+    } else {
+      kitError(400, "Please login before commit")
+    }
   },
-  approve: async ({ request, locals: { supabase } }) => {
+  suggest_manage: async ({ request, locals: { supabase } }) => {
 
   },
-  deny: async ({ request, locals: { supabase } }) => {
+  suggest_delete: async ({ request, params, locals: { supabase } }) => {
+    const form = await request.formData();
+    const suggest_id = form.get("suggest_id");
+    const suggest_author = form.get("suggest_author");
+    const origin_id = form.get("origin_id");
+    const approved = form.get("suggest_approved");
+    const user_id = form.get("user_id");
+    const user_role = form.get("user_role");
 
-  },
-  suggest_delete: async ({ request, locals: { supabase } }) => {
+    if ((user_id === suggest_author && approved !== "true") || user_role !== "l10n_contributor") {
+      const deleteReq = await supabase.from("results").delete().eq("id", suggest_id);
+      const updateReq = await supabase.from("results").select().eq("id", Number(origin_id)).eq("lang_code", params.locale);
 
+      if (deleteReq.error) {
+        kitError(400, deleteReq.error.message);
+      } else if (updateReq.error) {
+        kitError(500, updateReq.error.message);
+      } else {
+        return {
+          status: 200,
+          new: updateReq.data,
+          origin: origin_id,
+          type: "Suggestion",
+          message: "Update Successful"
+        }
+      }
+    }
   },
   glossary_new: async ({ request, locals: { supabase }}) => {
     console.log("new word submitted");
   },
   glossary_approve: async ({ request, locals: { supabase } }) => {
 
+  },
+  glossary_delete: async ({ request, locals: { supabase } }) => {
+    const form = await request.formData();
+    const glossary_id = form.get("suggest_id");
+    const glossary_author = form.get("")
   },
   comment_new: async ({ request, locals: { supabase } }) => {
 
@@ -146,6 +193,6 @@ export const actions: Actions = {
     
   },
   comment_delete: async ({ request, locals: { supabase } }) => {
-
+    
   }
-}
+} satisfies Actions;

@@ -2,7 +2,6 @@ import { createBrowserClient, createServerClient, isBrowser } from "@supabase/ss
 import { PUBLIC_SUPABASE_ANON_KEY, PUBLIC_SUPABASE_PROJECT_URL } from "$env/static/public";
 import type { LayoutLoad } from "./$types";
 import type { PostgrestSingleResponse } from "@supabase/supabase-js";
-import { goto } from "$app/navigation";
 import { redirect } from "@sveltejs/kit";
 
 export const load:LayoutLoad = async ({ url, data, depends, fetch }) => {

@@ -1,15 +1,14 @@
 <script lang="ts">
   import '../app.css';
   import "@ibm/plex-sans-kr/css/ibm-plex-sans-kr-all.css"
-  import Header from '../components/Header.svelte';
-  import DocViewer from '../components/DocViewer.svelte';
+  import Header from '$lib/components/Header.svelte';
+  import DocViewer from '$lib/components/DocViewer.svelte';
   import { fade, slide } from "svelte/transition";
   import { onMount, setContext, type Snippet } from 'svelte';
   import { m } from '$lib/paraglide/messages';
   import { invalidate, onNavigate } from '$app/navigation';
   import type { Session, SupabaseClient, User } from '@supabase/supabase-js';
-  import type { UserInfo } from '../types/account';
-    import { page } from '$app/state';
+  import { page } from '$app/state';
 
   let { children, data } : 
     { children: Snippet, data: 

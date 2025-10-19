@@ -4,7 +4,6 @@
   import { Button, Popover, Separator } from 'bits-ui';
   import { Calendar, ChevronRight, CircleQuestionMark, FileText, ListFilter, Plus, Regex } from "@lucide/svelte";
   import { getContext } from 'svelte';
-  import type { UserRole } from '../../../types/account.js';
 
   type Doc = {
     name: string, src: string, last_updated: string, type: "resource" | "doc"

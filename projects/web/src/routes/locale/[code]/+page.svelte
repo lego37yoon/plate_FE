@@ -4,7 +4,6 @@
   import { Button, Popover, Separator } from 'bits-ui';
   import { Calendar, ChevronRight, CircleQuestionMark, Languages, ListFilter, Plus, Regex } from "@lucide/svelte";
   import { getContext } from 'svelte';
-  import type { UserRole } from '../../../types/account.js';
 
   const account = getContext<{ data: { role: UserRole | null | undefined } | null}>("account");
 

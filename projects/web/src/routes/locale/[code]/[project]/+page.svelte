@@ -4,7 +4,6 @@
   import { Button, Separator } from 'bits-ui';
   import { ChevronRight, ListFilter, Plus } from "@lucide/svelte";
   import { getContext } from 'svelte';
-  import type { UserRole } from '../../../../types/account.js';
 
   const account = getContext<{ data: { role: UserRole | null | undefined } | null}>("account");
 

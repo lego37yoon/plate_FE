@@ -75,6 +75,8 @@ type Results = {
     origin_id: number,
     approved: boolean,
     author: number,
+    nick: string,
+    avatar: string,
     result: string,
     lang_code: string
 }

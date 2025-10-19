@@ -4,7 +4,6 @@
   import { Button, Popover, Separator } from "bits-ui";
   import { CircleQuestionMark, ListFilter, Plus } from "@lucide/svelte";
   import { getContext } from "svelte";
-  import type { UserRole } from "../../types/account";
 
   const account = getContext<{ data: { role: UserRole | null | undefined } | null}>("account");
 

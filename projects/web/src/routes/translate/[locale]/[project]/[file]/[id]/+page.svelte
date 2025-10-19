@@ -2,16 +2,17 @@
   import { m } from "$lib/paraglide/messages";
   import { localizeHref } from "$lib/paraglide/runtime";
   import { ChevronRight, ChevronDown, CornerDownLeft, PanelLeftClose, PanelLeftOpen } from "@lucide/svelte";
-  import ResourceList from "../../../../../../components/ResourceList.svelte";
-  import { page } from "$app/state";
+  import ResourceList from "$lib/components/ResourceList.svelte";
   import { Accordion, Button } from "bits-ui";
   import { MediaQuery } from "svelte/reactivity";
   import { slide } from "svelte/transition";
-  import GlossaryList from "../../../../../../components/GlossaryList.svelte";
+  import GlossaryList from "$lib/components/GlossaryList.svelte";
   import { applyAction, enhance } from "$app/forms";
   import { goto } from "$app/navigation";
+  import SuggestionList from "$lib/components/SuggestionList.svelte";
   import type { Session } from "@supabase/supabase-js";
-    import SuggestionList from "../../../../../../components/SuggestionList.svelte";
+  import { getContext, setContext } from "svelte";
+  import type { ActionData } from "./$types";
 
   type CurrentItem = {
     type: "parent" | "child",
@@ -31,8 +32,7 @@
     session: Session | null
   }
 
-
-  let { data, form } : { data: OriginData, form: null }  = $props();
+  let { data, form } : { data: OriginData, form: ActionData }  = $props();
   const panelDefault = new MediaQuery('width >= 48rem');
   let panelState = $state<boolean|null>(null);
   let suggest_text = $state<{ text: string, focus: boolean }>({ 
@@ -41,6 +41,9 @@
   let glossaries = $state<Dictionary[]>(data.current.data.dictionary);
   let text_area = $state<HTMLTextAreaElement>();
   let commitButton = $state<HTMLButtonElement|null>(null);
+  // TODO: Remove Suggestion and click other resources may display wrong status of results. (Gray)
+  let newResult : { data: Results[] | undefined, id: number | undefined } = $state({ data: undefined, id: undefined });
+  setContext("Suggestion", newResult);
 
   $effect(() => {
     if (text_area) {
@@ -63,7 +66,15 @@
     if (!data.session && text_area) {
       text_area.disabled = true;
     }
+
+    if (form && form.type === "Suggestion") {
+      newResult.data = form.new;
+      newResult.id = Number(form.origin);
+      console.log(form.origin);
+    }
   });
+
+  const userInfo : { data: UserInfo | undefined } = getContext("account");
 </script>
 
 <svelte:head>
@@ -89,9 +100,11 @@
       </Button.Root>
     </section>
     <ul id="resource_list" class=" rounded-md overflow-scroll p-0.5">
+      {#key data.parent}        
       {#each data.parent as item}
         <ResourceList parent={item} children={data.child.filter((child) => child.parent_id === item.id)} id={data.current.data.id} />
       {/each}
+      {/key}
     </ul>
   </nav>
   {/if}
@@ -147,6 +160,7 @@
             }
           }
         }}>
+          <input type="hidden" name="user_id" value={userInfo.data ? userInfo.data.id : undefined} />
           <textarea placeholder={m["l10n.input_placeholder"]()} name="suggest_message" class="rounded-md border-0 w-full min-h-24 disabled:bg-gray-200" bind:value={suggest_text.text} bind:this={text_area} required onkeyup={e => {
             if (e.ctrlKey && e.key === "Enter" && commitButton) {
               commitButton.click();
@@ -171,9 +185,12 @@
             {#snippet child({ props, open })}
               {#if open}
               <div {...props} transition:slide={{ duration: 300 }}>
-                <SuggestionList results={data.current.data.results} />
+                {#key form}
+                <SuggestionList results={form && form.type === "Suggestion" ? form.new as Results[] : data.current.data.results} id={data.current.data.id} />
+                {/key}
               </div>
               {/if}
+              
             {/snippet}
           </Accordion.Content>
         </Accordion.Item>
@@ -210,7 +227,11 @@
           <Accordion.Content forceMount={true}>
             {#snippet child({ props, open })}
               {#if open}
-              <GlossaryList bind:suggest_text={suggest_text} glossary_data={glossaries} suggest_hidden={data.session ? true : false} {...props} /> 
+              <GlossaryList bind:suggest_text={suggest_text}
+                glossary_data={glossaries} suggest_hidden={data.session ? true : false} 
+                form={form && form.type === "Glossary" ? form.new as Dictionary[] : null}
+                {...props}
+              /> 
               {/if}
             {/snippet}
           </Accordion.Content>

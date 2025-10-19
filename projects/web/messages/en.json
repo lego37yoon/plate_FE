@@ -162,6 +162,7 @@
 		"input_review_approve": "Approve",
 		"input_review_need_comment": "Needs Comment",
 		"input_review_deny": "Deny",
+		"input_review_delete": "Delete",
 		"input_comment_title": "Comments",
 		"input_comment_send": "Send",
 		"l10n_guide_btn": "L10n Guide",

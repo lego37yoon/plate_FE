@@ -162,6 +162,7 @@
 		"input_review_approve": "승인",
 		"input_review_need_comment": "설명 필요 / 보류",
 		"input_review_deny": "거절",
+		"input_review_delete": "삭제",
 		"input_comment_title": "댓글",
 		"input_comment_send": "보내기",
 		"l10n_guide_btn": "지역화 가이드",

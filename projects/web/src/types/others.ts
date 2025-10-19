@@ -1,6 +1,6 @@
-export type DocCategories = "none" | "others" | "style" | "common" | "community" | "brochure";
+type DocCategories = "none" | "others" | "style" | "common" | "community" | "brochure";
 
-export type ProjectForm = {
+type ProjectForm = {
   name: string,
   version: string,
   desc: string,
