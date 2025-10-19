@@ -125,7 +125,7 @@ export const actions: Actions = {
     if (user_id) {
       const { data, error } = await supabase.from("results").insert({ 
         origin_id: params.id,
-        approved: false,
+        approved: null,
         author: Number(user_id),
         result: suggestMessage,
         lang_code: params.locale
@@ -144,8 +144,45 @@ export const actions: Actions = {
       kitError(400, "Please login before commit")
     }
   },
-  suggest_manage: async ({ request, locals: { supabase } }) => {
+  suggest_manage: async ({ request, params, locals: { supabase } }) => {
+    const form = await request.formData();
+    const command_type = form.get("command_type");
+    const suggest_id = form.get("suggest_id");
+    const origin_id = form.get("origin_id");
+    const user_role = form.get("user_role");
 
+    console.log(form.values());
+    console.log("hello from suggest managing actions")
+
+    if (user_role !== "l10n_contributor") {
+      let updateError;
+
+      if (command_type === "approve") {
+        const { error } = await supabase.from("results").update({ approved: true }).eq("id", suggest_id);
+        updateError = error;
+      } else if (command_type === "deny") {
+        const { error } = await supabase.from("results").update({ approved: false }).eq("id", suggest_id);
+        updateError = error;
+      }
+      const refreshReq = await supabase.from("results").select("*").eq("origin_id", Number(origin_id)).eq("lang_code", params.locale);
+
+      if (updateError) {
+        kitError(400, updateError.message);
+      } else if (refreshReq.error) {
+        kitError(500, refreshReq.error.message);
+      } else {
+        return {
+          status: 200,
+          new: refreshReq.data,
+          origin: origin_id,
+          type: "Suggestion",
+          message: "Update Successful"
+        }
+      }
+
+    } else {
+      kitError(400, "Contributor cannot approve translation");
+    }
   },
   suggest_delete: async ({ request, params, locals: { supabase } }) => {
     const form = await request.formData();
@@ -158,7 +195,7 @@ export const actions: Actions = {
 
     if ((user_id === suggest_author && approved !== "true") || user_role !== "l10n_contributor") {
       const deleteReq = await supabase.from("results").delete().eq("id", suggest_id);
-      const updateReq = await supabase.from("results").select().eq("id", Number(origin_id)).eq("lang_code", params.locale);
+      const updateReq = await supabase.from("results").select("*").eq("origin_id", Number(origin_id)).eq("lang_code", params.locale);
 
       if (deleteReq.error) {
         kitError(400, deleteReq.error.message);

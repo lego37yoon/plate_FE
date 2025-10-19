@@ -19,13 +19,6 @@
       resultData = newData.data;
       setContext("Suggestion", { data: undefined, id: undefined });
     }
-
-    // 우선 newData가 있는 경우(컨텍스트로 전달된 제안) — 실제로 다른 경우에만 적용
-    // if (resource.id === id && newData) {
-    //   resultData = newData;
-    //   setContext("Suggestion", undefined);
-    //   return;
-    // }
   });
 
   $inspect(newData);
@@ -37,7 +30,7 @@
       <span class={`rounded-full p-1 min-w-8 min-h-8 text-center shrink-0 font-light text-sm ${
         resultData.length > 0 ?
           resultData.find((i) => i.approved === true) ?
-          `text-white bg-lime-700` : `text-gray-900 bg-amber-400`
+          `text-white bg-lime-700` : resultData.find((i) => i.approved === false) ? `text-gray-900 bg-red-400` : `text-gray-900 bg-amber-400`
         : `text-gray-900 bg-gray-300`
       }`}>
         {resource.category !== "none" ? resource.category : ""}
