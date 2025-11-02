@@ -23,7 +23,7 @@
       {m["title.login"]()}
     </Button.Root>
     {/if}
-    <Button.Root href={localizeHref("/account/login")} class="flex gap-2 text-white bg-lime-900 py-2 px-3 rounded-lg">
+    <Button.Root href={localizeHref("/projects")} class="flex gap-2 text-white bg-lime-900 py-2 px-3 rounded-lg">
       <Boxes />
       {m["title.projects"]()}
     </Button.Root>
