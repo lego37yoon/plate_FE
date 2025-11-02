@@ -2,11 +2,11 @@
     import { applyAction, enhance } from "$app/forms";
     import { m } from "$lib/paraglide/messages";
     import { Button, Label, Select } from "bits-ui";
-    import { ArrowRight, BookType, Check, CheckCircle2, ChevronDown, ChevronUp, TriangleAlert } from "@lucide/svelte";
+    import { ArrowRight, BookType, Check, ChevronDown, ChevronUp, CircleCheck, TriangleAlert } from "@lucide/svelte";
     import type { PageProps } from "./$types";
     import { goto } from "$app/navigation";
     import { localizeHref } from "$lib/paraglide/runtime";
-    import FileSection from "../../../../components/FileSection.svelte";
+    import FileSection from "$lib/components/FileSection.svelte";
 
     let { data, form }: PageProps = $props();
 
@@ -52,7 +52,7 @@
   </section>
   {:else if form?.success}
   <section id="require-resend" class="flex gap-2 border border-lime-900 bg-green-50 rounded-lg w-full md:max-w-80 p-2 items-center mb-2">
-    <CheckCircle2 size={24} class="text-lime-900" />
+    <CircleCheck size={24} class="text-lime-900" />
     <p class="text-lime-900">
       {form.message}
     </p>
