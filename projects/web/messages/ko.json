@@ -186,6 +186,8 @@
 		"suggest_result": "번역 결과",
 		"suggest_commit": "제안",
 		"suggest_approve": "제안 승인",
+		"suggest_deny": "승인 취소",
+		"suggest_delete": "삭제",
 		"no_words": "용어집에 등록된 단어가 없습니다.",
 		"word_warning": "용어집은 지역화 팀을 위한 열린 사전입니다. 관리자들이 승인한 단어는 체크 아이콘으로 표시되며, 공식 번역이 됩니다. 경고 아이콘으로 표시되는 비공식 단어들은 사용 시 유의하세요."
 	},

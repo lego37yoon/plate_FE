@@ -212,16 +212,65 @@ export const actions: Actions = {
       }
     }
   },
-  glossary_new: async ({ request, locals: { supabase }}) => {
-    console.log("new word submitted");
-  },
-  glossary_approve: async ({ request, locals: { supabase } }) => {
-
-  },
-  glossary_delete: async ({ request, locals: { supabase } }) => {
+  glossary_new: async ({ request, params, locals: { supabase }}) => {
     const form = await request.formData();
-    const glossary_id = form.get("suggest_id");
-    const glossary_author = form.get("")
+    const origin = form.get("suggest_word_origin");
+    const origin_full = form.get("suggest_src");
+    const result = form.get("suggest_word_result");
+
+    const insertReq = await supabase.from("dictionary").insert({ lang_code: params.locale, origin: origin, result: result, approved: false });
+    
+    if (insertReq.error) {
+      kitError(400, insertReq.error.message);
+    } else {
+      const { data, error } = await supabase.rpc("refresh_dictionary", { "locale": params.locale, "origin_full": origin_full });
+
+      if (error) {
+        kitError(400, error.message);
+      } else {
+        return {
+          status: 200,
+          new: data,
+          type: "Glossary",
+          message: "Update Successful"
+        }
+      }
+    }
+  },
+  glossary_approve: async ({ request, params, locals: { supabase } }) => {
+    const form = await request.formData();
+    const id = form.get("id");
+    const command_type = form.get("command_type");
+    const origin_full = form.get("suggest_src");
+
+    if (command_type !== "delete") {
+      const updateReq = await supabase.from("dictionary").update({ approved: command_type === "approve" }).eq("id", id);
+
+      if (updateReq.error) {
+        kitError(500, updateReq.error.message);
+      }
+    } else if (command_type === "delete") {
+      const updateReq = await supabase.from("dictionary").delete().eq("id", id);
+
+      if (updateReq.error) {
+        kitError(500, updateReq.error.message);
+      }
+    } else {
+      kitError(400, "Unknown command type");
+    }
+
+    const { data, error } = await supabase.rpc("refresh_dictionary", { "locale": params.locale, "origin_full": origin_full });
+
+    if (error) {
+      kitError(500, error.message);
+    } else {
+      return {
+        status: 200,
+        new: data,
+        type: "Glossary",
+        message: "Update Successful"
+      }
+    }
   },
   comment_new: async ({ request, locals: { supabase } }) => {
 

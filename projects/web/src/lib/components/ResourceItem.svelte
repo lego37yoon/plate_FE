@@ -20,8 +20,6 @@
       setContext("Suggestion", { data: undefined, id: undefined });
     }
   });
-
-  $inspect(newData);
 </script>
 
 <li class={`rounded-md ${resource.id === id ? "outline-lime-950 outline-2" : ""}`} bind:this={resourceItem}>

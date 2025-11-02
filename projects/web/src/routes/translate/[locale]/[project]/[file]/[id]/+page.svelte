@@ -67,10 +67,17 @@
       text_area.disabled = true;
     }
 
-    if (form && form.type === "Suggestion") {
-      newResult.data = form.new;
-      newResult.id = Number(form.origin);
-      console.log(form.origin);
+    if (form) {
+      if (form.type === "Suggestion") {
+        newResult.data = form.new;
+        newResult.id = Number(form.origin);
+      } else if (form.type === "Glossary") {
+        glossaries = form.new;
+      }
+    }
+
+    if (data.current.data.dictionary) {
+      glossaries = data.current.data.dictionary;
     }
   });
 
@@ -184,13 +191,12 @@
           <Accordion.Content forceMount={true}>
             {#snippet child({ props, open })}
               {#if open}
+              {#key form || data.current.data}
               <div {...props} transition:slide={{ duration: 300 }}>
-                {#key form}
                 <SuggestionList results={form && form.type === "Suggestion" ? form.new as Results[] : data.current.data.results} id={data.current.data.id} />
-                {/key}
               </div>
+              {/key}
               {/if}
-              
             {/snippet}
           </Accordion.Content>
         </Accordion.Item>
@@ -229,9 +235,9 @@
               {#if open}
               <GlossaryList bind:suggest_text={suggest_text}
                 glossary_data={glossaries} suggest_hidden={data.session ? true : false} 
-                form={form && form.type === "Glossary" ? form.new as Dictionary[] : null}
+                form={form && form.type === "Glossary" ? form.new as Dictionary[] : null} origin={data.current.data.origin}
                 {...props}
-              /> 
+              />
               {/if}
             {/snippet}
           </Accordion.Content>
