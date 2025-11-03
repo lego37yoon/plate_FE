@@ -80,9 +80,11 @@
     </li>
     {/each}
   </ul>
-  <p class="flex gap-2 items-center font-normal border-secondary border p-2 rounded-md mt-2">
-    <Info class="shrink-0 me-2" />
-    <span>{m["glossary.word_warning"]()}</span>
+  <p class="flex justify-between gap-2 font-normal border-secondary border p-2 rounded-md mt-2">
+    <span class="flex gap-2 items-center">
+      <Info class="shrink-0 me-2" />
+      <span>{m["glossary.word_warning"]()}</span>
+    </span>
     {#if suggest_hidden}
     <Button.Root type="button" class="rounded-md p-2 bg-secondary-back hover:bg-secondary flex gap-2 items-center shrink-0" onclick={() => {
       openSuggestNew = !openSuggestNew

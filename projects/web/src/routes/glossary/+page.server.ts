@@ -18,15 +18,18 @@ export const actions: Actions = {
     const formData = await request.formData();
     const search_word = formData.get("search") as string;
     const locale = formData.get("locale") as string; 
+    const isResult = formData.get("isResult") === "true";
 
-    const glossaryReq = await supabase.from("dictionary").select("*").ilike("origin", `%${search_word}%`).eq("lang_code", locale);
-    const suggestionReq = await supabase.from("results").select("*").ilike("result", `%${search_word}%`).eq("lang_code", locale);
+    const glossaryReq = await supabase.from("dictionary").select("*").ilike(isResult ? "result" : "origin", `%${search_word}%`).eq("lang_code", locale);
+    const suggestionReq = await supabase.from("results").select("*, resources(origin)").ilike(isResult ? "result" : "resources.origin", `%${search_word}%`).eq("lang_code", locale).not("resources", "is", null);
   
     if (glossaryReq.error) {
       kitError(500, glossaryReq.error.message);
     } else if (suggestionReq.error) {
       kitError(500, suggestionReq.error.message);
     }
+
+    console.log(suggestionReq.data);
 
     return {
       glossaries: glossaryReq.data,

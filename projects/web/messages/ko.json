@@ -191,6 +191,9 @@
 		"search_placeholder": "단어나 전체 문장을 입력하세요",
 		"search_btn": "검색",
 		"search_language": "언어 선택",
+		"search_is_result_toggle": "결과 검색",
+		"search_is_origin_toggle": "원본 검색",
+		"search_is_type_label": "검색 유형",
 		"no_words": "용어집에 등록된 단어가 없습니다.",
 		"word_warning": "용어집은 지역화 팀을 위한 열린 사전입니다. 관리자들이 승인한 단어는 체크 아이콘으로 표시되며, 공식 번역이 됩니다. 경고 아이콘으로 표시되는 비공식 단어들은 사용 시 유의하세요."
 	},

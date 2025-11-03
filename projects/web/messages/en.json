@@ -192,6 +192,9 @@
 		"search_placeholder": "Type keyword or full sentence",
 		"search_btn": "Search",
 		"search_language": "Select Language",
+		"search_is_result_toggle": "Search by target language",
+		"search_is_origin_toggle": "Search by source language",
+		"search_is_type_label": "Search Type",
 		"word_warning": "Glossary is an open dictionary for local teams. Words approved by managers indicated by check mark, and is an offical translation. Be careful if using words marked as not approved by managers, with warning icon."
 	},
 	"document": {
