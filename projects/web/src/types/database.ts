@@ -1,3 +1,7 @@
+type Doc = {
+    name: string, src: string, last_updated: string, type: "resource" | "doc"
+}
+
 type Docs = {
     meta: {
         src: string, 

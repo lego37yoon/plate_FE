@@ -4,9 +4,8 @@
   import Input from "$lib/components/Input.svelte";
   import SuggestionList from "$lib/components/SuggestionList.svelte";
   import { m } from "$lib/paraglide/messages";
-  import { getLocale } from "$lib/paraglide/runtime.js";
   import { BookType, Check, ChevronDown, ChevronUp, Funnel, Search } from "@lucide/svelte";
-  import { Button, Label, Portal, Select } from "bits-ui";
+  import { Button, Select } from "bits-ui";
 
   const { data, form } = $props();
   let search_word = $state<string>("");

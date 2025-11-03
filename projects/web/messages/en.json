@@ -203,7 +203,11 @@
 		"type_style": "Style Guides",
 		"type_common": "Common Guides",
 		"type_community": "Community Guides",
-		"type_brochure": "Product Brochure"
+		"type_brochure": "Product Brochure",
+		"title_document": "Documents",
+		"search_btn": "Search",
+		"search_select_projects": "Select project",
+		"search_placeholder": "Type title of document or just hit enter to get full list"
 	},
 	"files": {
 		"header_name": "File name",

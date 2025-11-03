@@ -203,7 +203,11 @@
 		"type_style": "번역 스타일 안내",
 		"type_common": "공통 안내서",
 		"type_community": "커뮤니티 규정",
-		"type_brochure": "제품 소개서"
+		"type_brochure": "제품 소개서",
+		"title_document": "문서",
+		"search_btn": "검색",
+		"search_select_projects": "프로젝트 선택",
+		"search_placeholder": "문서 제목을 입력하시거나 빈 칸으로 검색하여 전체 목록을 확인하세요"
 	},
 	"files": {
 		"header_name": "파일 이름",

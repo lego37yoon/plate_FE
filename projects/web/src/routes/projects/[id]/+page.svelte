@@ -5,10 +5,6 @@
   import { Calendar, ChevronRight, CircleQuestionMark, FileText, ListFilter, Plus, Regex } from "@lucide/svelte";
   import { getContext } from 'svelte';
 
-  type Doc = {
-    name: string, src: string, last_updated: string, type: "resource" | "doc"
-  }
-
   const account = getContext<{ data: { role: UserRole | null | undefined } | null}>("account");
 
   const role: UserRole | null | undefined = account && account.data ? account.data.role : null;
@@ -80,7 +76,7 @@
       {#each docs as doc}
       <Button.Root type="button" class="rounded-lg bg-secondary flex gap-2 justify-center items-center py-2 px-3 cursor-pointer" onclick={() => openDocument(doc)}>
         <FileText />
-        {doc.name.slice(0, -3)}
+        {doc.name}
       </Button.Root>
       {/each}
     {/if}
