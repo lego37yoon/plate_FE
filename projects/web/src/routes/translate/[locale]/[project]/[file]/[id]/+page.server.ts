@@ -5,7 +5,7 @@ export const load:PageServerLoad = async ({ params, locals: { supabase } }) => {
   const req = await Promise.all([
     supabase.rpc("resources_with_dictionary", 
     { "resource_id": params.id, "file": params.file, "locale": params.locale }),
-    supabase.from("files").select(`name, project_id, projects(name)`).eq("id", params.file)
+    supabase.from("files").select(`id, name, src, type, project_id, projects(name)`).eq("project_id", params.project)
   ])
 
   if (req[0].error) {
@@ -102,15 +102,18 @@ export const load:PageServerLoad = async ({ params, locals: { supabase } }) => {
     if (currentItem === null || currentMeta.index === -1) {
       kitError(404, `Cannot found data from current file`);
     } else {
+      console.log(req[1].data.find((i) => i.id === Number(params.file)))
+
       return {
         parent: parents,
         child: children,
-        metadata: req[1].data,
+        metadata: [req[1].data.find((i) => i.id === Number(params.file))],
         locale: params.locale,
         current: {
           ...currentMeta,
           data: currentItem as Resources
-        }
+        },
+        files: req[1].data.filter((i) => i.type === "doc")
       }
     }
   }
@@ -280,5 +283,5 @@ export const actions: Actions = {
   },
   comment_delete: async ({ request, locals: { supabase } }) => {
     
-  }
+  },
 } satisfies Actions;

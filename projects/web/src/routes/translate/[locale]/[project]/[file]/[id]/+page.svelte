@@ -1,7 +1,7 @@
 <script lang="ts">
   import { m } from "$lib/paraglide/messages";
   import { localizeHref } from "$lib/paraglide/runtime";
-  import { ChevronRight, ChevronDown, CornerDownLeft, PanelLeftClose, PanelLeftOpen } from "@lucide/svelte";
+  import { ChevronRight, ChevronDown, CornerDownLeft, PanelLeftClose, PanelLeftOpen, FileText } from "@lucide/svelte";
   import ResourceList from "$lib/components/ResourceList.svelte";
   import { Accordion, Button } from "bits-ui";
   import { MediaQuery } from "svelte/reactivity";
@@ -29,7 +29,8 @@
     }[],
     locale: string,
     current: CurrentItem,
-    session: Session | null
+    session: Session | null,
+    files: Doc[]
   }
 
   let { data, form } : { data: OriginData, form: ActionData }  = $props();
@@ -44,6 +45,27 @@
   // TODO: Remove Suggestion and click other resources may display wrong status of results. (Gray)
   let newResult : { data: Results[] | undefined, id: number | undefined } = $state({ data: undefined, id: undefined });
   setContext("Suggestion", newResult);
+
+  const docOrigin = getContext<Docs>("doc");
+
+  async function openDocument(doc: Doc) {
+    docOrigin.meta = {
+      src: doc.src,
+      title: doc.name,
+      last: doc.last_updated,
+      lang: "markdown"
+    };
+    const docBodyReq = await fetch(doc.src);
+
+    if (docBodyReq.ok) {
+      docOrigin.body = await docBodyReq.text();
+    } else {
+      docOrigin.error = true;
+      docOrigin.errorMessage = docBodyReq.statusText;
+    }
+
+    docOrigin.isOpen = true;
+  }
 
   $effect(() => {
     if (text_area) {
@@ -118,7 +140,7 @@
   
   {#if (!panelState && !panelDefault.current) || panelDefault.current}
   <section class={ panelState ? "w-3/4 h-full" : "w-full h-full" }>
-    <div id="button_bar" class="w-full flex mb-2">
+    <div id="button_bar" class="w-full flex mb-2 justify-between">
       {#if (panelState && panelDefault.current) || !panelState}
       <Button.Root type="button" aria-label={m["l10n.input_hide_panel_btn"]()} onclick={() => { 
         if (panelDefault.current && panelState === null) {
@@ -135,6 +157,16 @@
         {/if}
       </Button.Root>
       {/if}
+      <ul class="flex gap-2 items-center">
+      {#each data.files as doc}
+      <li>
+        <Button.Root type="button" class="rounded-lg bg-secondary flex gap-2 justify-center items-center py-2 px-3 cursor-pointer" onclick={() => openDocument(doc)}>
+          <FileText />
+          {doc.name}
+        </Button.Root>
+      </li>
+      {/each}
+      </ul>
     </div>
     {#key data.current.data.id}
     <div id="translation_area" class="flex flex-col gap-2">
