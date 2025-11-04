@@ -152,7 +152,9 @@
 		"untranslated": "Untranslated",
 		"unreviewed": "Unreviewed",
 		"completed": "Completed",
-		"analysis": "Analyzing Resources"
+		"analysis": "Analyzing Resources",
+		"refresh_category": "Refresh Category",
+		"refreshing_category": "Refreshing"
 	},
 	"l10n": {
 		"input_placeholder": "Type translation in your language.",

@@ -3,8 +3,9 @@ import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
 const config = {
 	preprocess: [vitePreprocess()],
-	kit: { adapter: adapter() },
-	extensions: ['.svelte']
+	kit: { adapter: adapter(), experimental: { remoteFunctions: true } },
+	extensions: ['.svelte'],
+	compilerOptions: { experimental: { async: true } }
 };
 
 export default config;

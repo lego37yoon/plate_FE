@@ -2,7 +2,7 @@ import { error as kitError, redirect, type Actions } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
 import { UploadObject } from "$lib/s3/client";
 import type { SupabaseClient } from "@supabase/supabase-js";
-import { parseAndUpdate } from "$lib/plate/parser";
+import { parseAndUpdate } from "$lib/plate/parser.server";
 import { countries, languages, type TCountries, type TLanguages } from "countries-list";
 
 export const load: PageServerLoad = async ({ locals: { supabase }}) => {

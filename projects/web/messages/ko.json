@@ -152,7 +152,9 @@
 		"untranslated": "미번역",
 		"unreviewed": "검토 전",
 		"completed": "완료됨",
-		"analysis": "번역 자원 분석 중"
+		"analysis": "번역 자원 분석 중",
+		"refresh_category": "자원 분류 갱신",
+		"refreshing_category": "갱신하는 중"
 	},
 	"l10n": {
 		"input_placeholder": "여기에 번역 입력",

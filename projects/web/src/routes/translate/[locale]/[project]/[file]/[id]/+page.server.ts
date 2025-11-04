@@ -1,4 +1,5 @@
 import { error as kitError } from "@sveltejs/kit";
+import { updateParseResult } from "$lib/plate/parser.server";
 import type { Actions, PageServerLoad } from "./$types";
 
 export const load:PageServerLoad = async ({ params, locals: { supabase } }) => {
@@ -284,4 +285,17 @@ export const actions: Actions = {
   comment_delete: async ({ request, locals: { supabase } }) => {
     
   },
+  update_category: async ({ params, locals: { supabase }}) => {
+    const { data, error } = await supabase.from("resources").select("*").eq("file_id", params.file).neq("category", "group");
+    await updateParseResult(data as Resources[], supabase);
+
+
+    if (error) {
+      kitError(500, error.message);
+    } else {
+      return {
+        status: 200
+      };
+    }
+  }
 } satisfies Actions;

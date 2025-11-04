@@ -1,14 +1,14 @@
 <script lang="ts">
   import { m } from "$lib/paraglide/messages";
   import { localizeHref } from "$lib/paraglide/runtime";
-  import { ChevronRight, ChevronDown, CornerDownLeft, PanelLeftClose, PanelLeftOpen, FileText } from "@lucide/svelte";
+  import { ChevronRight, ChevronDown, CornerDownLeft, PanelLeftClose, PanelLeftOpen, FileText, RefreshCcw } from "@lucide/svelte";
   import ResourceList from "$lib/components/ResourceList.svelte";
   import { Accordion, Button } from "bits-ui";
   import { MediaQuery } from "svelte/reactivity";
   import { slide } from "svelte/transition";
   import GlossaryList from "$lib/components/GlossaryList.svelte";
   import { applyAction, enhance } from "$app/forms";
-  import { goto } from "$app/navigation";
+  import { goto, invalidateAll } from "$app/navigation";
   import SuggestionList from "$lib/components/SuggestionList.svelte";
   import type { Session } from "@supabase/supabase-js";
   import { getContext, setContext } from "svelte";
@@ -40,6 +40,7 @@
     text: "", focus: true 
   });
   let glossaries = $state<Dictionary[]>(data.current.data.dictionary);
+  let updating_category = $state<boolean>(false);
   let text_area = $state<HTMLTextAreaElement>();
   let commitButton = $state<HTMLButtonElement|null>(null);
   // TODO: Remove Suggestion and click other resources may display wrong status of results. (Gray)
@@ -166,6 +167,21 @@
         </Button.Root>
       </li>
       {/each}
+      <li>
+        <form method="POST" action="?/update_category" use:enhance={() => {
+          return async ({ result }) => {
+            updating_category = false;
+            if (result.status === 200) {
+              invalidateAll();
+            }
+          }
+        }}>
+          <Button.Root type="submit" class="bg-secondary flex gap-2 justify-center items-center py-2 px-3 cursor-pointer rounded-lg" onclick={() => updating_category = true}>
+            <RefreshCcw />
+            <span>{updating_category ? m["resources.refreshing_category"]() : m["resources.refresh_category"]()}</span>
+          </Button.Root>
+        </form>
+      </li>
       </ul>
     </div>
     {#key data.current.data.id}

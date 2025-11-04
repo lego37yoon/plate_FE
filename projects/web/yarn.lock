@@ -3537,6 +3537,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"openai@npm:^6.7.0":
+  version: 6.7.0
+  resolution: "openai@npm:6.7.0"
+  peerDependencies:
+    ws: ^8.18.0
+    zod: ^3.25 || ^4.0
+  peerDependenciesMeta:
+    ws:
+      optional: true
+    zod:
+      optional: true
+  bin:
+    openai: bin/cli
+  checksum: 10c0/dbee766f28308235fdc370a325f50ab4de2d869a832f78fbb7cb81ede0518b55c6e6ab70cd0fe9cdc7a3fd948ef56a8d8f23d0a86fef21ac7ed97e35ef547c92
+  languageName: node
+  linkType: hard
+
 "p-map@npm:^7.0.2":
   version: 7.0.3
   resolution: "p-map@npm:7.0.3"
@@ -3611,6 +3628,7 @@ __metadata:
     countries-list: "npm:^3.1.1"
     highlight.js: "npm:^11.11.1"
     markdown-it: "npm:^14.1.0"
+    openai: "npm:^6.7.0"
     supabase: "npm:2.40.7"
     svelte: "npm:^5.39.3"
     svelte-check: "npm:^4.3.1"
