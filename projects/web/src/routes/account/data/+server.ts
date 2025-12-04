@@ -6,7 +6,10 @@ import { PUBLIC_BASE_URL } from "$env/static/public";
 export const GET:RequestHandler = async({ cookies, url, locals: { safeGetSession, supabase } }) => {
   const userInfo = cookies.get("user");
   let userData : UserInfo | null = null;
+  
+  console.time("session")
   const { session, user } = await safeGetSession();
+  console.timeEnd("session");
 
   if (session && user) {
     if (userInfo) {

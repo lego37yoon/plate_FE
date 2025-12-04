@@ -1,5 +1,4 @@
 import { redirect, type Handle } from '@sveltejs/kit';
-import type { SupabaseClient, Session, User } from '@supabase/supabase-js';
 import { paraglideMiddleware } from '$lib/paraglide/server';
 import { createServerClient } from '@supabase/ssr';
 import { PUBLIC_SUPABASE_ANON_KEY, PUBLIC_SUPABASE_PROJECT_URL } from '$env/static/public';
@@ -47,6 +46,7 @@ const supabaseServer: Handle = async ({ event, resolve }) => {
 };
 
 const authGuard: Handle = async ({ event, resolve }) => {
+	console.time("guard")
 	const { session, user } = await event.locals.safeGetSession();
 	event.locals.session = session;
 	event.locals.user = user;
@@ -64,12 +64,12 @@ const authGuard: Handle = async ({ event, resolve }) => {
 		redirect(303, "/projects");
 	}
 
+	console.timeEnd("guard")
 	return resolve(event);
 }
 
 const handleParaglide: Handle = ({ event, resolve }) => paraglideMiddleware(event.request, ({ request, locale }) => {
 	event.request = request;
-
 	return resolve(event, {
 		transformPageChunk: ({ html }) => html.replace('%paraglide.lang%', locale)
 	});

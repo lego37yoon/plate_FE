@@ -9,6 +9,7 @@
   import { invalidate, onNavigate } from '$app/navigation';
   import type { Session, SupabaseClient, User } from '@supabase/supabase-js';
   import { page } from '$app/state';
+  import type { UserInfo } from '../types/account';
 
   let { children, data } : 
     { children: Snippet, data: 
@@ -24,23 +25,23 @@
   let { session, supabase } = $derived(data);
 
   let error_message = $state<string>(m["doc.error_unknown"]());
-  
-  switch (data.error) {
-    case 1:
-      error_message = m["doc.error_1"]();
-      break;
-  }
 
   const doc = $state<Docs>({ meta: undefined, isOpen: false, error: false });
   const theme = $state<{ mode : "system"|"light"|"dark" }>({ mode: "system" });
-  const info = $state({ data: data.info });
+  const info = $derived({ data: data.info });
 
   setContext("doc", doc);
   setContext("screenMode", theme);
-  setContext("account", info);
+  setContext("account", () => info);
+
 
   $effect(() => {
-    info.data = data.info
+    info.data = data.info;
+    switch (data.error) {
+      case 1:
+        error_message = m["doc.error_1"]();
+        break;
+    }
   })
 
   onMount(() => {
@@ -56,13 +57,14 @@
   });
 
   onNavigate((navigation) => {
-  	if (!document.startViewTransition) return;
-    if (page.url.pathname.includes("/translate")) return;
+  	if (!document.startViewTransition || page.url.pathname.includes("/translate")) return;
 
     return new Promise((resolve) => {
       document.startViewTransition(async () => {
         resolve();
+        console.time("wait rendering")
         await navigation.complete;
+        console.timeEnd("wait rendering");
       });
     });
   });

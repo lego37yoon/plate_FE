@@ -4,8 +4,9 @@
   import { Button } from "bits-ui";
   import { Boxes, Code, LogIn } from "@lucide/svelte";
   import { getContext } from "svelte";
+  import type { UserInfo } from "../types/account";
 
-    const userInfo : { data: UserInfo | undefined } = getContext("account");
+  const userInfo : { data: UserInfo | undefined } = getContext("account");
 </script>
 
 <svelte:head>
