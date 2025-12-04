@@ -81,6 +81,10 @@
 </div>
 
 <style>
+    #docs-view {
+        height: calc(100vh - 11.5rem);
+    }
+
     #docs-view :global(h1),
     #docs-view :global(h2),
     #docs-view :global(h3),

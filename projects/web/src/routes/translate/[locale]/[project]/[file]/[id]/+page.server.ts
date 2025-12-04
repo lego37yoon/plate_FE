@@ -103,7 +103,6 @@ export const load:PageServerLoad = async ({ params, locals: { supabase } }) => {
     if (currentItem === null || currentMeta.index === -1) {
       kitError(404, `Cannot found data from current file`);
     } else {
-      console.log(req[1].data.find((i) => i.id === Number(params.file)))
 
       return {
         parent: parents,
@@ -154,9 +153,6 @@ export const actions: Actions = {
     const suggest_id = form.get("suggest_id");
     const origin_id = form.get("origin_id");
     const user_role = form.get("user_role");
-
-    console.log(form.values());
-    console.log("hello from suggest managing actions")
 
     if (user_role !== "l10n_contributor") {
       let updateError;

@@ -73,10 +73,12 @@
       text_area.focus();
     }
 
-    if (data.current.data.id && suggest_text.text === "") {
+    if (data.current.data.id) {
       if (data.current.data.category !== "group") {
         if (data.current.data.results.length > 0) {
           suggest_text.text = data.current.data.results.find((item) => item.approved)?.result ?? "";
+        } else {
+          suggest_text.text = ""
         }
       }
     }

@@ -13,7 +13,7 @@ const checkPattern = new RegExp(typePatternStr, "gi");
 
 export async function parseAndUpdate(file_id: number, file : File, supabase: SupabaseClient) {
   const client = new OpenAI({
-    baseURL: PUBLIC_AI_URL,
+    baseURL: `${PUBLIC_AI_URL}/api/v1`,
     apiKey: AI_KEY
   });
 
