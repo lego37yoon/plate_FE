@@ -4,16 +4,17 @@
   import { Ban, Check, Inbox, Trash } from "@lucide/svelte";
   import { Button } from "bits-ui";
   import { getContext } from "svelte";
+  import type { UserInfo } from "../../types/account";
 
   const { results, id } : { results: Results[], id: Number } = $props();
-  let data = $state<Results[]>(results);
+  let data = $derived<Results[]>(results);
   let updating = $state(false);
   let review_command = $state("pending");
   
-  const userInfo : { data: UserInfo | undefined } = getContext("account");
-  const dateTime = new Intl.DateTimeFormat(results.length > 0 ? results[0].lang_code.replace("_", "-") : "en-US",
+  const userInfo : () => { data: UserInfo | undefined } = getContext("account");
+  const dateTime = $derived(new Intl.DateTimeFormat(results.length > 0 ? results[0].lang_code.replace("_", "-") : "en-US",
     { dateStyle: "full", timeStyle: "medium" }
-  )
+  ))
 </script>
 
 <ul class="rounded-md">
@@ -32,7 +33,7 @@
       </p>
     </div>
     <div class="flex gap-2 items-center">
-      {#if userInfo.data && userInfo.data.role !== "l10n_contributor"}
+      {#if userInfo().data && userInfo().data?.role !== "l10n_contributor"}
       <form method="POST" action="?/suggest_manage" use:enhance={() => {
         return async ({ result }) => {
           await applyAction(result);
@@ -42,7 +43,7 @@
         <input type="hidden" name="command_type" bind:value={review_command} />
         <input type="hidden" name="suggest_id" value={item.id} />
         <input type="hidden" name="origin_id" value={id} />
-        <input type="hidden" name="user_role" value={userInfo.data.role} />
+        <input type="hidden" name="user_role" value={userInfo().data?.role} />
         {#if item.approved !== true}
         <Button.Root type="submit" onclick={() => { review_command = "approve" }}
           class="rounded-md p-2 hover:underline flex gap-2 text-lime-900">
@@ -65,8 +66,8 @@
       {/if}
       {#if 
         item.approved !== true && (
-          (userInfo.data && userInfo.data.id === item.author) ||
-          (userInfo.data && userInfo.data.role !== "l10n_contributor")
+          (userInfo().data && userInfo().data?.id === item.author) ||
+          (userInfo().data && userInfo().data?.role !== "l10n_contributor")
         )
       }
       <form method="POST" action="?/suggest_delete" use:enhance={() => {
@@ -81,8 +82,8 @@
         <input type="hidden" name="suggest_author" value={item.author} />
         <input type="hidden" name="suggest_approved" value={item.approved} />
         <input type="hidden" name="origin_id" value={id} />
-        <input type="hidden" name="user_id" value={userInfo.data.id} />
-        <input type="hidden" name="user_role" value={userInfo.data.role} />
+        <input type="hidden" name="user_id" value={userInfo().data?.id} />
+        <input type="hidden" name="user_role" value={userInfo().data?.role} />
         <Button.Root type="submit" class="rounded-md p-2 hover:underline flex gap-2 text-red-900">
           <Trash />
           <span>{m["l10n.input_review_delete"]()}</span>

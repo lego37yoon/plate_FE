@@ -6,6 +6,7 @@
   import Input from "./Input.svelte";
   import { applyAction, enhance } from "$app/forms";
   import { getContext } from "svelte";
+  import type { UserInfo } from "../../types/account";
 
   let { suggest_text = $bindable(), glossary_data, suggest_hidden, form, origin } : {
     suggest_text: { text: string, focus: boolean },
@@ -16,8 +17,8 @@
   } = $props();
   let openSuggestNew = $state(false);
   let review_command = $state("approve");
-  const userInfo : { data: UserInfo | undefined } = getContext("account");
-  let glossaries = $state<Dictionary[]>(glossary_data);
+  const userInfo : () => { data: UserInfo | undefined } = getContext("account");
+  let glossaries = $derived<Dictionary[]>(glossary_data);
 
   function updateValue(value: string) {
     suggest_text.text += value;
@@ -46,7 +47,7 @@
         <span class="font-bold">{glossary.origin}</span>
         <span>{glossary.result}</span>
       </Button.Root>
-      {#if userInfo.data && userInfo.data.role !== "l10n_contributor"}
+      {#if userInfo().data && userInfo().data?.role !== "l10n_contributor"}
       <form method="POST" action="?/glossary_approve" use:enhance={() => {
         return async ({ result }) => {
           await applyAction(result);

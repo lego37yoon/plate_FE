@@ -13,6 +13,7 @@
   import type { Session } from "@supabase/supabase-js";
   import { getContext, setContext } from "svelte";
   import type { ActionData } from "./$types";
+  import type { UserInfo } from "../../../../../../types/account";
 
   type CurrentItem = {
     type: "parent" | "child",
@@ -106,7 +107,7 @@
     }
   });
 
-  const userInfo : { data: UserInfo | undefined } = getContext("account");
+  const userInfo : () => { data: UserInfo | undefined } = getContext("account");
 </script>
 
 <svelte:head>
@@ -217,7 +218,7 @@
             }
           }
         }}>
-          <input type="hidden" name="user_id" value={userInfo.data ? userInfo.data.id : undefined} />
+          <input type="hidden" name="user_id" value={userInfo().data ? userInfo().data?.id : undefined} />
           <textarea placeholder={m["l10n.input_placeholder"]()} name="suggest_message" class="rounded-md border-0 w-full min-h-24 disabled:bg-gray-200" bind:value={suggest_text.text} bind:this={text_area} required onkeyup={e => {
             if (e.ctrlKey && e.key === "Enter" && commitButton) {
               commitButton.click();

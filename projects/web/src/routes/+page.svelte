@@ -6,7 +6,7 @@
   import { getContext } from "svelte";
   import type { UserInfo } from "../types/account";
 
-  const userInfo : { data: UserInfo | undefined } = getContext("account");
+  const userInfo : () => { data: UserInfo | undefined } = getContext("account");
 </script>
 
 <svelte:head>
@@ -18,7 +18,7 @@
   <p class="mb-4">{m["home.description"]()}</p>
 
   <div id="button-set" class="flex gap-2">
-    {#if !userInfo.data}
+    {#if !userInfo().data}
     <Button.Root href={localizeHref("/account/login")} class="flex gap-2 text-white bg-lime-900 py-2 px-3 rounded-lg">
       <LogIn />
       {m["title.login"]()}
